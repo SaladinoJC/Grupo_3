@@ -29,10 +29,6 @@ public class Viaje implements TipoDeViaje {
 		return precioBase;
 	}
 
-	public double getCosto() {
-		return this.getIncPax()+this.getIncKm();
-	}
-
 	public Pedido getPedido() {
 		return pedido;
 	}
