@@ -1,6 +1,7 @@
 package vehiculos;
 
 import empresa.Pedido;
+import java.util.Objects;
 
 public abstract class Vehiculo {
 	protected String nroPatente;
@@ -50,5 +51,23 @@ public abstract class Vehiculo {
 	public boolean isBaul() {
 		return baul;
 	}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vehiculo other = (Vehiculo) obj;
+        return Objects.equals(this.nroPatente, other.nroPatente);
+    }
+
+    @Override
+    public  abstract String toString();
 
 }

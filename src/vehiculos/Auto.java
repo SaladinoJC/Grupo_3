@@ -35,4 +35,10 @@ public class Auto extends Vehiculo {
 		else
 			return false;
 	}
+
+    @Override
+    public String toString() {
+        return "Auto{" + '}';
+    }
+        
 }

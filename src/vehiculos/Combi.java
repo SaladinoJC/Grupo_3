@@ -36,4 +36,9 @@ public class Combi extends Vehiculo {
 			return false;
 	}
 
+    @Override
+    public String toString() {
+        return "Combi{" + '}';
+    }
+        
 }

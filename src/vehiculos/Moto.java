@@ -31,4 +31,10 @@ public class Moto extends Vehiculo {
 		else
 			return null;
 	}
+
+    @Override
+    public String toString() {
+        return "Moto{" + '}';
+    }
+        
 }
