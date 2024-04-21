@@ -2,19 +2,19 @@ package vehiculos;
 
 import empresa.Pedido;
 
-public class Combi extends Vehiculo {
+public class Auto extends Vehiculo {
 
-	public Combi(String nroPatente, int cantMaxPasajeros, boolean petFriendly, boolean baul) {
+	public Auto(String nroPatente, int cantMaxPasajeros, boolean petFriendly, boolean baul) {
 		super(nroPatente, cantMaxPasajeros, petFriendly, baul);
 	}
 
 	@Override
 	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros) {
-		if(!condMascota && condPasajeros) {
+		if(condPasajeros) {
 			if(condBaul)
-				return 100 + this.getCantMaxPasajeros() * 10;
+				return this.getCantMaxPasajeros() * 40;
 			else
-				return this.getCantMaxPasajeros() * 10;
+				return this.getCantMaxPasajeros() * 30;
 		}
 		else
 			return null;
@@ -35,5 +35,4 @@ public class Combi extends Vehiculo {
 		else
 			return false;
 	}
-
 }
