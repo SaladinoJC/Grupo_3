@@ -28,5 +28,10 @@ public class Pedido {
 	public Cliente getCliente() {
 		return cliente;
 	}
+
+    @Override
+    public String toString() {
+        return "Pedido{" + "fechaYHora=" + fechaYHora + ", zona=" + zona + ", mascotas=" + mascotas + ", equipaje=" + equipaje + ", cantDePasajeros=" + cantDePasajeros + ", cliente=" + cliente + '}';
+    }
 	
 }

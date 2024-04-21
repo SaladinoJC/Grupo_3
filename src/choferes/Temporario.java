@@ -29,7 +29,7 @@ public class Temporario extends Empleado {
         this.cantViajes = cantViajes;
     }
     
-    public  aumentarCantidadViajes(int cantidad)
+    public void  aumentarCantidadViajes(int cantidad)
     {
         if(cantidad>0)
             this.cantViajes+=cantidad;
@@ -45,7 +45,7 @@ public class Temporario extends Empleado {
     }   
 
     @Override
-    protected double calcularSueldo() {
+    public double calcularSueldo() {
         double aux=getSueldoBasico();
         
         aux+=aux*((plusXcantViajes/100)*cantViajes);

@@ -43,7 +43,7 @@ public class Contratado extends Chofer {
     }
 
     @Override
-    protected double calcularSueldo() {
+    public double calcularSueldo() {
       double aux=this.sueldoBasico;
       
       aux+=aux*((this.gananciaViaje/100)*this.cantidadViajes);

@@ -2,7 +2,7 @@ package empresa;
 import empresa.Administrador;
 
 public class Sistema {
-    private static Sistema referencia;
+    private static Sistema referencia=null;
     private Empresa GUILLEsa;
     private Administrador admin;
     
@@ -21,4 +21,5 @@ public class Sistema {
         }
         return referencia;
     }
+   
 }

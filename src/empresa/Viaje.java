@@ -51,4 +51,10 @@ public class Viaje implements TipoDeViaje {
 		return this.getDistanciaRealRecorrida() * getPrecioBase();
 	}
 
+    @Override
+    public String toString() {
+        return "Viaje{" + "pedido=" + pedido + ", chofer=" + chofer + ", vehiculo=" + vehiculo + ", distanciaRealRecorrida=" + distanciaRealRecorrida + '}';
+    }
+
+        
 }

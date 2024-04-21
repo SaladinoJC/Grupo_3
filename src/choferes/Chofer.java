@@ -49,13 +49,9 @@ public abstract class Chofer {
 
     @Override
     public abstract String toString();
-    protected abstract double calcularSueldo();
+    public abstract double calcularSueldo();
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
+  
 
     @Override
     public boolean equals(Object obj) {

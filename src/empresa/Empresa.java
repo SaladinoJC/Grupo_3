@@ -24,7 +24,7 @@ public class Empresa {
 		
 	}
 	
-	public static Empresa getReferencia() {
+	public static Empresa getReferencia(){
 		if(referencia == null)
 		{
 			referencia=new Empresa();
@@ -55,7 +55,6 @@ public class Empresa {
             }
             return i<choferes.size();
         }
-        
         //obtengo un chofer
         public Chofer getChofer(int index)
         {
@@ -70,6 +69,8 @@ public class Empresa {
         {
             int i;
             Chofer aux;
+            setiarCantidadViajesTemporarios();
+            setiarSueldoContratados();
             for(i=0;i<choferes.size();i++)
             {
                 aux=getChofer(i);
@@ -168,6 +169,7 @@ public class Empresa {
         {
             return viajes.get(index);
         }
+        //viaje
         public void setViaje(Viaje viaje)
         {
             viajes.add(viaje);
@@ -199,7 +201,7 @@ public class Empresa {
                 {
                     for(j=0;j<viajes.size();j++)//busco los viajes q realizo dicho chofercontratado
                     {
-                        viaje=getViaje(i);
+                        viaje=getViaje(j);
                         if(viaje.getChofer().equals(aux))//si el chofer contratado realizo este viaje sumo su costo y aumento el contador
                         {
                             sueldo+=(viaje.getIncKm()+viaje.getIncPax());
@@ -231,7 +233,7 @@ public class Empresa {
                 {
                     for(j=0;j<viajes.size();j++)//busco los viajes q realizo dicho chofer temporarios
                     {
-                        viaje=getViaje(i);
+                        viaje=getViaje(j);
                         if(viaje.getChofer().equals(aux))//si el chofer temporario realizo este viaje  aumento el contador
                                     cont++; 
                     }     
@@ -239,5 +241,20 @@ public class Empresa {
                    temporario.setCantViajes(cont);
                 }
             }
+        }
+        //total a pagar de la empresa
+        public double TotalPagar()
+        {
+            Chofer aux;
+            int i;
+            double total=0;
+            setiarSueldoContratados();
+            setiarCantidadViajesTemporarios();
+            for(i=0;i<choferes.size();i++)
+            {
+               aux=getChofer(i);
+               total+=aux.calcularSueldo();
+            }
+            return total;
         }
 }
