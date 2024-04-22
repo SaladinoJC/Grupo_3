@@ -22,29 +22,34 @@ public abstract class Chofer {
         this.puntaje = 0;
     }
 
-    protected String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    protected String getDNI() {
+    public String getDNI() {
         return DNI;
     }
 
-   protected double getSueldoBasico() {
+   public double getSueldoBasico() {
         return sueldoBasico;
     }
 
     
-    protected int getPuntaje() {
+    public int getPuntaje() {
         return puntaje;
     }
 
-    protected void setSueldoBasico(double sueldoBasico) {
+    public void setSueldoBasico(double sueldoBasico) {
         this.sueldoBasico = sueldoBasico;
     }
 
-    protected void setPuntaje(int puntaje) {
+    public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
+    }
+    //aumenta el puntaje en puntaje cantidad
+    public void aumentarPuntaje(int puntaje)
+    {
+        this.puntaje+=puntaje;
     }
 
     @Override

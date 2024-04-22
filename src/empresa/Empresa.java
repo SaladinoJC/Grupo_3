@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import choferes.Chofer;
 import choferes.Contratado;
 import choferes.Temporario;
+import java.time.LocalDate;
+import java.util.Collection;
 import vehiculos.Vehiculo;
+import java.util.Collections;
 
 public class Empresa {
 	private static Empresa referencia;
@@ -55,6 +58,22 @@ public class Empresa {
             }
             return i<choferes.size();
         }
+        //el metodo busca un chofer si no existe devuelve null
+        public Chofer buscarXchofer(Chofer chofer)
+        {
+            Chofer aux;
+            int i=0;
+            aux=getChofer(i);
+            while(i<choferes.size() && !aux.equals(chofer))
+            {
+                i++;
+                aux=getChofer(i);
+            }
+            if(i<choferes.size())
+                return aux;
+            else
+                return null;
+        }
         //obtengo un chofer
         public Chofer getChofer(int index)
         {
@@ -77,7 +96,30 @@ public class Empresa {
                 aux.toString();
             }
         }
-        
+        //lista los viajes de un chofer en particular entre unas fechas como parametros
+        //el metodo considera en la fecha fin>=inicio
+        public void ListarViajesXchofer(Chofer chofer,LocalDate inicio,LocalDate fin)
+        {
+            LocalDate fecha;
+            Viaje viaje;
+            int i;
+            if(buscarChofer(chofer) && inicio.isBefore(fin))//busca que el chofer exista
+            {
+                for(i=0;i<viajes.size();i++)
+                {
+                    viaje=getViaje(i);
+                    fecha=viaje.getPedido().getFecha();
+                    //pregunto que viajes realizo el chofer y si se encuentra entre la fechas de parametros
+                    if(viaje.getChofer().equals(chofer) && (fecha.isAfter(inicio) && fecha.isBefore(fin) )) //pregunto q viajes realizo este cliente
+                        System.out.println(viaje.toString());//muestros sus viajes
+                }
+            }
+            else
+                if(!buscarChofer(chofer))
+                  //exepcion el chofer no existe
+                else
+                    //otra exepcion por que la fecha inicio no es menor fin
+        }
         //codigo vehiculos
         
         public Vehiculo getVehiculo(int index)
@@ -89,7 +131,7 @@ public class Empresa {
         {
             vehiculos.add(vehiculo);
         }
-        
+        //lista todos los vehiculos 
         public void ListarVehiculos()
         {
             int i;
@@ -97,10 +139,10 @@ public class Empresa {
             for(i=0;i<vehiculos.size();i++)
             {
                 aux=getVehiculo(i);
-                aux.toString();
+                System.out.println(aux.toString());
             }
         }
-        //este metodo debe saltar una exepcion
+        //busca un vehiculo devuelve verdadero si existe
 	public boolean buscarVehiculo(Vehiculo vehiculo)
         {
             int i=0;
@@ -112,6 +154,22 @@ public class Empresa {
             }
             return i<vehiculos.size();
         }
+        //busca un vehiculo en particular si no lo encuentra devuelve null
+         public Vehiculo buscarXVehiculo(Vehiculo vehiculo)
+        {
+            Vehiculo aux;
+            int i=0;
+            aux=getVehiculo(i);
+            while(i<vehiculos.size() && !aux.equals(vehiculo))
+            {
+                i++;
+                aux=getVehiculo(i);
+            }
+            if(i<vehiculos.size())
+                return aux;
+            else
+                return null;
+        }
         public void insertarVehiculo(Vehiculo vehiculo)
         {
             if(!buscarVehiculo(vehiculo))
@@ -122,15 +180,17 @@ public class Empresa {
             }
         }
         //codigo de clientes
-        
+        //recupera un cliente
         public Cliente getCliente(int index)
         {
             return clientes.get(index);
         }
+        //agrega un cliente
         private void setCliente(Cliente cliente)
         {
             clientes.add(cliente);
         }
+        //lista todo los clientes que tenga la empresa
         public void ListarClientes()
         {
             int i;
@@ -138,7 +198,7 @@ public class Empresa {
             for(i=0;i<clientes.size();i++)
             {
                 aux=getCliente(i);
-                aux.toString();
+                System.out.println(aux.toString());
             }
         }
         //devuelve verdadero si el cliente existe
@@ -153,6 +213,46 @@ public class Empresa {
             }
             return i<clientes.size();
         }
+        //busca un cliente , si no lo encuentra devuelve null
+         public Cliente buscarXcliente (Cliente cliente)
+        {
+            Cliente aux;
+            int i=0;
+            aux=getCliente(i);
+            while(i<clientes.size() && !aux.equals(cliente))
+            {
+                i++;
+                aux=getCliente(i);
+            }
+            if(i<clientes.size())
+                return aux;
+            else
+                return null;
+        }
+         //lista los viajes de un cliente en particular y en un periodo de dias (con inicio y fin)
+        public void ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin)
+        {
+            LocalDate fecha;
+            Viaje viaje;
+            int i;
+            if(buscarCliente(cliente) && inicio.isBefore(fin))//busca que el cliente exista y que las fechas esten bien
+            {
+                for(i=0;i<viajes.size();i++)
+                {
+                    viaje=getViaje(i);
+                    fecha=viaje.getPedido().getFecha();
+                    //pregunto que viajes realizo el cliente y si se encuentra entre la fechas de parametros
+                    if(viaje.getPedido().getCliente().equals(cliente) && (fecha.isAfter(inicio) && fecha.isBefore(fin) )) //pregunto q viajes realizo este cliente
+                        System.out.println(viaje.toString());//muestros sus viajes
+                }
+            }
+            else
+                if(!buscarCliente(cliente))
+                    //exepcion el cliente no existe
+                else
+                    //le fecha ingresadas. inicio no es menor a fin
+        }
+        //inserta un cliente siempre y cuando no exista ya en la lista
         public void insertarCliente(Cliente cliente)
         {
             if(!buscarCliente(cliente))
@@ -181,10 +281,15 @@ public class Empresa {
             for(i=0;i<viajes.size();i++)
             {
                 aux=getViaje(i);
-                aux.toString();
+                System.out.println(aux.toString());
             }
         }
-        
+        public void ordenarViajesXCostos()
+        {
+            Collections.sort(viajes);//ordena la lista viajes por costos
+            //el metodo compareTO esta implementado en la clase viaje
+        }
+
         //codigo de contratados: setea el sueldo de los contratados como la cantidad de viajes q realizo
         public void setiarSueldoContratados()
         {
@@ -241,6 +346,31 @@ public class Empresa {
                    temporario.setCantViajes(cont);
                 }
             }
+        }
+        //metodo que calculo los puntajes de los choferes
+        public void calculoDePuntaje()
+        {
+            Chofer aux,mayor = null;
+            Viaje viaje;
+            int i,j,cont,max=-1;
+            for(i=0;i<choferes.size();i++)
+            {
+                aux=getChofer(i);//voy cargando cada choffer
+                cont=0;
+                for(j=0;j<viajes.size();j++)//recorro la lista de viajes
+                {
+                    viaje=getViaje(j);
+                    if(viaje.getChofer().equals(aux))//si el chofer realizo ese viaje aumento el contador en 1
+                            cont++;
+                }
+                aux.setPuntaje(cont*5);//seteo puntaje del chofer
+                if(max<cont)//si es el chofer con mas viajes realizos me lo guardo
+                {
+                    mayor=aux;
+                    max=cont;
+                }    
+            }
+            mayor.aumentarPuntaje(15);//aumento en 15 puntos al chofer q mas viajes realizo
         }
         //total a pagar de la empresa
         public double TotalPagar()

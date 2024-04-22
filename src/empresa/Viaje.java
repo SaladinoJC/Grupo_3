@@ -3,7 +3,7 @@ package empresa;
 import choferes.Chofer;
 import vehiculos.Vehiculo;
 
-public class Viaje implements TipoDeViaje {
+public class Viaje implements TipoDeViaje,Comparable<Viaje> {
 	private Pedido pedido;
 	private Chofer chofer;
 	private Vehiculo vehiculo;
@@ -54,6 +54,21 @@ public class Viaje implements TipoDeViaje {
     @Override
     public String toString() {
         return "Viaje{" + "pedido=" + pedido + ", chofer=" + chofer + ", vehiculo=" + vehiculo + ", distanciaRealRecorrida=" + distanciaRealRecorrida + '}';
+    }
+    
+    //implementa compareTO para poder compara viajes por costos
+    @Override
+    public int compareTo(Viaje otro) {
+       double costo1,costo2;
+       costo1=this.getIncKm()+this.getIncPax();//almaceno los costos de los viajes a comparar
+       costo2=otro.getIncKm()+otro.getIncPax();
+       if(costo1>costo2)
+           return -1;
+       else
+           if(costo1<costo2)
+               return 1;
+           else
+               return 0;
     }
 
         

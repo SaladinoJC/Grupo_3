@@ -3,16 +3,22 @@ package empresa;
 import java.time.*;
 
 public class Pedido {
-	private LocalDateTime fechaYHora;
+	private LocalDate fecha;
+        private LocalTime hora;
 	private String zona;
 	private boolean mascotas;
 	private String equipaje;
 	private int cantDePasajeros;
 	private Cliente cliente;
 	
-	public LocalDateTime getFechaYHora() {
-		return fechaYHora;
+	public LocalDate getFecha() {
+		return fecha;
 	}
+
+         public LocalTime getHora() {
+                return hora;
+         }
+        
 	public String getZona() {
 		return zona;
 	}
@@ -31,7 +37,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "fechaYHora=" + fechaYHora + ", zona=" + zona + ", mascotas=" + mascotas + ", equipaje=" + equipaje + ", cantDePasajeros=" + cantDePasajeros + ", cliente=" + cliente + '}';
+        return "Pedido{" + "\nfecha: " + fecha +"\nfue a la hora: "+hora+ "\nzona: " + zona + "\nmascotas: " + mascotas + "\nequipaje: " + equipaje + "\ncantDePasajeros: " + cantDePasajeros + "\ncliente " + cliente;
     }
 	
 }
