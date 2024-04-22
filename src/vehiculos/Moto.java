@@ -32,9 +32,9 @@ public class Moto extends Vehiculo {
 			return null;
 	}
 
-    @Override
-    public String toString() {
-        return "Moto{" + '}';
-    }
+	@Override
+	public String toString() {
+		return "Moto\nnroPatente: " + nroPatente + "\ncantMaxPasajeros="+ cantMaxPasajeros +"\npetFriendly: "+ petFriendly + "\nbaul: "+ baul;
+	}
         
 }

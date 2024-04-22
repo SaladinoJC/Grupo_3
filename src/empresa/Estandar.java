@@ -16,4 +16,9 @@ public class Estandar extends Zona {
 		return 1.1 * this.getTipoDeViaje().getIncKm();
 	}
 
+	@Override
+	public String toString() {
+		return "en Zona Estandar " + this.getTipoDeViaje().toString();
+	}
+	
 }

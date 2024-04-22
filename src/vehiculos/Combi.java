@@ -36,9 +36,9 @@ public class Combi extends Vehiculo {
 			return false;
 	}
 
-    @Override
-    public String toString() {
-        return "Combi{" + '}';
-    }
-        
+	@Override
+	public String toString() {
+		return "Combi\nnroPatente: " + nroPatente + "\ncantMaxPasajeros="+ cantMaxPasajeros +"\npetFriendly: "+ petFriendly + "\nbaul: "+ baul;
+	}
+    
 }

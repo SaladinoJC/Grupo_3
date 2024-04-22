@@ -36,9 +36,9 @@ public class Auto extends Vehiculo {
 			return false;
 	}
 
-    @Override
-    public String toString() {
-        return "Auto{" + '}';
-    }
+	@Override
+	public String toString() {
+		return "Auto\nnroPatente: " + nroPatente + "\ncantMaxPasajeros="+ cantMaxPasajeros +"\npetFriendly: "+ petFriendly + "\nbaul: "+ baul;
+	}
         
 }

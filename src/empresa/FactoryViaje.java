@@ -5,23 +5,23 @@ import choferes.Chofer;
 public class FactoryViaje {
 
 	public TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, double precioBase) {
-		TipoDeViaje componenteConc=null, encapsuladoMascota=null, encapsuladoEquipaje=null;
+		TipoDeViaje componenteConc=new Viaje(pedido, chofer, distanciaRealRecorrida, precioBase), encapsuladoMascota=null, encapsuladoEquipaje=null, encapsuladoZona=null;
 		
 		if(pedido.getZona().equalsIgnoreCase("Estandar"))
-			componenteConc=new Viaje(pedido, chofer, distanciaRealRecorrida, precioBase);
+			encapsuladoZona=new Estandar(componenteConc);
 		else
 			if(pedido.getZona().equalsIgnoreCase("Sin asfaltar"))
-				componenteConc=new Viaje(pedido, chofer, distanciaRealRecorrida, precioBase);
+				encapsuladoZona=new SinAsfaltar(componenteConc);
 			else
 				if(pedido.getZona().equalsIgnoreCase("Peligrosa"))
-					componenteConc=new Viaje(pedido, chofer, distanciaRealRecorrida, precioBase);
+					encapsuladoZona=new Peligrosa(componenteConc);
 		
-		if(componenteConc!=null) {
+		if(encapsuladoZona!=null) {
 			if(pedido.getEquipaje().equalsIgnoreCase("Manual"))
-				encapsuladoEquipaje=new DeMano(componenteConc);
+				encapsuladoEquipaje=new DeMano(encapsuladoZona);
 			else
 				if(pedido.getZona().equalsIgnoreCase("Baul"))
-					encapsuladoEquipaje=new Baul(componenteConc);
+					encapsuladoEquipaje=new Baul(encapsuladoZona);
 		}
 		
 		if(encapsuladoEquipaje!=null) {

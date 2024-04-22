@@ -38,7 +38,7 @@ public class Contratado extends Chofer {
     
     @Override
     public String toString() {
-        return "Contratado nombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo:"+calcularSueldo()
+        return "Contratado\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo:"+calcularSueldo()
         +"\npuntaje:"+getPuntaje()+"\nporcentaje por viaje:"+getGananciaViaje();
     }
 

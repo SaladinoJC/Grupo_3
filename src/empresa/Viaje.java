@@ -53,7 +53,7 @@ public class Viaje implements TipoDeViaje,Comparable<Viaje> {
 
     @Override
     public String toString() {
-        return "Viaje{" + "pedido=" + pedido + ", chofer=" + chofer + ", vehiculo=" + vehiculo + ", distanciaRealRecorrida=" + distanciaRealRecorrida + '}';
+        return "[ fecha: " + this.getPedido().getFecha() +" fue a la hora: "+this.getPedido().getHora()+" la cantidad de pasajeros transportados fue: "+ this.getPedido().getCantDePasajeros() +".\n\nCliente: "+ this.getPedido().getCliente() +"\n\nChofer: " + chofer + "\n\nVehiculo: " + vehiculo + "\n\ndistanciaRealRecorrida=" + distanciaRealRecorrida + "km ]";
     }
     
     //implementa compareTO para poder compara viajes por costos

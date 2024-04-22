@@ -15,4 +15,9 @@ public class ConMascota extends Mascota {
 	public double getIncKm() {
 		return 1.2 * this.getTipoDeViaje().getIncKm();
 	}
+	
+	@Override
+	public String toString() {
+		return "Viaje ConMascota " + this.getTipoDeViaje().toString() + "\n\n Su costo total fue: $"+ this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm() +".\n\n\n";
+	}
 }

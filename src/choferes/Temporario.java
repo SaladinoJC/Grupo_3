@@ -39,9 +39,9 @@ public class Temporario extends Empleado {
 
     @Override
     public String toString() {
-        return "Temporario nombre+"+getNombre()+"\nDNI:"+getDNI()+"\nsueldoBasico:"+calcularSueldo()
+        return "Temporario\nnombre+"+getNombre()+"\nDNI:"+getDNI()+"\nsueldoBasico:"+calcularSueldo()
          +"\npuntaje:"+getPuntaje()+"\naportes:"+getAportes()+"\nplus por cantidad de viajes:"+getPlusXcantViajes()
-         +"cantidad de viajes realizados;"+getCantViajes();   
+         +"\ncantidad de viajes realizados;"+getCantViajes();   
     }   
 
     @Override

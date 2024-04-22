@@ -15,4 +15,10 @@ public class DeMano extends Equipaje {
 	public double getIncKm() {
 		return 1.05 * this.getTipoDeViaje().getIncKm();
 	}
+
+	@Override
+	public String toString() {
+		return "DeMano " + this.getTipoDeViaje().toString();
+	}
+	
 }

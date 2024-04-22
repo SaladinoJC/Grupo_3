@@ -15,4 +15,10 @@ public class Peligrosa extends Zona {
 	public double getIncKm() {
 		return 1.2 * this.getTipoDeViaje().getIncKm();
 	}
+
+	@Override
+	public String toString() {
+		return "en Zona Peligrosa " + this.getTipoDeViaje().toString();
+	}
+	
 }

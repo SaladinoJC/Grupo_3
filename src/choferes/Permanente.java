@@ -61,7 +61,7 @@ public class Permanente extends Empleado {
 
     @Override
     public String toString() {
-        return "Permanente nombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo basico:"+getSueldoBasico()+"\nsueldo:"+calcularSueldo()
+        return "Permanente\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo basico:"+getSueldoBasico()+"\nsueldo:"+calcularSueldo()
                 +"\npuntaje:"+getPuntaje()+"\nplus x antiguedad"+getPlusXantiguedad()+"\nplus x hijos"+getPlusXhijos()
                 +"\ncantidad de hijos"+getCantHijos()+"\nfecha de ingreso"+getFechaIngreso();
     }

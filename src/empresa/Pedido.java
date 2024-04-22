@@ -4,7 +4,7 @@ import java.time.*;
 
 public class Pedido {
 	private LocalDate fecha;
-        private LocalTime hora;
+    private LocalTime hora;
 	private String zona;
 	private boolean mascotas;
 	private String equipaje;
@@ -15,9 +15,9 @@ public class Pedido {
 		return fecha;
 	}
 
-         public LocalTime getHora() {
-                return hora;
-         }
+    public LocalTime getHora() {
+        return hora;
+    }
         
 	public String getZona() {
 		return zona;
@@ -37,7 +37,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "\nfecha: " + fecha +"\nfue a la hora: "+hora+ "\nzona: " + zona + "\nmascotas: " + mascotas + "\nequipaje: " + equipaje + "\ncantDePasajeros: " + cantDePasajeros + "\ncliente " + cliente;
+        return "Pedido {" + "\nfecha: " + fecha +"\nfue a la hora: "+hora+ "\nzona: " + zona + "\nmascotas: " + mascotas + "\nequipaje: " + equipaje + "\ncantDePasajeros: " + cantDePasajeros + "\ncliente " + cliente +" }";
     }
 	
 }

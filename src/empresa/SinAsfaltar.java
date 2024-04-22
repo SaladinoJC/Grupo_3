@@ -16,4 +16,9 @@ public class SinAsfaltar extends Zona {
 		return 1.15 * this.getTipoDeViaje().getIncKm();
 	}
 
+	@Override
+	public String toString() {
+		return "en Zona SinAsfaltar " + this.getTipoDeViaje().toString();
+	}
+	
 }

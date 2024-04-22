@@ -15,4 +15,9 @@ public class Baul extends Equipaje {
 	public double getIncKm() {
 		return 1.05 * this.getTipoDeViaje().getIncKm();
 	}
+
+	@Override
+	public String toString() {
+		return "Baul " + this.getTipoDeViaje().toString();
+	}
 }
