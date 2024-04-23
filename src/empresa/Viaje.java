@@ -2,6 +2,8 @@ package empresa;
 
 import choferes.Chofer;
 import vehiculos.Vehiculo;
+import empresa.FactoryViaje;
+
 
 public class Viaje implements TipoDeViaje,Comparable<Viaje> {
 	private Pedido pedido;
@@ -9,14 +11,19 @@ public class Viaje implements TipoDeViaje,Comparable<Viaje> {
 	private Vehiculo vehiculo;
 	private double distanciaRealRecorrida;
 	private static double precioBase;
+        private TipoDeViaje viaje;
+        
 
 	public Viaje(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, double precioBase) {
-		this.pedido = pedido;
+		FactoryViaje aux = new FactoryViaje();
+                this.pedido = pedido;
 		this.chofer = chofer;
 		this.distanciaRealRecorrida = distanciaRealRecorrida;
 		Viaje.precioBase = precioBase;
+                this.viaje=aux.getViaje(pedido, chofer, distanciaRealRecorrida, precioBase);
+                
 	}
-	
+      
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
@@ -60,6 +67,7 @@ public class Viaje implements TipoDeViaje,Comparable<Viaje> {
     @Override
     public int compareTo(Viaje otro) {
        double costo1,costo2;
+       
        costo1=this.getIncKm()+this.getIncPax();//almaceno los costos de los viajes a comparar
        costo2=otro.getIncKm()+otro.getIncPax();
        if(costo1>costo2)
@@ -71,5 +79,5 @@ public class Viaje implements TipoDeViaje,Comparable<Viaje> {
                return 0;
     }
 
-        
+   
 }

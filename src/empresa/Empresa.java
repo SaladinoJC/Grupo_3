@@ -27,7 +27,12 @@ public class Empresa {
 		
 	}
 	
-	public static Empresa getReferencia(){
+        /**
+         * patron singleton
+         * @return 
+         */
+	public static Empresa getReferencia()
+        {
 		if(referencia == null)
 		{
 			referencia=new Empresa();
@@ -280,12 +285,13 @@ public class Empresa {
             Viaje aux;
             for(i=0;i<viajes.size();i++)
             {
-                aux=getViaje(i);
+                aux=viajes.get(i);
                 System.out.println(aux.toString());
             }
         }
         public void ordenarViajesXCostos()
         {
+            
             Collections.sort(viajes);//ordena la lista viajes por costos
             //el metodo compareTO esta implementado en la clase viaje
         }
