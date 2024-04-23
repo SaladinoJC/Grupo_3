@@ -23,7 +23,7 @@ public class Empresa {
 		this.choferes=new ArrayList<Chofer>();
 		this.clientes=new ArrayList<Cliente>();
 		this.viajes=new ArrayList<Viaje>();
-        this.vehiculos=new ArrayList<Vehiculo>();
+                this.vehiculos=new ArrayList<Vehiculo>();
 		
 	}
 	

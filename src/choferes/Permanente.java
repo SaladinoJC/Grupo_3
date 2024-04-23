@@ -1,23 +1,31 @@
 package choferes;
-import java.util.Date;
+import java.time.*;
+
 
 public class Permanente extends Empleado {
     private double plusXantiguedad;
     private double plusXhijos;
     private int cantHijos;
-    Date fechaIngreso;
+    LocalDate fechaIngreso;
 
-    public Permanente(double plusXantiguedad, double plusXhijos, int cantHijos, Date fechaIngreso, double aportes, String nombre, String DNI, double sueldoBasico) {
+    public Permanente(double plusXantiguedad, double plusXhijos, int cantHijos,LocalDate fechaIngreso, double aportes, String nombre, String DNI, double sueldoBasico) {
         super(aportes, nombre, DNI, sueldoBasico);
-        if(plusXantiguedad >=0 && plusXhijos >=0 && cantHijos >= 0)
-        {
+        if( plusXantiguedad >=0)
             this.plusXantiguedad = plusXantiguedad;
-            this.plusXhijos = plusXhijos;
-            this.cantHijos = cantHijos;
-        }
         else
             //lanzar una exepcion
-        this.fechaIngreso = fechaIngreso;
+        if(plusXhijos>=0)
+            this.plusXhijos=plusXhijos;
+        else
+            //lanzar una exepcion
+         if(cantHijos>=0)
+             this.cantHijos=cantHijos;
+        else
+             //lanza una exepcion
+         if(fechaIngreso.getYear()<=0)
+            this.fechaIngreso=fechaIngreso;
+         else
+             //lanza una exepcion
     }
 
     public double getPlusXantiguedad() {
