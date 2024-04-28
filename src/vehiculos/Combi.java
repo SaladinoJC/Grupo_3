@@ -1,7 +1,5 @@
 package vehiculos;
 
-import empresa.Pedido;
-
 public class Combi extends Vehiculo {
 
 	public Combi(String nroPatente, int cantMaxPasajeros, boolean petFriendly, boolean baul) {
@@ -18,22 +16,6 @@ public class Combi extends Vehiculo {
 		}
 		else
 			return null;
-	}
-
-	@Override
-	protected boolean verificaTransporteMascota(Pedido pedido) {
-		if(pedido.isMascotas())
-			return true;
-		else
-			return false;
-	}
-
-	@Override
-	protected boolean verificaUsoBaul(Pedido pedido) {
-		if(pedido.getEquipaje().equalsIgnoreCase("Baul"))
-			return true;
-		else
-			return false;
 	}
 
 	@Override

@@ -2,11 +2,12 @@ package choferes;
 
 import java.util.Objects;
 
-public abstract class Chofer {
+public abstract class Chofer{
     protected String nombre;
     protected  String DNI;
     protected double sueldoBasico;
     protected int puntaje;
+    protected double kmRecorridos;
 
     
     public Chofer(String nombre, String DNI, double sueldoBasico) {
@@ -20,6 +21,7 @@ public abstract class Chofer {
         else
             //exepcion
         this.puntaje = 0;
+        this.kmRecorridos = 0;
     }
 
     public String getNombre() {
@@ -32,8 +34,12 @@ public abstract class Chofer {
 
    public double getSueldoBasico() {
         return sueldoBasico;
-    }
-
+   }
+   
+   //aumenta los km recorridos del chofer en cada viaje
+   public void aumentarKmRecorridos(double km){
+       this.kmRecorridos+=km;
+   }
     
     public int getPuntaje() {
         return puntaje;
@@ -46,7 +52,8 @@ public abstract class Chofer {
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
-    //aumenta el puntaje en puntaje cantidad
+    
+    //aumenta el puntaje en cantidad
     public void aumentarPuntaje(int puntaje)
     {
         this.puntaje+=puntaje;

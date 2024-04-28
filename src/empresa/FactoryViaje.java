@@ -1,27 +1,28 @@
 package empresa;
 
 import choferes.Chofer;
+import vehiculos.Vehiculo;
 
 public class FactoryViaje {
 
-	public TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, double precioBase) {
-		TipoDeViaje componenteConc=new Viaje(pedido, chofer, distanciaRealRecorrida, precioBase), encapsuladoMascota=null, encapsuladoEquipaje=null, encapsuladoZona=null;
+	public TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
+		TipoDeViaje componenteConc=null, encapsuladoMascota=null, encapsuladoEquipaje=null;
 		
 		if(pedido.getZona().equalsIgnoreCase("Estandar"))
-			encapsuladoZona=new Estandar(componenteConc);
+			componenteConc=new Estandar(pedido, chofer, distanciaRealRecorrida,vehiculo);
 		else
 			if(pedido.getZona().equalsIgnoreCase("Sin asfaltar"))
-				encapsuladoZona=new SinAsfaltar(componenteConc);
+				componenteConc=new SinAsfaltar(pedido, chofer, distanciaRealRecorrida,vehiculo);
 			else
 				if(pedido.getZona().equalsIgnoreCase("Peligrosa"))
-					encapsuladoZona=new Peligrosa(componenteConc);
+					componenteConc=new Peligrosa(pedido, chofer, distanciaRealRecorrida,vehiculo);
 		
-		if(encapsuladoZona!=null) {
+		if(componenteConc!=null) {
 			if(pedido.getEquipaje().equalsIgnoreCase("Manual"))
-				encapsuladoEquipaje=new DeMano(encapsuladoZona);
+				encapsuladoEquipaje=new DeMano(componenteConc);
 			else
 				if(pedido.getZona().equalsIgnoreCase("Baul"))
-					encapsuladoEquipaje=new Baul(encapsuladoZona);
+					encapsuladoEquipaje=new Baul(componenteConc);
 		}
 		
 		if(encapsuladoEquipaje!=null) {

@@ -15,7 +15,7 @@ public class Empresa {
 	private ArrayList<Cliente>clientes;
 	private ArrayList<Chofer>choferes;
 	private ArrayList<Viaje>viajes;
-        private ArrayList<Vehiculo>vehiculos;
+    private ArrayList<Vehiculo>vehiculos;
 	
 	
 	
@@ -31,14 +31,13 @@ public class Empresa {
          * patron singleton
          * @return 
          */
-	public static Empresa getReferencia()
+		public static Empresa getReferencia()
         {
-		if(referencia == null)
-		{
-			referencia=new Empresa();
-		}
-		return referencia;
-	}
+			if(referencia == null){
+				referencia=new Empresa();
+			}
+			return referencia;
+        }
         
         //codigo de choferes
         //metodo q debe largar una exepcion si el chofer ya existe
@@ -51,6 +50,7 @@ public class Empresa {
                 //una exepcion
             }   
         }
+        
         //devuelve verdadero si el chofer ya existe
         public boolean buscarChofer(Chofer chofer)
         {
@@ -63,6 +63,7 @@ public class Empresa {
             }
             return i<choferes.size();
         }
+        
         //el metodo busca un chofer si no existe devuelve null
         public Chofer buscarXchofer(Chofer chofer)
         {
@@ -79,15 +80,18 @@ public class Empresa {
             else
                 return null;
         }
+        
         //obtengo un chofer
         public Chofer getChofer(int index)
         {
             return choferes.get(index);
         }
+        
         private void setChofer(Chofer chofer)
         {
             choferes.add(chofer);
         }
+        
         //listar los choferes
         public  void ListarChoferes()
         {
@@ -101,6 +105,7 @@ public class Empresa {
                 aux.toString();
             }
         }
+        
         //lista los viajes de un chofer en particular entre unas fechas como parametros
         //el metodo considera en la fecha fin>=inicio
         public void ListarViajesXchofer(Chofer chofer,LocalDate inicio,LocalDate fin)
@@ -132,10 +137,11 @@ public class Empresa {
             return vehiculos.get(index);
         }
         
-       private void setVehiculo(Vehiculo vehiculo)
+        private void setVehiculo(Vehiculo vehiculo)
         {
             vehiculos.add(vehiculo);
         }
+       
         //lista todos los vehiculos 
         public void ListarVehiculos()
         {
@@ -147,8 +153,9 @@ public class Empresa {
                 System.out.println(aux.toString());
             }
         }
+        
         //busca un vehiculo devuelve verdadero si existe
-	public boolean buscarVehiculo(Vehiculo vehiculo)
+        public boolean buscarVehiculo(Vehiculo vehiculo)
         {
             int i=0;
             Vehiculo aux=getVehiculo(i);
@@ -159,6 +166,7 @@ public class Empresa {
             }
             return i<vehiculos.size();
         }
+	
         //busca un vehiculo en particular si no lo encuentra devuelve null
          public Vehiculo buscarXVehiculo(Vehiculo vehiculo)
         {
@@ -175,6 +183,7 @@ public class Empresa {
             else
                 return null;
         }
+         
         public void insertarVehiculo(Vehiculo vehiculo)
         {
             if(!buscarVehiculo(vehiculo))
@@ -184,17 +193,20 @@ public class Empresa {
                 //aca va una exepcion
             }
         }
+        
         //codigo de clientes
         //recupera un cliente
         public Cliente getCliente(int index)
         {
             return clientes.get(index);
         }
+        
         //agrega un cliente
         private void setCliente(Cliente cliente)
         {
             clientes.add(cliente);
         }
+        
         //lista todo los clientes que tenga la empresa
         public void ListarClientes()
         {
@@ -206,6 +218,7 @@ public class Empresa {
                 System.out.println(aux.toString());
             }
         }
+        
         //devuelve verdadero si el cliente existe
         public  boolean buscarCliente(Cliente cliente)
         {
@@ -218,6 +231,7 @@ public class Empresa {
             }
             return i<clientes.size();
         }
+        
         //busca un cliente , si no lo encuentra devuelve null
          public Cliente buscarXcliente (Cliente cliente)
         {
@@ -234,6 +248,7 @@ public class Empresa {
             else
                 return null;
         }
+         
          //lista los viajes de un cliente en particular y en un periodo de dias (con inicio y fin)
         public void ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin)
         {
@@ -257,6 +272,7 @@ public class Empresa {
                 else
                     //le fecha ingresadas. inicio no es menor a fin
         }
+        
         //inserta un cliente siempre y cuando no exista ya en la lista
         public void insertarCliente(Cliente cliente)
         {
@@ -269,16 +285,17 @@ public class Empresa {
         }
         
         //codigo viajes
-        
         public Viaje getViaje(int index)
         {
             return viajes.get(index);
         }
+        
         //viaje
         public void setViaje(Viaje viaje)
         {
             viajes.add(viaje);
         }
+        
         public void ListarViajes()
         {
             int i;
@@ -289,6 +306,7 @@ public class Empresa {
                 System.out.println(aux.toString());
             }
         }
+        
         public void ordenarViajesXCostos()
         {
             
@@ -353,6 +371,7 @@ public class Empresa {
                 }
             }
         }
+        
         //metodo que calculo los puntajes de los choferes
         public void calculoDePuntaje()
         {
@@ -370,7 +389,7 @@ public class Empresa {
                             cont++;
                 }
                 aux.setPuntaje(cont*5);//seteo puntaje del chofer
-                if(max<cont)//si es el chofer con mas viajes realizos me lo guardo
+                if(max<cont)//si es el chofer con mas viajes realizados me lo guardo
                 {
                     mayor=aux;
                     max=cont;
@@ -378,6 +397,7 @@ public class Empresa {
             }
             mayor.aumentarPuntaje(15);//aumento en 15 puntos al chofer q mas viajes realizo
         }
+        
         //total a pagar de la empresa
         public double TotalPagar()
         {

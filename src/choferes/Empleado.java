@@ -5,7 +5,10 @@ public abstract class Empleado extends Chofer {
 
     public Empleado(double aportes, String nombre, String DNI, double sueldoBasico) {
         super(nombre, DNI, sueldoBasico);
-        this.aportes = aportes;
+        if(aportes > 0)
+        	this.aportes = aportes;
+        else
+        	//lanza excepcion
     }
 
     protected double getAportes() {
@@ -15,8 +18,5 @@ public abstract class Empleado extends Chofer {
     protected void setAportes(double aportes) {
         this.aportes = aportes;
     }
-
-  
-    
 
 }

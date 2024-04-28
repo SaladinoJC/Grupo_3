@@ -3,7 +3,7 @@ package vehiculos;
 import empresa.Pedido;
 import java.util.Objects;
 
-public abstract class Vehiculo {
+public abstract class Vehiculo{
 	protected String nroPatente;
 	protected int cantMaxPasajeros;
 	protected boolean petFriendly;
@@ -31,10 +31,20 @@ public abstract class Vehiculo {
 	}
 	
 	protected abstract Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros);
-
-	protected abstract boolean verificaTransporteMascota(Pedido pedido);
-
-	protected abstract boolean verificaUsoBaul(Pedido pedido);
+	
+	protected boolean verificaTransporteMascota(Pedido pedido) {
+		if(pedido.isMascotas() && this.petFriendly)
+			return true;
+		else
+			return false;
+	}
+	
+	protected boolean verificaUsoBaul(Pedido pedido) {
+		if(pedido.getEquipaje().equalsIgnoreCase("Baul") && this.baul)
+			return true;
+		else
+			return false;
+	}
 
 	public String getNroPatente() {
 		return nroPatente;
@@ -66,8 +76,5 @@ public abstract class Vehiculo {
         final Vehiculo other = (Vehiculo) obj;
         return Objects.equals(this.nroPatente, other.nroPatente);
     }
-
-    @Override
-    public  abstract String toString();
 
 }

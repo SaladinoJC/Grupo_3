@@ -5,34 +5,36 @@ import vehiculos.Vehiculo;
 import empresa.FactoryViaje;
 
 
-public class Viaje implements TipoDeViaje,Comparable<Viaje> {
-	private Pedido pedido;
-	private Chofer chofer;
-	private Vehiculo vehiculo;
-	private double distanciaRealRecorrida;
-	private static double precioBase;
-        private TipoDeViaje viaje;
+public abstract class Viaje implements TipoDeViaje{
+	protected Pedido pedido;
+	protected Chofer chofer;
+	protected Vehiculo vehiculo;
+	protected double distanciaRealRecorrida;
+	private static double precioBase=1000;
         
 
-	public Viaje(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, double precioBase) {
-		FactoryViaje aux = new FactoryViaje();
-                this.pedido = pedido;
+	public Viaje(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
+        this.pedido = pedido;
 		this.chofer = chofer;
-		this.distanciaRealRecorrida = distanciaRealRecorrida;
-		Viaje.precioBase = precioBase;
-                this.viaje=aux.getViaje(pedido, chofer, distanciaRealRecorrida, precioBase);
-                
+		if(distanciaRealRecorrida > 0)
+			this.distanciaRealRecorrida = distanciaRealRecorrida;
+		else
+			//exception
+		this.vehiculo=vehiculo;
 	}
-      
+	
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
 
 	public static void setPrecioBase(double precioBase) {
-		Viaje.precioBase = precioBase;
+		if(precioBase > 0)
+			Viaje.precioBase = precioBase;  
+		else
+			//exception
 	}
 	
-	public static double getPrecioBase() {
+	public double getPrecioBase() {
 		return precioBase;
 	}
 
@@ -49,35 +51,20 @@ public class Viaje implements TipoDeViaje,Comparable<Viaje> {
 	}
 
 	@Override
-	public double getIncPax() {
-		return this.getPedido().getCantDePasajeros() * getPrecioBase();
+	public int getPasajeros() {
+		return this.getPedido().getCantDePasajeros();
 	}
-
+	
 	@Override
-	public double getIncKm() {
-		return this.getDistanciaRealRecorrida() * getPrecioBase();
+	public Object clone(){
+		Viaje viajeClon=null;
+		try {
+			viajeClon = (Viaje)super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+			//ESTE BLOQUE NO SE EJECUTA JAMAS
+			e.printStackTrace();
+		}
+		return viajeClon;
 	}
-
-    @Override
-    public String toString() {
-        return "[ fecha: " + this.getPedido().getFecha() +" fue a la hora: "+this.getPedido().getHora()+" la cantidad de pasajeros transportados fue: "+ this.getPedido().getCantDePasajeros() +".\n\nCliente: "+ this.getPedido().getCliente() +"\n\nChofer: " + chofer + "\n\nVehiculo: " + vehiculo + "\n\ndistanciaRealRecorrida=" + distanciaRealRecorrida + "km ]";
-    }
-    
-    //implementa compareTO para poder compara viajes por costos
-    @Override
-    public int compareTo(Viaje otro) {
-       double costo1,costo2;
-       
-       costo1=this.getIncKm()+this.getIncPax();//almaceno los costos de los viajes a comparar
-       costo2=otro.getIncKm()+otro.getIncPax();
-       if(costo1>costo2)
-           return -1;
-       else
-           if(costo1<costo2)
-               return 1;
-           else
-               return 0;
-    }
-
-   
 }

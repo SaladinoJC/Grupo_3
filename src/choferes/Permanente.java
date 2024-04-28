@@ -22,7 +22,7 @@ public class Permanente extends Empleado {
              this.cantHijos=cantHijos;
         else
              //lanza una exepcion
-         if(fechaIngreso.getYear()<=0)
+         if(fechaIngreso.getYear()>0)
             this.fechaIngreso=fechaIngreso;
          else
              //lanza una exepcion
@@ -40,7 +40,7 @@ public class Permanente extends Empleado {
         return cantHijos;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
@@ -76,17 +76,13 @@ public class Permanente extends Empleado {
 
     @Override
     public double calcularSueldo() {
-            double aux=getSueldoBasico();
+        double aux=getSueldoBasico();
             
-            aux+=aux*(plusXantiguedad/100);
-            aux+=aux*((plusXhijos/100)*cantHijos);
+        aux+=aux*(plusXantiguedad/100);
+        aux+=aux*((plusXhijos/100)*cantHijos);
+        aux-=aux*getAportes();
             
-            aux-=aux*getAportes();
-            
-            return aux;
+        return aux;
     }
-    
-    
-    
     
 }
