@@ -1,5 +1,7 @@
 package vehiculos;
 
+import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
+
 public class FactoryVehiculo{
 	
 	public Vehiculo getVehiculo(String nroPatente, int cantMaxPasajeros, boolean petFriendly, boolean baul) throws NoSePuedeCrearVehiculoException {

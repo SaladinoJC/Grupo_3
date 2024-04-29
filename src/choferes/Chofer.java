@@ -1,7 +1,13 @@
 package choferes;
 
-import java.util.Objects;
 
+import choferes.exepciones.DNImalingresadoExeption;
+import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import java.util.Objects;
+/**
+ * clase chofer
+ * @author manso
+ */
 public abstract class Chofer{
     protected String nombre;
     protected  String DNI;
@@ -10,50 +16,78 @@ public abstract class Chofer{
     protected double kmRecorridos;
 
     
-    public Chofer(String nombre, String DNI, double sueldoBasico) {
+    public Chofer(String nombre, String DNI, double sueldoBasico)throws DNImalingresadoExeption,SueldoBasicoIncorrectoExeption{
         this.nombre = nombre;
         if(DNI.length()==7)
             this.DNI = DNI;
         else
-            //exepcion
+            throw  new DNImalingresadoExeption(DNI);
         if(sueldoBasico >=0)
             this.sueldoBasico = sueldoBasico;
         else
-            //exepcion
+            throw new SueldoBasicoIncorrectoExeption(sueldoBasico);
         this.puntaje = 0;
         this.kmRecorridos = 0;
     }
-
+    /**
+     * 
+     * @return String nombre 
+     */
     public String getNombre() {
         return nombre;
     }
-
+    /**
+     * 
+     * @return string DNI
+     */
     public String getDNI() {
         return DNI;
     }
-
+    /**
+     * 
+     * @return double sueldo
+     */
    public double getSueldoBasico() {
         return sueldoBasico;
    }
    
-   //aumenta los km recorridos del chofer en cada viaje
+  /**
+   * incremente los km recorridos de un chofer
+   * @param km 
+   */
    public void aumentarKmRecorridos(double km){
        this.kmRecorridos+=km;
    }
-    
+    /**
+     * 
+     * @return int el puntaje del chofer 
+     */
     public int getPuntaje() {
         return puntaje;
     }
-
-    public void setSueldoBasico(double sueldoBasico) {
-        this.sueldoBasico = sueldoBasico;
+    /**
+     * setea el sueldo basico de chofer
+     * @param sueldoBasico 
+     * @throws choferes.exepciones.SueldoBasicoIncorrectoExeption 
+     */
+    public void setSueldoBasico(double sueldoBasico) throws SueldoBasicoIncorrectoExeption{
+        if(sueldoBasico >= 0)
+            this.sueldoBasico = sueldoBasico;
+        else
+            throw  new SueldoBasicoIncorrectoExeption(sueldoBasico);
     }
-
+    /**
+     * setea el puntaje del chofer
+     * @param puntaje int
+     */
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
     
-    //aumenta el puntaje en cantidad
+    /**
+     * aumenta el puntaje una x cantidad
+     * @param puntaje 
+     */
     public void aumentarPuntaje(int puntaje)
     {
         this.puntaje+=puntaje;
@@ -61,6 +95,10 @@ public abstract class Chofer{
 
     @Override
     public abstract String toString();
+    /**
+     * calcula el sueldo de cada chofer
+     * @return double sueldo del chofer
+     */
     public abstract double calcularSueldo();
 
   

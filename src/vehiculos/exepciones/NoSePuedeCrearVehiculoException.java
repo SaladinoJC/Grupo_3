@@ -1,4 +1,4 @@
-package vehiculos;
+package vehiculos.exepciones;
 
 public class NoSePuedeCrearVehiculoException extends Exception {
 	protected String nroPatente;

@@ -1,39 +1,61 @@
 package choferes;
 
+import choferes.exepciones.DNImalingresadoExeption;
+import choferes.exepciones.PorcentajeExeption;
+import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+
 public class Contratado extends Chofer {
     private double gananciaViaje;
     private int cantidadViajes;
 
-    public Contratado(double gananciaViaje, String nombre, String DNI) {
+    public Contratado(double gananciaViaje, String nombre, String DNI)throws PorcentajeExeption, DNImalingresadoExeption, SueldoBasicoIncorrectoExeption{
         super(nombre, DNI,0);
         if(gananciaViaje >=0)
          this.gananciaViaje = gananciaViaje;
         else
-            //lanza una exepcion
+            throw  new PorcentajeExeption(gananciaViaje);
     }
-
+    
+    /**
+     * 
+     * @return retorna el porcentaje de ganancia que obtiene por cada viaje 
+     */
+    
     public double getGananciaViaje() {
         return gananciaViaje;
     }
-
-    public void setGananciaViaje(double gananciaViaje) {
-        this.gananciaViaje = gananciaViaje;
+    /**
+     * setea el pocentaje de ganancia que gana en cada viaje
+     * @param gananciaViaje 
+     * @throws choferes.exepciones.PorcentajeExeption 
+     */
+    public void setGananciaViaje(double gananciaViaje)throws PorcentajeExeption{
+        if(gananciaViaje>=0)
+            this.gananciaViaje = gananciaViaje;
+        else
+            throw new PorcentajeExeption(gananciaViaje);
     }
-
+    /**
+     * 
+     * @return la cantidad de viajes realizados
+     */
     public int getCantidadViajes() {
         return cantidadViajes;
     }
-
+    /**
+     * setea la cantidad de viajes realizados 
+     * @param cantidadViajes 
+     */
     public void setCantidadViajes(int cantidadViajes) {
         this.cantidadViajes = cantidadViajes;
     }
 
     @Override
-    public void setSueldoBasico(double sueldoBasico) {
+    public void setSueldoBasico(double sueldoBasico)throws SueldoBasicoIncorrectoExeption{
         if(sueldoBasico >= 0)
             this.sueldoBasico = sueldoBasico;
         else
-            //lanza un exepcion
+            throw new SueldoBasicoIncorrectoExeption(sueldoBasico);
     }
     
     @Override

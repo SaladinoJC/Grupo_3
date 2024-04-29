@@ -1,5 +1,11 @@
 package choferes;
+import choferes.exepciones.DNImalingresadoExeption;
+import choferes.exepciones.FechaMalIngresadaExeption;
+import choferes.exepciones.PorcentajeExeption;
+import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import choferes.exepciones.valorPositivoExeption;
 import java.time.*;
+
 
 
 public class Permanente extends Empleado {
@@ -8,61 +14,86 @@ public class Permanente extends Empleado {
     private int cantHijos;
     LocalDate fechaIngreso;
 
-    public Permanente(double plusXantiguedad, double plusXhijos, int cantHijos,LocalDate fechaIngreso, double aportes, String nombre, String DNI, double sueldoBasico) {
+    public Permanente(double plusXantiguedad, double plusXhijos, int cantHijos,LocalDate fechaIngreso,
+                     double aportes, String nombre, String DNI, double sueldoBasico) throws PorcentajeExeption, DNImalingresadoExeption, 
+                    SueldoBasicoIncorrectoExeption,valorPositivoExeption,FechaMalIngresadaExeption  {
         super(aportes, nombre, DNI, sueldoBasico);
         if( plusXantiguedad >=0)
             this.plusXantiguedad = plusXantiguedad;
         else
-            //lanzar una exepcion
+            throw  new PorcentajeExeption(plusXantiguedad);
         if(plusXhijos>=0)
             this.plusXhijos=plusXhijos;
         else
-            //lanzar una exepcion
+            throw  new PorcentajeExeption(plusXhijos);
          if(cantHijos>=0)
              this.cantHijos=cantHijos;
         else
-             //lanza una exepcion
+             throw new valorPositivoExeption(cantHijos);
          if(fechaIngreso.getYear()>0)
             this.fechaIngreso=fechaIngreso;
          else
-             //lanza una exepcion
+             throw new FechaMalIngresadaExeption(fechaIngreso);
     }
+    /**
+     * 
+     * @return  el porcentaje por antiguedad
+     */
 
     public double getPlusXantiguedad() {
         return plusXantiguedad;
     }
-
+    /**
+     * 
+     * @return el pocentaje por hijos 
+     */
     public double getPlusXhijos() {
         return plusXhijos;
     }
-
+    /**
+     * 
+     * @return la cantidad de hijos
+     */
     public int getCantHijos() {
         return cantHijos;
     }
-
+    /**
+     * 
+     * @return (LocalDate) la fecha de ingreso 
+     */
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
-
-    public void setPlusXantiguedad(double plusXantiguedad) {
+    /**
+     * setea el pus por antiguedad
+     * @param plusXantiguedad 
+     */
+    public void setPlusXantiguedad(double plusXantiguedad)throws PorcentajeExeption{
         if(plusXantiguedad >= 0)
             this.plusXantiguedad = plusXantiguedad;
         else
-            //lanza una exepcion
+            throw new PorcentajeExeption(plusXantiguedad);
     }
-
-    public void setPlusXhijos(double plusXhijos) {
+    /**
+     * setea el plus por hijos
+     * @param plusXhijos 
+     */
+    public void setPlusXhijos(double plusXhijos)throws PorcentajeExeption{
         if(plusXhijos >= 0)
             this.plusXhijos = plusXhijos;
         else
-            //lanza una exepcion
+            throw new PorcentajeExeption(plusXhijos);
     }
-
-    public void setCantHijos(int cantHijos) {
+    /**
+     * setea la cantidad de hijos
+     * @param cantHijos 
+     */
+    public void setCantHijos(int cantHijos)throws valorPositivoExeption{
         if(cantHijos >= 0)
             this.cantHijos = cantHijos;
         else
-            //lanza una exepcion
+            throw new valorPositivoExeption(cantHijos);
+                    
     }
     
     
