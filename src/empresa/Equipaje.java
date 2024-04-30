@@ -1,4 +1,4 @@
-package empresa;
+package empresa  ;
 
 public abstract class Equipaje extends DecoratorViaje {
 
