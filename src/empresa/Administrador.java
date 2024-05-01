@@ -30,6 +30,12 @@ public class Administrador {
     public String getContraseña() {
         return contraseña;
     }
+
+	@Override
+	public String toString() {
+		return "Administrador [nombre=" + nombre + ", nombreDeUsuario=" + nombreDeUsuario + ", contraseña=" + contraseña
+				+ "]";
+	}
     
     
     

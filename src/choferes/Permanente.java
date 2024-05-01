@@ -100,18 +100,21 @@ public class Permanente extends Empleado {
 
     @Override
     public String toString() {
-        return "Permanente\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo basico:"+getSueldoBasico()+"\nsueldo:"+calcularSueldo()
+        return "Permanente\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo basico:"+getSueldoBasico()+"\nsueldo:"+getSueldo()
                 +"\npuntaje:"+getPuntaje()+"\nplus x antiguedad"+getPlusXantiguedad()+"\nplus x hijos"+getPlusXhijos()
                 +"\ncantidad de hijos"+getCantHijos()+"\nfecha de ingreso"+getFechaIngreso();
     }
 
     @Override
-    public double calcularSueldo() {
+    public double getSueldo() {
         double aux=getSueldoBasico();
-            
+        System.out.println("el sueldo basico en calcular sueldo es"+ aux);
         aux+=aux*(plusXantiguedad/100);
+        System.out.println("aux en calcular sueldo es"+ aux);
         aux+=aux*((plusXhijos/100)*cantHijos);
+        System.out.println("aux2 en calcular sueldo es"+ aux);
         aux-=aux*getAportes();
+        System.out.println("auxfinal en calcular sueldo es"+ aux);
             
         return aux;
     }

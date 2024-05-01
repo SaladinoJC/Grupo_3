@@ -11,21 +11,17 @@ import java.util.Objects;
 public abstract class Chofer{
     protected String nombre;
     protected  String DNI;
-    protected double sueldoBasico;
     protected int puntaje;
     protected double kmRecorridos;
+    protected double sueldo;
 
     
-    public Chofer(String nombre, String DNI, double sueldoBasico)throws DNImalingresadoExeption,SueldoBasicoIncorrectoExeption{
+    public Chofer(String nombre, String DNI)throws DNImalingresadoExeption{
         this.nombre = nombre;
-        if(DNI.length()==7)
+        if(DNI.length()==8)
             this.DNI = DNI;
         else
             throw  new DNImalingresadoExeption(DNI);
-        if(sueldoBasico >=0)
-            this.sueldoBasico = sueldoBasico;
-        else
-            throw new SueldoBasicoIncorrectoExeption(sueldoBasico);
         this.puntaje = 0;
         this.kmRecorridos = 0;
     }
@@ -43,13 +39,8 @@ public abstract class Chofer{
     public String getDNI() {
         return DNI;
     }
-    /**
-     * 
-     * @return double sueldo
-     */
-   public double getSueldoBasico() {
-        return sueldoBasico;
-   }
+
+   
    
   /**
    * incremente los km recorridos de un chofer
@@ -65,17 +56,7 @@ public abstract class Chofer{
     public int getPuntaje() {
         return puntaje;
     }
-    /**
-     * setea el sueldo basico de chofer
-     * @param sueldoBasico 
-     * @throws choferes.exepciones.SueldoBasicoIncorrectoExeption 
-     */
-    public void setSueldoBasico(double sueldoBasico) throws SueldoBasicoIncorrectoExeption{
-        if(sueldoBasico >= 0)
-            this.sueldoBasico = sueldoBasico;
-        else
-            throw  new SueldoBasicoIncorrectoExeption(sueldoBasico);
-    }
+    
     /**
      * setea el puntaje del chofer
      * @param puntaje int
@@ -99,7 +80,7 @@ public abstract class Chofer{
      * calcula el sueldo de cada chofer
      * @return double sueldo del chofer
      */
-    public abstract double calcularSueldo();
+    public abstract double getSueldo();
 
   
 

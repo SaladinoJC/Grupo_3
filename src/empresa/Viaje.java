@@ -6,9 +6,20 @@ import empresa.FactoryViaje;
 
 
 public abstract class Viaje implements TipoDeViaje{
-	protected Pedido pedido;
-	protected Chofer chofer;
-	protected Vehiculo vehiculo;
+    /**
+     * @aggregation composite
+     */
+    protected Pedido pedido;
+
+    /**
+     * @aggregation shared
+     */
+    protected Chofer chofer;
+
+    /**
+     * @aggregation shared
+     */
+    protected Vehiculo vehiculo;
 	protected double distanciaRealRecorrida;
 	private static double precioBase=1000;
         
@@ -31,6 +42,7 @@ public abstract class Viaje implements TipoDeViaje{
 		if(precioBase > 0)
 			Viaje.precioBase = precioBase;  
 		else
+			System.out.println("roberto");
 			//exception
 	}
 	
