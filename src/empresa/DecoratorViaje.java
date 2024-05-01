@@ -1,5 +1,4 @@
 package empresa;
-import empresa.TipoDeViaje;
 
 public abstract class DecoratorViaje implements TipoDeViaje {
 	protected TipoDeViaje tipoDeViaje;

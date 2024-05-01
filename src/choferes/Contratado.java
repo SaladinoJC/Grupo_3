@@ -9,7 +9,7 @@ public class Contratado extends Chofer {
     private int cantidadViajes;
 
     public Contratado(double gananciaViaje, String nombre, String DNI)throws PorcentajeExeption, DNImalingresadoExeption, SueldoBasicoIncorrectoExeption{
-        super(nombre, DNI);
+        super(nombre, DNI,0);
         if(gananciaViaje >=0)
          this.gananciaViaje = gananciaViaje;
         else
@@ -50,23 +50,26 @@ public class Contratado extends Chofer {
         this.cantidadViajes = cantidadViajes;
     }
 
-    
-    public void setSueldo(double sueldo)throws SueldoBasicoIncorrectoExeption{
-        if(sueldo >= 0)
-            this.sueldo = sueldo;
+    @Override
+    public void setSueldoBasico(double sueldoBasico)throws SueldoBasicoIncorrectoExeption{
+        if(sueldoBasico >= 0)
+            this.sueldoBasico = sueldoBasico;
         else
-            throw new SueldoBasicoIncorrectoExeption(sueldo);
+            throw new SueldoBasicoIncorrectoExeption(sueldoBasico);
     }
     
     @Override
     public String toString() {
-        return "Contratado\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo:"+getSueldo()
+        return "Contratado\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo:"+calcularSueldo()
         +"\npuntaje:"+getPuntaje()+"\nporcentaje por viaje:"+getGananciaViaje();
     }
 
     @Override
-    public double getSueldo() {
-    double aux = this.sueldo;
+    public double calcularSueldo() {
+      double aux=this.sueldoBasico;
+      
+      aux+=aux*((this.gananciaViaje/100)*this.cantidadViajes);
+      
       return aux;
     }
     

@@ -9,11 +9,7 @@ public class Pedido implements Cloneable{
 	private boolean mascotas;
 	private String equipaje;
 	private int cantDePasajeros;
-
-    /**
-     * @aggregation shared
-     */
-    private Cliente cliente;
+	private Cliente cliente;
 	
 	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) {
 		if(fecha.getYear()>0)
