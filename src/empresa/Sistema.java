@@ -1,9 +1,17 @@
 package empresa;
-import empresa.Administrador;
+
 
 public class Sistema {
     private static Sistema referencia=null;
-    private Empresa GUILLEsa;
+
+    /**
+     * @aggregation composite
+     */
+    public Empresa GUILLEsa;
+
+    /**
+     * @aggregation composite
+     */
     private Administrador admin;
     
     
@@ -13,7 +21,7 @@ public class Sistema {
         this.admin=admin;
     }
     
-    public  static Sistema getReferancia()
+    public  static Sistema getReferencia()
     {
         if(referencia == null)
         {   
@@ -21,5 +29,11 @@ public class Sistema {
         }
         return referencia;
     }
+
+	@Override
+	public String toString() {
+		return "Sistema [GUILLEsa=" + GUILLEsa + ", admin=" + admin + "]";
+	}
    
+    
 }

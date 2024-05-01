@@ -5,15 +5,33 @@ import java.util.ArrayList;
 import choferes.Chofer;
 import choferes.Contratado;
 import choferes.Temporario;
+import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+
 import java.time.LocalDate;
 import vehiculos.Vehiculo;
 
 public class Empresa {
 	private static Empresa referencia;
-	private ArrayList<Cliente>clientes;
-	private ArrayList<Chofer>choferes;
-	private ArrayList<TipoDeViaje>viajes;
-        private ArrayList<Vehiculo>vehiculos;
+
+    /**
+     * @aggregation composite
+     */
+    private ArrayList<Cliente>clientes;
+
+    /**
+     * @aggregation composite
+     */
+    private ArrayList<Chofer>choferes;
+
+    /**
+     * @aggregation shared
+     */
+    private ArrayList<TipoDeViaje>viajes;
+
+    /**
+     * @aggregation composite
+     */
+    private ArrayList<Vehiculo>vehiculos;
 	
 	
 	
@@ -110,8 +128,9 @@ public class Empresa {
         /**
          * 
          * @return devuelve un strings con los datos de todos los choferes
+         * @throws SueldoBasicoIncorrectoExeption 
          */
-        public  String ListarChoferes()
+        public  String ListarChoferes() throws SueldoBasicoIncorrectoExeption
         {
             int i;
             Chofer aux;
@@ -157,8 +176,10 @@ public class Empresa {
             }
             else
                 if(!buscarChofer(chofer))
+                	System.out.println("robertiti");
                   //exepcion el chofer no existe
                 else
+                	System.out.println("roberto");
                     //otra exepcion por que la fecha inicio no es menor fin
             return cadena;
         }
@@ -357,8 +378,10 @@ public class Empresa {
             }
             else
                 if(!buscarCliente(cliente))
+                	System.out.println("roberto");
                     //exepcion el cliente no existe
                 else
+                	System.out.println("roberto");
                     //le fecha ingresadas. inicio no es menor a fin
              return cadena;
         }
@@ -459,8 +482,9 @@ public class Empresa {
 
         /**
          * desde la clase empresa se setea el sueldo de los contratados,respecto la cantidad de viajes q realizo
+         * 
          */
-        public void setiarSueldoContratados()
+        public void setiarSueldoContratados()throws SueldoBasicoIncorrectoExeption
         {
             Chofer aux;
             Contratado contratado;
@@ -484,7 +508,7 @@ public class Empresa {
                     }     
                     contratado=(Contratado)aux;
                     contratado.setCantidadViajes(cont);
-                    contratado.setSueldoBasico(sueldo);
+                    contratado.setSueldo(sueldo);
                 }
             }
  
@@ -548,8 +572,9 @@ public class Empresa {
         /**
          * 
          * @return devuelve el total a pagar de la empresa en sueldos 
+         * @throws SueldoBasicoIncorrectoExeption 
          */
-        public double TotalPagar()
+        public double TotalPagar() throws SueldoBasicoIncorrectoExeption
         {
             Chofer aux;
             int i;
@@ -559,8 +584,16 @@ public class Empresa {
             for(i=0;i<choferes.size();i++)
             {
                aux=getChofer(i);
-               total+=aux.calcularSueldo();
+               total+=aux.getSueldo();
             }
             return total;
         }
+
+		@Override
+		public String toString() {
+			return "Empresa [clientes=" + clientes + ", choferes=" + choferes + ", viajes=" + viajes + ", vehiculos="
+					+ vehiculos + "]";
+		}
+        
+        
 }
