@@ -1,73 +1,88 @@
 package choferes;
 
-
 import choferes.exepciones.DNImalingresadoExeption;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import java.util.Objects;
 /**
- * clase chofer
+ * Clase abstracta que representa a un chofer.
+ * Esta clase es abstracta y proporciona métodos base comunes para todos los tipos de choferes.
+ * Las clases hijas deben implementar los métodos abstractos para definir comportamientos específicos.
+ * 
  * @author manso
  */
 public abstract class Chofer{
     protected String nombre;
-    protected  String DNI;
+    protected String DNI;
     protected int puntaje;
     protected double kmRecorridos;
     protected double sueldo;
 
-    
+    /**
+     * Constructor de Chofer.
+     * 
+     * @param nombre El nombre del chofer.
+     * @param DNI El número de DNI del chofer.
+     * @throws DNImalingresadoExeption Si el formato del DNI no es válido.
+     */
     public Chofer(String nombre, String DNI)throws DNImalingresadoExeption{
         this.nombre = nombre;
         if(DNI.length()==8)
             this.DNI = DNI;
         else
-            throw  new DNImalingresadoExeption(DNI);
+            throw new DNImalingresadoExeption(DNI);
         this.puntaje = 0;
         this.kmRecorridos = 0;
     }
     /**
+     * Obtiene el nombre del chofer.
      * 
-     * @return String nombre 
+     * @return El nombre del chofer.
      */
     public String getNombre() {
         return nombre;
     }
+    
     /**
+     * Obtiene el número de DNI del chofer.
      * 
-     * @return string DNI
+     * @return El número de DNI del chofer.
      */
     public String getDNI() {
         return DNI;
     }
 
-   
-   
-  /**
-   * incremente los km recorridos de un chofer
-   * @param km 
-   */
+    /**
+     * Incrementa los kilómetros recorridos por el chofer.
+     * 
+     * @param La cantidad de kilómetros a aumentar.
+     */
    public void aumentarKmRecorridos(double km){
        this.kmRecorridos+=km;
    }
-    /**
-     * 
-     * @return int el puntaje del chofer 
-     */
+   
+   /**
+    * Obtiene el puntaje del chofer.
+    * 
+    * @return El puntaje del chofer.
+    */
     public int getPuntaje() {
         return puntaje;
     }
     
     /**
-     * setea el puntaje del chofer
-     * @param puntaje int
+     * Establece el puntaje del chofer.
+     * 
+     * @param puntaje El nuevo puntaje del chofer.
      */
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
     
+
     /**
-     * aumenta el puntaje una x cantidad
-     * @param puntaje 
+     * Aumenta el puntaje del chofer.
+     * 
+     * @param puntaje La cantidad de puntos a aumentar.
      */
     public void aumentarPuntaje(int puntaje)
     {
@@ -76,13 +91,13 @@ public abstract class Chofer{
 
     @Override
     public abstract String toString();
+
     /**
-     * calcula el sueldo de cada chofer
-     * @return double sueldo del chofer
+     * Método abstracto para obtener el sueldo del chofer.
+     * 
+     * @return El sueldo del chofer.
      */
     public abstract double getSueldo();
-
-  
 
     @Override
     public boolean equals(Object obj) {

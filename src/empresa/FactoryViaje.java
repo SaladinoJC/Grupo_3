@@ -3,8 +3,21 @@ package empresa;
 import choferes.Chofer;
 import vehiculos.Vehiculo;
 
+/**
+ * La clase FactoryViaje crea instancias de diferentes tipos de viaje según las especificaciones proporcionadas.
+ */
+
 public class FactoryViaje {
 
+    /**
+     * Crea y devuelve un tipo de viaje según las especificaciones proporcionadas.
+     * 
+     * @param pedido La información del pedido.
+     * @param chofer El chofer asignado al viaje.
+     * @param distanciaRealRecorrida La distancia real recorrida en el viaje.
+     * @param vehiculo El vehículo utilizado en el viaje.
+     * @return Un tipo de viaje creado según las especificaciones.
+     */
 	public TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
 		TipoDeViaje componenteConc=null, encapsuladoMascota=null, encapsuladoEquipaje=null;
 		

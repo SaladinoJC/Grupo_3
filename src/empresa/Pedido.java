@@ -2,6 +2,11 @@ package empresa;
 
 import java.time.*;
 
+/**
+ * La clase Pedido representa un pedido de viaje en la empresa.
+ * Contiene información sobre la fecha, hora, zona, mascotas, equipaje, cantidad de pasajeros y el cliente asociado al pedido.
+ */
+
 public class Pedido implements Cloneable{
 	private LocalDate fecha;
     private LocalTime hora;
@@ -11,62 +16,114 @@ public class Pedido implements Cloneable{
 	private int cantDePasajeros;
 
     /**
+     * El cliente asociado al pedido.
+     * 
      * @aggregation shared
      */
     private Cliente cliente;
 	
+    /**
+     * Constructor de la clase Pedido.
+     * 
+     * @param fecha            La fecha del pedido.
+     * @param hora             La hora del pedido.
+     * @param zona             La zona del pedido (Estandar, Sin asfaltar, Peligrosa).
+     * @param mascotas         Indica si hay mascotas en el viaje.
+     * @param equipaje         El tipo de equipaje.
+     * @param cantDePasajeros  La cantidad de pasajeros.
+     * @param cliente          El cliente que realiza el pedido.
+     * @throws TODO error en la fecha
+     * @throws TODO error en la zona
+     * @throws TODO error en equipaje
+     * @throws TODO error en cant de pasajeros, tal vez puede ser una precondición
+     */
 	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) {
 		if(fecha.getYear()>0)
 			this.fecha = fecha;
          else
-             //exception
+        	//Lanza una excepción por fecha inválida.
         	 
 		this.hora = hora;
 		
 		if(zona.equalsIgnoreCase("Estandar") || zona.equalsIgnoreCase("Sin asfaltarr") || zona.equalsIgnoreCase("Peligrosa")) 
 			this.zona = zona;
 		else
-			//exception
+			//Lanza una excepción por zona inválida.
 			
 		this.mascotas = mascotas;
 		
 		if(equipaje.equalsIgnoreCase("Manual") || equipaje.equalsIgnoreCase("Baul"))
 			this.equipaje = equipaje;
 		else
-			//exception
+			//Lanza una excepción por tipo de equipaje inválido.
 			
 		if(cantDePasajeros > 0)
 			this.cantDePasajeros = cantDePasajeros;
 		else
-			//exception
+			 //Lanza una excepción por cantidad de pasajeros inválida
 			
 		this.cliente = cliente;
 	}
 	
+    /**
+     * Obtiene la fecha del pedido.
+     * 
+     * @return La fecha del pedido.
+     */
 	public LocalDate getFecha() {
 		return fecha;
 	}
 
+    /**
+     * Obtiene la hora del pedido.
+     * 
+     * @return La hora del pedido.
+     */
     public LocalTime getHora() {
         return hora;
     }
-        
+      
+    /**
+     * Obtiene la zona del pedido.
+     * 
+     * @return La zona del pedido.
+     */
 	public String getZona() {
 		return zona;
 	}
 	
+    /**
+     * Indica si hay mascotas en el viaje.
+     * 
+     * @return true si hay mascotas, false de lo contrario.
+     */
 	public boolean isMascotas() {
 		return mascotas;
 	}
 	
+    /**
+     * Obtiene el tipo de equipaje del pedido.
+     * 
+     * @return El tipo de equipaje del pedido.
+     */
 	public String getEquipaje() {
 		return equipaje;
 	}
 	
+    /**
+     * Obtiene la cantidad de pasajeros del pedido.
+     * 
+     * @return La cantidad de pasajeros del pedido.
+     */
 	public int getCantDePasajeros() {
 		return cantDePasajeros;
 	}
 	
+    /**
+     * Obtiene el cliente asociado al pedido.
+     * 
+     * @return El cliente asociado al pedido.
+     */
 	public Cliente getCliente() {
 		return cliente;
 	}

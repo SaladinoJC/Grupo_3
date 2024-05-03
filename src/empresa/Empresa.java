@@ -33,20 +33,22 @@ public class Empresa {
      */
     private ArrayList<Vehiculo>vehiculos;
 	
-	
-	
+    /**
+     * Constructor privado de la clase Empresa.
+     * Se inicializan las listas de clientes, choferes, viajes y vehículos.
+     */
 	private Empresa() {
 		this.choferes=new ArrayList<Chofer>();
 		this.clientes=new ArrayList<Cliente>();
 		this.viajes=new ArrayList<TipoDeViaje>();
-                this.vehiculos=new ArrayList<Vehiculo>();
-		
+        this.vehiculos=new ArrayList<Vehiculo>();
 	}
 	
-        /**
-         * patron singleton
-         * @return 
-         */
+		/**
+		 * Método para obtener la instancia única de la clase Empresa (patrón singleton).
+		 *
+		 * @return La instancia única de la empresa.
+		 */
 		public static Empresa getReferencia()
         {
 			if(referencia == null){
@@ -55,10 +57,13 @@ public class Empresa {
 			return referencia;
         }
         
-        /**
-         * este metodo inserta un chofer a la lista de choferes si ya existe salta una exepcion
-         * @param chofer 
-         */
+	    /**
+	     * Inserta un chofer en la lista de choferes de la empresa.
+	     * Si el chofer ya existe, lanza una excepción.
+	     *
+	     * @param chofer El chofer a insertar.
+	     * @throws 
+	     */
         public void insertarChofer(Chofer chofer)
         {
             if(!buscarChofer(chofer)) 
@@ -70,9 +75,10 @@ public class Empresa {
         }
         
         /**
-         * 
-         * @param chofer
-         * @return true si el chofer existe,caso contrario false
+         * Busca un chofer en la lista de choferes.
+         *
+         * @param chofer El chofer a buscar.
+         * @return true si el chofer existe, false en caso contrario.
          */
         public boolean buscarChofer(Chofer chofer)
         {
@@ -87,9 +93,10 @@ public class Empresa {
         }
         
         /**
-         * 
-         * @param chofer
-         * @return chofer si existe, null si no lo encuantre
+         * Obtiene un chofer si existe.
+         *
+         * @param chofer El chofer x a buscar.
+         * @return El chofer correspondiente si existe, null si no lo encuentra.
          */
         public Chofer buscarXchofer(Chofer chofer)
         {
@@ -108,17 +115,19 @@ public class Empresa {
         }
         
         /**
+         * Obtiene el chofer indicado segun el parametro 
          * 
-         * @param index
-         * @return devuelve un chofer del arraylist
+         * @param index El índice del chofer.
+         * @return El chofer correspondiente del arraylist.
          */
         public Chofer getChofer(int index)
         {
             return choferes.get(index);
         }
         /**
-         * ingresa un chofer al arraylist
-         * @param chofer 
+         * Inserta un chofer en la lista de choferes.
+         * 
+         * @param chofer El chofer a insertar.
          */
         private void setChofer(Chofer chofer)
         {
@@ -126,11 +135,12 @@ public class Empresa {
         }
         
         /**
+         * Devuelve una cadena con los datos de todos los choferes de la empresa.
          * 
-         * @return devuelve un strings con los datos de todos los choferes
-         * @throws SueldoBasicoIncorrectoExeption 
+         * @return un string con los datos de todos los choferes
+         * @throws SueldoBasicoIncorrectoExeption si ocurre un error al calcular el sueldo básico de algún chofer.
          */
-        public  String ListarChoferes() throws SueldoBasicoIncorrectoExeption
+        public String ListarChoferes() throws SueldoBasicoIncorrectoExeption
         {
             int i;
             Chofer aux;
@@ -147,11 +157,14 @@ public class Empresa {
         }
         
         /**
-         * recibe un chofer, una fecha de inicio y una fecha de fin
-         * @param chofer
-         * @param inicio
-         * @param fin
-         * @return un cadena con los viajes que realizo durante la fecha de inicio y fin
+         * Devuelve una cadena con los viajes realizados por un chofer entre dos fechas.
+         * 
+         * @param chofer El chofer del cual se desean listar los viajes.
+         * @param inicio La fecha de inicio de los viajes.
+         * @param fin La fecha de fin de los viajes.
+         * @return Una cadena con los viajes realzados por el chofer en el intervalo de tiempo especificado.
+         * @throws TODO nombre incorrecto
+         * @throws TODO fecha de fin con fecha anterior a fecha de inicio o ponerlo en las precondiciones
          */
         public String ListarViajesXchofer(Chofer chofer,LocalDate inicio,LocalDate fin)
         {
@@ -184,18 +197,21 @@ public class Empresa {
             return cadena;
         }
         //codigo vehiculos
+        
         /**
+         * Devuelve un vehículo de la lista según su índice.
          * 
-         * @param index
-         * @return devuelve un vehiculo de la lista 
+         * @param index El índice del vehículo en la lista.
+         * @return el vehículo de la lista en la posición especificada. 
          */
         public Vehiculo getVehiculo(int index)
         {
             return vehiculos.get(index);
         }
         /**
-         * inserta un vehiculo en la lista
-         * @param vehiculo 
+         * Inserta un vehículo en la lista de vehículos.
+         * 
+         * @param vehiculo El vehículo que se desea insertar. 
          */
         private void setVehiculo(Vehiculo vehiculo)
         {
@@ -203,8 +219,9 @@ public class Empresa {
         }
        
         /**
+         * Devuelve una cadena con la representación de todos los vehículos.
          * 
-         * @return devuelve una cadena con todos los vehiculos
+         * @return una cadena con todos los vehiculos.
          */
         public String ListarVehiculos()
         {
@@ -221,9 +238,10 @@ public class Empresa {
         }
         
         /**
-         * busca un vehiculo
-         * @param vehiculo
-         * @return true si existe, false si no existe
+         * Busca un vehículo en la lista.
+         * 
+         * @param vehiculo El vehículo que se desea buscar.
+         * @return true si el vehículo existe en la lista, false de lo contrario.
          */
         public boolean buscarVehiculo(Vehiculo vehiculo)
         {
@@ -238,9 +256,10 @@ public class Empresa {
         }
 	
          /**
+          * Busca un vehículo en la lista y devuelve una referencia a él.
           * 
-          * @param vehiculo
-          * @return un vehiculo en particular, si no lo encuentra retorna null
+          * @param vehiculo El vehículo que se desea buscar.
+          * @return el vehiculo encontrado, si no lo encuentra devuelve null.
           */
          public Vehiculo buscarXVehiculo(Vehiculo vehiculo)
         {
@@ -259,8 +278,10 @@ public class Empresa {
         }
          
         /**
-         * inserta un vehiculo
-         * @param vehiculo 
+         * Inserta un vehículo en la lista de vehículos, si no existe.
+         * 
+         * @param vehiculo El vehículo que se desea insertar.
+         * @throws TODO IllegalArgumentException si el vehículo ya existe en la lista.
          */ 
         public void insertarVehiculo(Vehiculo vehiculo)
         {
@@ -269,24 +290,27 @@ public class Empresa {
             else
             {
                 //aca va una exepcion
+            	//throw new IllegalArgumentException("El vehículo ya existe en la lista.");
             }
         }
         
         //codigo de clientes
+        
         /**
+         * Obtiene un cliente de la lista según su índice.
          * 
-         * @param index
-         * @return devuelve un cliente de la lista
+         * @param index El índice del cliente en la lista.
+         * @return devuelve un cliente de la lista en la posición especificada.
          */
         public Cliente getCliente(int index)
         {
             return clientes.get(index);
         }
         
-        //agrega un cliente
         /**
-         * agrega un cliente a la lista de clientes
-         * @param cliente 
+         * Agrega un cliente a la lista de clientes.
+         * 
+         * @param cliente El cliente que se desea agregar.
          */
         private void setCliente(Cliente cliente)
         {
@@ -294,8 +318,9 @@ public class Empresa {
         }
         
         /**
+         * Genera una cadena con la representación de todos los clientes.
          * 
-         * @return devuelve una cadena con todos los clientes 
+         * @return una cadena con todos los clientes.
          */
         public String ListarClientes()
         {
@@ -312,9 +337,10 @@ public class Empresa {
         }
         
         /**
-         * busca un cliente
-         * @param cliente
-         * @return devuelve true si existe el cliente,false si no existe
+         * Busca un cliente en la lista.
+         * 
+         * @param cliente El cliente que se desea buscar.
+         * @return true si existe el cliente, false si no existe.
          */
         public  boolean buscarCliente(Cliente cliente)
         {
@@ -329,9 +355,10 @@ public class Empresa {
         }
         
         /**
-         * busca un cliente
-         * @param cliente
-         * @return devuelve el cliente si lo encuentra, null si no lo encuentra
+         * Busca un cliente 
+         * 
+         * @param cliente El cliente que se desea buscar.
+         * @return el cliente si lo encuentra, null si no lo encuentra.
          */
          public Cliente buscarXcliente (Cliente cliente)
         {
@@ -350,11 +377,14 @@ public class Empresa {
         }
          
         /**
-         * recibe un cliente, una fecha de ingreso y una fecha de fin
-         * @param cliente
-         * @param inicio
-         * @param fin
-         * @return devuelve una cadena con todos los viajes q realizo de la fecha de ingreso y la de fin
+         * Genera una cadena con la lista de viajes realizados por un cliente en un rango de fechas.
+         * 
+         * @param cliente El cliente del cual se desean obtener los viajes.
+         * @param inicio La fecha de inicio del rango.
+         * @param fin La fecha de fin del rango.
+         * @return una cadena que contiene la lista de viajes realizados por el cliente en las fechas indicadas.
+         * @throws TODO excepcion si el cliente no existe
+         * @throws TODO excepcion fecha de fin con fecha anterior a fecha de inicio o ponerlo en las precondiciones
          */
         public String ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin)
         {
@@ -387,8 +417,10 @@ public class Empresa {
         }
         
         /**
-         * inserta un cliente, si este no existe en la lista
-         * @param cliente 
+         * Inserta un cliente en la lista si este no existe.
+         * 
+         * @param cliente El cliente que se desea insertar.
+         * @throws TODO ClienteExistenteException Si el cliente ya existe en la lista.
          */
         public void insertarCliente(Cliente cliente)
         {
@@ -396,14 +428,16 @@ public class Empresa {
                 setCliente(cliente);
             else
             {
-                //aca va una exepcion
+            	// Lanza una excepción si el cliente ya existe
+                //throw new ClienteExistenteException("El cliente ya existe en la lista.");
             }
         }
         
         /**
+         * Obtiene un viaje de la lista según su índice.
          * 
-         * @param index
-         * @return devuelve un viaje
+         * @param index El índice del viaje en la lista.
+         * @return el viaje en la posición especificada.
          */
         public TipoDeViaje getViaje(int index)
         {
@@ -411,16 +445,17 @@ public class Empresa {
         }
         
         /**
-         * inserta un viaje
-         * @param viaje 
+         * Inserta un viaje en la lista de viajes.
+         * 
+         * @param viaje El viaje que se desea insertar.
          */
         public void setViaje(TipoDeViaje viaje)
         {
             viajes.add(viaje);
         }
         /**
-         * 
-         * @return devuelve un vector con todos los viajes
+         * Genera una cadena de todos los viajes.
+         * @return una cadena con todos los viajes.
          */
         public String ListarViajes()
         {
@@ -435,11 +470,11 @@ public class Empresa {
             }
             return cadena;
         }
-        //ordena la lista viajes por costos
-        
+         
        /**
-        * ordena los viajes por costos en una lista clonada
-        * @return devuelve una cadena con todos los viajes ordenamos de mayor a menor 
+        * Ordena los viajes por costos en una lista clonada y genera una cadena con la lista ordenada.
+        * 
+        * @return una cadena que contiene la lista de viajes ordenados por costo de mayor a menor. 
         */
         public String ordenarViajesXCostos()
         {
@@ -467,9 +502,11 @@ public class Empresa {
             }
             return cadena;//retorna la cadena
         }
+        
         /**
-         * clona el arraylista y lo almacena en un vector
-         * @return retorna la referencia a dicho vector
+         * Clona el ArrayList de viajes y lo almacena en un vector.
+         * 
+         * @return devuelve la referencia al vector clonado.
          */
         private TipoDeViaje[] clon()
         {
@@ -481,10 +518,10 @@ public class Empresa {
         }
 
         /**
-         * desde la clase empresa se setea el sueldo de los contratados,respecto la cantidad de viajes q realizo
-         * 
+         * Desde la clase Empresa, establece el sueldo de los choferes contratados según la cantidad de viajes que realizaron.
+         * @throws TODO SueldoBasicoIncorrectoExeption()
          */
-        public void setiarSueldoContratados()throws SueldoBasicoIncorrectoExeption
+        public void setiarSueldoContratados() throws SueldoBasicoIncorrectoExeption
         {
             Chofer aux;
             Contratado contratado;
@@ -515,7 +552,7 @@ public class Empresa {
         }
         
         /**
-         * seteo la cantidad de viajes que realizaron los temporarios
+         * Setea la cantidad de viajes que realizaron los temporarios.
          */
         public void setiarCantidadViajesTemporarios()
         {
@@ -542,7 +579,7 @@ public class Empresa {
         }
         
         /**
-         * calcula y setea el puntaje de cada chofer
+         * Calcula y establece el puntaje de cada chofer.
          */
         public void calculoDePuntaje()
         {
@@ -570,9 +607,10 @@ public class Empresa {
         }
         
         /**
+         * Calcula el total a pagar de la empresa en sueldos.
          * 
-         * @return devuelve el total a pagar de la empresa en sueldos 
-         * @throws SueldoBasicoIncorrectoExeption 
+         * @return Devuelve el total a pagar de la empresa en sueldos.
+         * @throws SueldoBasicoIncorrectoExeption Si el calculo del sueldo básico es incorrecto.
          */
         public double TotalPagar() throws SueldoBasicoIncorrectoExeption
         {

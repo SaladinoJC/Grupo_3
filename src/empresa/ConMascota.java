@@ -3,17 +3,35 @@ package empresa;
 import choferes.Chofer;
 import vehiculos.Vehiculo;
 
+/**
+ * Clase que representa un viaje con mascota en el sistema.
+ */
 public class ConMascota extends Mascota {
 
+    /**
+     * Constructor de la clase ConMascota.
+     * 
+     * @param tipo_de_viaje El tipo de viaje asociado al viaje con mascota.
+     */
 	public ConMascota(TipoDeViaje tipo_de_viaje) {
 		super(tipo_de_viaje);
 	}
 
+    /**
+     * Calcula el incremento en el costo por pasajero del viaje.
+     * 
+     * @return El incremento en el costo por pasajero del viaje.
+     */
 	@Override
 	public double getIncPax() {
 		return 1.1 * getPrecioBase()*getPasajeros() + getTipoDeViaje().getIncPax();
 	}
-
+	
+    /**
+     * Calcula el incremento en el costo por kilómetro del viaje.
+     * 
+     * @return El incremento en el costo por kilómetro del viaje.
+     */
 	@Override
 	public double getIncKm() {
 		return 1.2 * getPrecioBase()*getDistanciaRealRecorrida() + getTipoDeViaje().getIncKm();
@@ -24,36 +42,72 @@ public class ConMascota extends Mascota {
 		return "Viaje ConMascota " + this.getTipoDeViaje().toString() + "\n\n Su costo total fue: $"+ this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm() +".\n\n\n";
 	}
 
+    /**
+     * Obtiene el chofer asociado al tipo de viaje.
+     * 
+     * @return El chofer asociado al tipo de viaje.
+     */
 	@Override
 	public Chofer getChofer() {
 		return this.getTipoDeViaje().getChofer();
 	}
 
+    /**
+     * Obtiene el pedido asociado al tipo de viaje.
+     * 
+     * @return El pedido asociado al tipo de viaje.
+     */
 	@Override
 	public Pedido getPedido() {
 		return this.getTipoDeViaje().getPedido();
 	}
 
+    /**
+     * Obtiene la distancia real recorrida del tipo de viaje.
+     * 
+     * @return La distancia real recorrida del tipo de viaje.
+     */
 	@Override
 	public double getDistanciaRealRecorrida() {
 		return this.getTipoDeViaje().getDistanciaRealRecorrida();
 	}
 
+
+    /**
+     * Obtiene el costo total del viaje con mascota.
+     * 
+     * @return El costo total del viaje con mascota.
+     */
 	@Override
 	public double getCostoTotal() {
 		return getPrecioBase() + this.getIncKm() + this.getIncPax();
 	}
-
+	
+    /**
+     * Obtiene el vehículo asociado al tipo de viaje.
+     * 
+     * @return El vehículo asociado al tipo de viaje.
+     */
 	@Override
 	public Vehiculo getVehiculo() {
 		return this.getTipoDeViaje().getVehiculo();
 	}
 
+    /**
+     * Obtiene el precio base del tipo de viaje.
+     * 
+     * @return El precio base del tipo de viaje.
+     */
 	@Override
 	public double getPrecioBase() {
 		return this.getTipoDeViaje().getPrecioBase();
 	}
 
+    /**
+     * Obtiene la cantidad de pasajeros asociada al tipo de viaje.
+     * 
+     * @return La cantidad de pasajeros asociada al tipo de viaje.
+     */
 	@Override
 	public int getPasajeros() {
 		return this.getTipoDeViaje().getPasajeros();

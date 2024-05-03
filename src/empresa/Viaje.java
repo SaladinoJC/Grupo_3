@@ -4,26 +4,48 @@ import choferes.Chofer;
 import vehiculos.Vehiculo;
 import empresa.FactoryViaje;
 
+/**
+ * La clase abstracta Viaje representa un tipo genérico de viaje.
+ * Implementa la interfaz TipoDeViaje y proporciona métodos comunes para los diferentes tipos de viaje.
+ */
 
 public abstract class Viaje implements TipoDeViaje{
-    /**
+   
+	/**
+     * El pedido asociado al viaje.
      * @aggregation composite
      */
     protected Pedido pedido;
 
     /**
+     * El chofer asignado al viaje.
      * @aggregation shared
      */
     protected Chofer chofer;
 
     /**
+     * El vehículo utilizado en el viaje.
      * @aggregation shared
      */
     protected Vehiculo vehiculo;
+    /**
+     * La distancia real recorrida en el viaje.
+     */
 	protected double distanciaRealRecorrida;
+    /**
+     * El precio base del viaje.
+     */
 	private static double precioBase=1000;
         
-
+    /**
+     * Constructor de la clase Viaje.
+     * 
+     * @param pedido                  El pedido asociado al viaje.
+     * @param chofer                  El chofer asignado al viaje.
+     * @param distanciaRealRecorrida  La distancia real recorrida en el viaje.
+     * @param vehiculo                El vehículo utilizado en el viaje.
+     * @throws TODO Lanza excepcion en caos de que la distanciaRealRecorrida sea menor a 0, puede ser una precondición
+     */
 	public Viaje(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
         this.pedido = pedido;
 		this.chofer = chofer;
@@ -34,10 +56,21 @@ public abstract class Viaje implements TipoDeViaje{
 		this.vehiculo=vehiculo;
 	}
 	
+    /**
+     * Obtiene el vehículo utilizado en el viaje.
+     * 
+     * @return El vehículo del viaje.
+     */
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
 
+    /**
+     * Establece el precio base del viaje.
+     * 
+     * @param precioBase El nuevo precio base del viaje.
+     * @throws TODO Lanza excepcion en caso de que el precio base sea menor a 0, podria ser una precondición.
+     */
 	public static void setPrecioBase(double precioBase) {
 		if(precioBase > 0)
 			Viaje.precioBase = precioBase;  
@@ -46,22 +79,48 @@ public abstract class Viaje implements TipoDeViaje{
 			//exception
 	}
 	
+    /**
+     * Obtiene el precio base del viaje.
+     * 
+     * @return El precio base del viaje.
+     */
 	public double getPrecioBase() {
 		return precioBase;
 	}
 
+    /**
+     * Obtiene el pedido asociado al viaje.
+     * 
+     * @return El pedido del viaje.
+     */
 	public Pedido getPedido() {
 		return pedido;
 	}
 
+    /**
+     * Obtiene el chofer asignado al viaje.
+     * 
+     * @return El chofer del viaje.
+     */
 	public Chofer getChofer() {
 		return chofer;
 	}
 
+    /**
+     * Obtiene la distancia real recorrida en el viaje.
+     * 
+     * @return La distancia real recorrida en el viaje.
+     */
 	public double getDistanciaRealRecorrida() {
 		return distanciaRealRecorrida;
 	}
 
+
+    /**
+     * Obtiene la cantidad de pasajeros del viaje.
+     * 
+     * @return El número de pasajeros del viaje.
+     */
 	@Override
 	public int getPasajeros() {
 		return this.getPedido().getCantDePasajeros();
