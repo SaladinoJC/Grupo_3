@@ -11,7 +11,7 @@ package empresa;
 public class Administrador {
     private String nombre;
     private String nombreDeUsuario;
-    private String contraseña;
+    private String contrasenia;
 
     /**
      * Constructor de la clase Administrador.
@@ -20,10 +20,10 @@ public class Administrador {
      * @param nombreDeUsuario El nombre de usuario del administrador.
      * @param contrase�a      La contrase�a del administrador.
      */
-    public Administrador(String nombre, String nombreDeUsuario, String contraseña) {
+    public Administrador(String nombre, String nombreDeUsuario, String contrasenia) {
         this.nombre = nombre;
         this.nombreDeUsuario = nombreDeUsuario;
-        this.contraseña = contraseña;
+        this.contrasenia = contrasenia;
     }
 
     /**
@@ -49,8 +49,8 @@ public class Administrador {
      * 
      * @return La contrase�a del administrador.
      */
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Administrador {
      */
 	@Override
 	public String toString() {
-		return "Administrador [nombre=" + nombre + ", nombreDeUsuario=" + nombreDeUsuario + ", contraseña=" + contraseña
+		return "Administrador [nombre=" + nombre + ", nombreDeUsuario=" + nombreDeUsuario + ", contraseña=" + contrasenia
 				+ "]";
 	}
     

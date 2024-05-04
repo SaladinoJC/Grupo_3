@@ -10,6 +10,11 @@ import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import java.time.LocalDate;
 import vehiculos.Vehiculo;
 
+/**
+ * La clase Empresa representa todos los datos de la empresa.
+ * Puede lanzar excepciones
+ */
+
 public class Empresa {
 	private static Empresa referencia;
 
@@ -37,7 +42,7 @@ public class Empresa {
      * Constructor privado de la clase Empresa.
      * Se inicializan las listas de clientes, choferes, viajes y vehículos.
      */
-	private Empresa() {
+	public Empresa() {
 		this.choferes=new ArrayList<Chofer>();
 		this.clientes=new ArrayList<Cliente>();
 		this.viajes=new ArrayList<TipoDeViaje>();
@@ -124,6 +129,7 @@ public class Empresa {
         {
             return choferes.get(index);
         }
+        
         /**
          * Inserta un chofer en la lista de choferes.
          * 

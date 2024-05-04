@@ -2,6 +2,10 @@ package empresa;
 
 import java.time.*;
 
+import empresa.excepciones.DateInvalidException;
+import empresa.excepciones.LuggageInvalidException;
+import empresa.excepciones.ZoneInvalidException;
+
 /**
  * La clase Pedido representa un pedido de viaje en la empresa.
  * Contiene información sobre la fecha, hora, zona, mascotas, equipaje, cantidad de pasajeros y el cliente asociado al pedido.
@@ -32,30 +36,30 @@ public class Pedido implements Cloneable{
      * @param equipaje         El tipo de equipaje.
      * @param cantDePasajeros  La cantidad de pasajeros.
      * @param cliente          El cliente que realiza el pedido.
-     * @throws TODO error en la fecha
-     * @throws TODO error en la zona
-     * @throws TODO error en equipaje
+     * @throws TODO error en la fecha - dateInvalidException
+     * @throws TODO error en la zona  - zoneInvalidException	
+     * @throws TODO error en equipaje - luggageInvalideException
      * @throws TODO error en cant de pasajeros, tal vez puede ser una precondición
      */
-	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) {
+	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException{
 		if(fecha.getYear()>0)
 			this.fecha = fecha;
          else
-        	//Lanza una excepción por fecha inválida.
+        	throw new DateInvalidException(fecha);
         	 
 		this.hora = hora;
 		
-		if(zona.equalsIgnoreCase("Estandar") || zona.equalsIgnoreCase("Sin asfaltarr") || zona.equalsIgnoreCase("Peligrosa")) 
+		if(zona.equalsIgnoreCase("Estandar") || zona.equalsIgnoreCase("Sin asfaltar") || zona.equalsIgnoreCase("Peligrosa")) 
 			this.zona = zona;
 		else
-			//Lanza una excepción por zona inválida.
+			throw new ZoneInvalidException(zona);
 			
 		this.mascotas = mascotas;
 		
 		if(equipaje.equalsIgnoreCase("Manual") || equipaje.equalsIgnoreCase("Baul"))
 			this.equipaje = equipaje;
 		else
-			//Lanza una excepción por tipo de equipaje inválido.
+			throw new LuggageInvalidException(equipaje);
 			
 		if(cantDePasajeros > 0)
 			this.cantDePasajeros = cantDePasajeros;
