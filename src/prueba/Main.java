@@ -71,7 +71,7 @@ public class Main {
         	Pedido P = new Pedido(fechaEjemplo1, timeEjemplo1, "Sin asfaltar", false, "Manual", 3, c1);
         }
         catch(DateInvalidException e1){
-        	
+        	LocalDate date = e1.getDate();
         }
         catch(ZoneInvalidException e2){
         	String zone = e2.getZone();

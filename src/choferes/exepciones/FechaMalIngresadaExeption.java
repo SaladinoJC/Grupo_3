@@ -8,15 +8,28 @@ import java.time.LocalDate;
 
 /**
  *
+ * Excepción que se lanza cuando se ingresa una fecha inválida.
+ * La fecha no puede ser un año negativo.
+ * 
  * @author manso
  */
 public class FechaMalIngresadaExeption extends Exception{
     protected LocalDate fecha;
 
+    /**
+     * Construye una nueva excepción con la fecha especificada.
+     * 
+     * @param fecha La fecha que causó la excepción.
+     */
     public FechaMalIngresadaExeption(LocalDate fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Obtiene la fecha que causó la excepción.
+     * 
+     * @return La fecha que causó la excepción.
+     */
     public LocalDate getFecha() {
         return fecha;
     }
