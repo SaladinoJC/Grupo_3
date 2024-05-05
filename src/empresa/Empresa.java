@@ -58,9 +58,9 @@ public class Empresa {
 	}
 	
 		/**
-		 * M�todo para obtener la instancia �nica de la clase Empresa (patr�n singleton).
+		 * Metodo para obtener la instancia unica de la clase Empresa (patron singleton).
 		 *
-		 * @return La instancia �nica de la empresa.
+		 * @return La instancia unica de la empresa.
 		 */
 		public static Empresa getReferencia()
         {
@@ -69,13 +69,15 @@ public class Empresa {
 			}
 			return referencia;
         }
+		
+		//CODIGO DE CHOFER
         
 	    /**
 	     * Inserta un chofer en la lista de choferes de la empresa.
 	     * Si el chofer ya existe, lanza una excepci�n.
 	     *
 	     * @param chofer El chofer a insertar.
-	     * @throws 
+	     * @throws TODO 
 	     */
         public void insertarChofer(Chofer chofer)
         {	if (choferes.isEmpty())
@@ -85,6 +87,7 @@ public class Empresa {
                 setChofer(chofer);
             else
             {
+            	
                 //una exepcion
             }   
         }
@@ -133,7 +136,7 @@ public class Empresa {
         /**
          * Obtiene el chofer indicado segun el parametro 
          * 
-         * @param index El �ndice del chofer.
+         * @param index El indice del chofer.
          * @return El chofer correspondiente del arraylist.
          */
         public Chofer getChofer(int index)
@@ -173,64 +176,30 @@ public class Empresa {
             return cadena;
         }
         
-        
-        
-        /**
-         * Devuelve una cadena con los viajes realizados por un chofer entre dos fechas.
-         * 
-         * @param chofer El chofer del cual se desean listar los viajes.
-         * @param inicio La fecha de inicio de los viajes.
-         * @param fin La fecha de fin de los viajes.
-         * @return Una cadena con los viajes realzados por el chofer en el intervalo de tiempo especificado.
-         * @throws TODO nombre incorrecto
-         * @throws TODO fecha de fin con fecha anterior a fecha de inicio o ponerlo en las precondiciones
-         */
-        public String ListarViajesXchofer(Chofer chofer,LocalDate inicio,LocalDate fin)
-        {
-            LocalDate fecha;
-            TipoDeViaje viaje;
-            String cadena="";
-            int i;
-            if(buscarChofer(chofer) && inicio.isBefore(fin))//busca que el chofer exista
-            {
-                for(i=0;i<viajes.size();i++)
-                {
-                    viaje=getViaje(i);
-                    fecha=viaje.getPedido().getFecha();
-                    //pregunto que viajes realizo el chofer y si se encuentra entre la fechas de parametros
-                    if(viaje.getChofer().equals(chofer) && (fecha.isAfter(inicio) && fecha.isBefore(fin) ))//pregunto q viajes realizo este cliente
-                    {
-                          cadena=cadena.concat(viaje.toString());
-                          cadena=cadena.concat("\n\n");
-                    }   
-                        
-                }
-            }
-            else
-                if(!buscarChofer(chofer))
-                	System.out.println("robertiti");
-                  //exepcion el chofer no existe
-                else
-                	System.out.println("roberto");
-                    //otra exepcion por que la fecha inicio no es menor fin
-            return cadena;
-        }
-        //codigo vehiculos
+        public Chofer asignoChofer() throws NoHayChoferDisponibleException{
+			if (this.choferes.isEmpty())
+				 throw new NoHayChoferDisponibleException();
+			else
+				return this.getChofer(0);
+		}
+              
+
+        //CODIGO VEHICULOS
         
         /**
-         * Devuelve un veh�culo de la lista seg�n su �ndice.
+         * Devuelve un vehiculo de la lista segun su indice.
          * 
-         * @param index El �ndice del veh�culo en la lista.
-         * @return el veh�culo de la lista en la posici�n especificada. 
+         * @param index El indice del vehiculo en la lista.
+         * @return el vehiculo de la lista en la posicion especificada. 
          */
         public Vehiculo getVehiculo(int index)
         {
             return vehiculos.get(index);
         }
         /**
-         * Inserta un veh�culo en la lista de veh�culos.
+         * Inserta un vehiculo en la lista de vehiculos.
          * 
-         * @param vehiculo El veh�culo que se desea insertar. 
+         * @param vehiculo El vehiculo que se desea insertar. 
          */
         private void setVehiculo(Vehiculo vehiculo)
         {
@@ -255,6 +224,64 @@ public class Empresa {
             }
             return cadena;
         }
+        
+        /**
+         * Chequea si hay alguno vehiculo disponible
+         * 
+         * @param p El pedido que le llega para chequear si hay un auto disponible para ese pedido
+         * @throws NoHayVehiculoDisponibleException
+         */
+		public void dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
+			int i=0;
+			boolean ok=false;
+			Vehiculo aux;
+			while(i<vehiculos.size()&& !ok)
+            {
+               aux=getVehiculo(i);
+               if ((p.getCantDePasajeros()<=aux.getCantMaxPasajeros())&&((p.isMascotas()==false)||(p.isMascotas()==aux.isPetFriendly()))&&((p.getEquipaje().equalsIgnoreCase("Manual"))||(p.getEquipaje().equalsIgnoreCase("Baul")&&aux.isBaul())))
+               ok=true;
+               i++;
+            }
+			if (!ok) {
+				throw new NoHayVehiculoDisponibleException();
+			}			
+		}
+		
+        /**
+         * Recorre la lista de vehiculos y devuelve el de mayor prioridad
+         * 
+         * @return 
+         */
+        public Vehiculo BuscarVehiculoPrioritario(Pedido p){
+        	int prioridad = 0, prioridadAct, i=0;
+        	Vehiculo act, aux;
+        	while (i<vehiculos.size()) {
+        		act = getVehiculo(i);
+        		prioridadAct = act.getPrioridad(p); 
+        		if (prioridadAct > prioridad) {
+        			aux = act;
+        			prioridad = prioridadAct;
+        		}
+        	}
+            return aux; //Devuelvo un aux aunque no lo haya inicializado porque ya cheque que hay alguno disponible
+        }
+        
+        /**
+         * Devuelve el vehiculo con mas prioridad para el pedido recibido por parametro
+         * 
+         * @return Devuelve el vehiculo a asignar
+         */
+		public Vehiculo asignoVehiculo(Pedido p) {
+			try {
+				dispVehiculo(p);
+			} catch (NoHayVehiculoDisponibleException e) {
+				System.out.println("No hay vehiculo disponible para el pedido "+ p.toString());
+			}
+			System.out.println("El vehiculo a asignar es"+ BuscarVehiculoPrioritario(p));
+			
+			//return this.vehiculos.get(2);
+			return BuscarVehiculoPrioritario(p);
+		}
         
         /**
          * Busca un veh�culo en la lista.
@@ -317,12 +344,19 @@ public class Empresa {
             }
         }
         
-
-        
-        
-        
-        //codigo de clientes
-        
+		/**
+		 * Devuelve un numero aletorio para simular las distancias de un viaje. 
+		 * 
+		 * @return un numero aleatorio entre 1 y 30
+		 */
+		public double getDistancia() {
+			Random random = new Random();
+			return random.nextInt(30)+1;
+		}
+		
+   
+        //CODIGO DE CLIENTES
+		
         /**
          * Obtiene un cliente de la lista seg�n su �ndice.
          * 
@@ -459,9 +493,52 @@ public class Empresa {
                 setCliente(cliente);
             else
             {
-            	// Lanza una excepci�n si el cliente ya existe
+            	// Lanza una excepcion si el cliente ya existe
                 throw new ClienteExistenteException(cliente);
             }
+        }
+        
+        //CODIGO DE VIAJE
+        
+        /**
+         * Devuelve una cadena con los viajes realizados por un chofer entre dos fechas.
+         * 
+         * @param chofer El chofer del cual se desean listar los viajes.
+         * @param inicio La fecha de inicio de los viajes.
+         * @param fin La fecha de fin de los viajes.
+         * @return Una cadena con los viajes realzados por el chofer en el intervalo de tiempo especificado.
+         * @throws TODO nombre incorrecto
+         * @throws TODO fecha de fin con fecha anterior a fecha de inicio o ponerlo en las precondiciones
+         */
+        public String ListarViajesXchofer(Chofer chofer,LocalDate inicio,LocalDate fin)
+        {
+            LocalDate fecha;
+            TipoDeViaje viaje;
+            String cadena="";
+            int i;
+            if(buscarChofer(chofer) && inicio.isBefore(fin))//busca que el chofer exista
+            {
+                for(i=0;i<viajes.size();i++)
+                {
+                    viaje=getViaje(i);
+                    fecha=viaje.getPedido().getFecha();
+                    //pregunto que viajes realizo el chofer y si se encuentra entre la fechas de parametros
+                    if(viaje.getChofer().equals(chofer) && (fecha.isAfter(inicio) && fecha.isBefore(fin) ))//pregunto q viajes realizo este cliente
+                    {
+                          cadena=cadena.concat(viaje.toString());
+                          cadena=cadena.concat("\n\n");
+                    }   
+                        
+                }
+            }
+            else
+                if(!buscarChofer(chofer))
+                	System.out.println("robertiti");
+                  	//exepcion el chofer no existe
+                else
+                	System.out.println("roberto");
+                    //otra exepcion por que la fecha inicio no es menor fin
+            return cadena;
         }
         
         /**
@@ -484,8 +561,10 @@ public class Empresa {
         {
             viajes.add(viaje);
         }
+        
         /**
          * Genera una cadena de todos los viajes.
+         * 
          * @return una cadena con todos los viajes.
          */
         public String ListarViajes()
@@ -514,7 +593,7 @@ public class Empresa {
             double costo;
             String cadena="";
             int i,j;
-            for(i=1;i<viajes.size();i++)//odenamiento por insercion
+            for(i=1;i<viajes.size();i++)//ordenamiento por insercion
             {
                 aux=clon[i];
                 costo=aux.getCostoTotal();
@@ -547,6 +626,35 @@ public class Empresa {
                 vector[i]=(TipoDeViaje)viajes.get(i).clone();
             return vector;
         }
+                
+        /**
+         * Setea la cantidad de viajes que realizaron los temporarios.
+         */
+        public void setiarCantidadViajesTemporarios()
+        {
+            Chofer aux;
+            Temporario temporario;
+            TipoDeViaje viaje;
+            int i,j,cont;
+            for(i=0;i<choferes.size();i++)
+            {
+                aux=getChofer(i);
+                cont=0;
+                if(aux.getClass().getSimpleName().equals("Temporario"))//busco choferes temporarios
+                {
+                    for(j=0;j<viajes.size();j++)//busco los viajes q realizo dicho chofer temporarios
+                    {
+                        viaje=getViaje(j);
+                        if(viaje.getChofer().equals(aux))//si el chofer temporario realizo este viaje  aumento el contador
+                                    cont++; 
+                    }     
+                   temporario=(Temporario)aux;
+                   temporario.setCantViajes(cont);
+                }
+            }
+        }
+        
+        //RESTO DE CODIGO
 
         /**
          * Desde la clase Empresa, establece el sueldo de los choferes contratados seg�n la cantidad de viajes que realizaron.
@@ -579,34 +687,6 @@ public class Empresa {
                     contratado.setSueldo(sueldo);
                 }
             }
- 
-        }
-        
-        /**
-         * Setea la cantidad de viajes que realizaron los temporarios.
-         */
-        public void setiarCantidadViajesTemporarios()
-        {
-            Chofer aux;
-            Temporario temporario;
-            TipoDeViaje viaje;
-            int i,j,cont;
-            for(i=0;i<choferes.size();i++)
-            {
-                aux=getChofer(i);
-                cont=0;
-                if(aux.getClass().getSimpleName().equals("Temporario"))//busco choferes temporarios
-                {
-                    for(j=0;j<viajes.size();j++)//busco los viajes q realizo dicho chofer temporarios
-                    {
-                        viaje=getViaje(j);
-                        if(viaje.getChofer().equals(aux))//si el chofer temporario realizo este viaje  aumento el contador
-                                    cont++; 
-                    }     
-                   temporario=(Temporario)aux;
-                   temporario.setCantViajes(cont);
-                }
-            }
         }
         
         /**
@@ -619,22 +699,22 @@ public class Empresa {
             int i,j,cont,max=-1;
             for(i=0;i<choferes.size();i++)
             {
-                aux=getChofer(i);//voy cargando cada choffer
+                aux=getChofer(i); //voy cargando cada choffer
                 cont=0;
-                for(j=0;j<viajes.size();j++)//recorro la lista de viajes
+                for(j=0;j<viajes.size();j++) //recorro la lista de viajes
                 {
                     viaje=getViaje(j);
-                    if(viaje.getChofer().equals(aux))//si el chofer realizo ese viaje aumento el contador en 1
+                    if(viaje.getChofer().equals(aux)) //si el chofer realizo ese viaje aumento el contador en 1
                             cont++;
                 }
-                aux.setPuntaje(cont*5);//seteo puntaje del chofer
-                if(max<cont)//si es el chofer con mas viajes realizados me lo guardo
+                aux.setPuntaje(cont*5); //seteo puntaje del chofer
+                if(max<cont) //si es el chofer con mas viajes realizados me lo guardo
                 {
                     mayor=aux;
                     max=cont;
                 }    
             }
-            mayor.aumentarPuntaje(15);//aumento en 15 puntos al chofer q mas viajes realizo
+            mayor.aumentarPuntaje(15); //aumento en 15 puntos al chofer que mas viajes realizo
         }
         
         /**
@@ -658,53 +738,9 @@ public class Empresa {
             return total;
         }
         
-        
-
 		@Override
 		public String toString() {
-			return "Empresa [clientes=" + clientes + ", choferes=" + choferes + ", viajes=" + viajes + ", vehiculos="
-					+ vehiculos + "]";
+			return "Empresa [clientes=" + clientes + ", choferes=" + choferes + ", viajes=" + viajes + ", vehiculos=" + vehiculos + "]";
 		}
-
-		public Chofer asignoChofer() throws NoHayChoferDisponibleException{
-			if (this.choferes.isEmpty())
-				 throw new NoHayChoferDisponibleException();
-			else
-				return this.getChofer(0);
-		}
-
-		public void dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
-			int i=0;
-			boolean ok=false;
-			Vehiculo aux;
-			while(i<vehiculos.size()&& !ok)
-            {
-               aux=getVehiculo(i);
-               if ((p.getCantDePasajeros()<=aux.getCantMaxPasajeros())&&((p.isMascotas()==false)||(p.isMascotas()==aux.isPetFriendly()))&&((p.getEquipaje().equalsIgnoreCase("Manual"))||(p.getEquipaje().equalsIgnoreCase("Baul")&&aux.isBaul())))
-               ok=true;
-               i++;
-            }
-			if (!ok) {
-				throw new NoHayVehiculoDisponibleException();
-			}
-			
-			
-			
-		}
-
-		public double getDistancia() {
-			Random random = new Random();
-			return random.nextInt(30)+1;
-		}
-		/**
-         * Devuelve el vehiculo con mas prioridad para el pedido recibido por parametro
-         * 
-         * @return Devuelve el vehiculo a asignar
-         */
-		public Vehiculo asignoVehiculo(Pedido p) {
-			System.out.println("El vehiculo a asignarrrrrrrrr es"+ this.vehiculos.get(2));
-			return this.vehiculos.get(2);
-		}
-        
-        
+ 
 }
