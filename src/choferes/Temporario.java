@@ -8,7 +8,7 @@ import choferes.exepciones.valorPositivoExeption;
 /**
  * Representa un chofer contratado temporalmente.
  * Extiende de la clase empleado.
- * Esta clase lanza las excepciones PorcentajeExeption, SueldoBasicoIncorrectoExeption y valorPositivoExeption si los valores ingresados no son válidos.
+ * Esta clase lanza las excepciones PorcentajeExeption, SueldoBasicoIncorrectoExeption y valorPositivoExeption si los valores ingresados no son vï¿½lidos.
  */
 
 public class Temporario extends Empleado {
@@ -22,10 +22,10 @@ public class Temporario extends Empleado {
      * @param aportes 			El porcentaje de aportes que debe realizar.
      * @param nombre 			El nombre del chofer.
      * @param DNI 				El DNI del chofer.
-     * @param sueldoBasico 		El sueldo básico del chofer.
+     * @param sueldoBasico 		El sueldo bï¿½sico del chofer.
      * @throws PorcentajeExeption 				Si el porcentaje es negativo.
      * @throws DNImalingresadoExeption 			Si el DNI ingresado es incorrecto.
-     * @throws SueldoBasicoIncorrectoExeption 	Si el sueldo básico es negativo.
+     * @throws SueldoBasicoIncorrectoExeption 	Si el sueldo bï¿½sico es negativo.
      */
     public Temporario(double plusXcantViajes, double aportes, String nombre, String DNI, double sueldoBasico) throws PorcentajeExeption, DNImalingresadoExeption, SueldoBasicoIncorrectoExeption {
         super(aportes, nombre, DNI, sueldoBasico);
@@ -93,9 +93,9 @@ public class Temporario extends Empleado {
 
     @Override
     public String toString() {
-        return "Temporario\nnombre+"+getNombre()+"\nDNI:"+getDNI()+"\nSueldo:"+getSueldo()
-         +"\npuntaje:"+getPuntaje()+"\naportes:"+getAportes()+"\nplus por cantidad de viajes:"+getPlusXcantViajes()
-         +"\ncantidad de viajes realizados;"+getCantViajes();   
+        return "Temporario:"+getNombre()+" -- DNI:"+getDNI()+" -- Sueldo:"+getSueldo()
+         +" -- puntaje:"+getPuntaje()+" -- aportes:"+getAportes()+" -- pcantviajes:"+getPlusXcantViajes()
+         +" -- cantviajes:"+getCantViajes();   
     }   
 
     /**

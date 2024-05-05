@@ -10,7 +10,7 @@ import java.time.*;
  * Clase que representa a un empleado permanente, un tipo de chofer.
  * <p>Extiende la clase Empleado.</p>
  * <p>La clase Permanente lanza las excepciones PorcentajeExeption, DNImalingresadoExeption, SueldoBasicoIncorrectoExeption, 
- * valorPositivoExeption y FechaMalIngresadaExeption si los valores ingresados no son válidos.</p>
+ * valorPositivoExeption y FechaMalIngresadaExeption si los valores ingresados no son vï¿½lidos.</p>
  */
 public class Permanente extends Empleado {
     private double plusXantiguedad;
@@ -21,19 +21,19 @@ public class Permanente extends Empleado {
     /**
      * Constructor de la clase Permanente.
      * 
-     * @param plusXantiguedad 	El porcentaje por antigüedad.
+     * @param plusXantiguedad 	El porcentaje por antigï¿½edad.
      * @param plusXhijos 	 	El porcentaje por hijos.
      * @param cantHijos 	 	La cantidad de hijos.
      * @param fechaIngreso 	 	La fecha de ingreso.
      * @param aportes 		 	Los aportes del empleado.
      * @param nombre 		 	El nombre del empleado.
      * @param DNI 			 	El DNI del empleado.
-     * @param sueldoBasico	 	El sueldo básico del empleado.
-     * @throws PorcentajeExeption 				Si el porcentaje por antigüedad o por hijos es inválido.
-     * @throws DNImalingresadoExeption 			Si el DNI es inválido.
-     * @throws SueldoBasicoIncorrectoExeption	Si el sueldo básico es inválido.
-     * @throws valorPositivoExeption 			Si la cantidad de hijos es inválida.
-     * @throws FechaMalIngresadaExeption 		Si la fecha de ingreso es inválida.
+     * @param sueldoBasico	 	El sueldo bï¿½sico del empleado.
+     * @throws PorcentajeExeption 				Si el porcentaje por antigï¿½edad o por hijos es invï¿½lido.
+     * @throws DNImalingresadoExeption 			Si el DNI es invï¿½lido.
+     * @throws SueldoBasicoIncorrectoExeption	Si el sueldo bï¿½sico es invï¿½lido.
+     * @throws valorPositivoExeption 			Si la cantidad de hijos es invï¿½lida.
+     * @throws FechaMalIngresadaExeption 		Si la fecha de ingreso es invï¿½lida.
      */
     public Permanente(double plusXantiguedad, double plusXhijos, int cantHijos,LocalDate fechaIngreso,
                      double aportes, String nombre, String DNI, double sueldoBasico) throws PorcentajeExeption, DNImalingresadoExeption, 
@@ -58,9 +58,9 @@ public class Permanente extends Empleado {
     }
 
     /**
-     * Devuelve el porcentaje por antigüedad.
+     * Devuelve el porcentaje por antigï¿½edad.
      * 
-     * @return El porcentaje por antigüedad.
+     * @return El porcentaje por antigï¿½edad.
      */
     public double getPlusXantiguedad() {
         return plusXantiguedad;
@@ -94,10 +94,10 @@ public class Permanente extends Empleado {
     }
 
     /**
-     * Setea el porcentaje por antigüedad.
+     * Setea el porcentaje por antigï¿½edad.
      * 
-     * @param plusXantiguedad El porcentaje por antigüedad a establecer.
-     * @throws PorcentajeExeption Si el porcentaje por antigüedad es negativo.
+     * @param plusXantiguedad El porcentaje por antigï¿½edad a establecer.
+     * @throws PorcentajeExeption Si el porcentaje por antigï¿½edad es negativo.
      */
     public void setPlusXantiguedad(double plusXantiguedad)throws PorcentajeExeption{
         if(plusXantiguedad >= 0)
@@ -135,9 +135,9 @@ public class Permanente extends Empleado {
     
     @Override
     public String toString() {
-        return "Permanente\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo basico:"+getSueldoBasico()+"\nsueldo:"+getSueldo()
-                +"\npuntaje:"+getPuntaje()+"\nplus x antiguedad"+getPlusXantiguedad()+"\nplus x hijos"+getPlusXhijos()
-                +"\ncantidad de hijos"+getCantHijos()+"\nfecha de ingreso"+getFechaIngreso();
+        return "Permanente:"+getNombre()+" -- DNI:"+getDNI()+" -- sueldo basico:"+getSueldoBasico()+" -- sueldo:"+getSueldo()
+                +" -- puntaje:"+getPuntaje()+" -- Pantig:"+getPlusXantiguedad()+" -- pxhijos:"+getPlusXhijos()
+                +" -- cantidad de hijos:"+getCantHijos()+" -- fecha de ingreso:"+getFechaIngreso();
     }
 
     /**
@@ -148,14 +148,9 @@ public class Permanente extends Empleado {
     @Override
     public double getSueldo() {
         double aux=getSueldoBasico();
-        System.out.println("el sueldo basico en calcular sueldo es"+ aux);
         aux+=aux*(plusXantiguedad/100);
-        System.out.println("aux en calcular sueldo es"+ aux);
         aux+=aux*((plusXhijos/100)*cantHijos);
-        System.out.println("aux2 en calcular sueldo es"+ aux);
         aux-=aux*getAportes();
-        System.out.println("auxfinal en calcular sueldo es"+ aux);
-            
         return aux;
     }
     

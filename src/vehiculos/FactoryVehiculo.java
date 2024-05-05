@@ -9,25 +9,25 @@ import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
 public class FactoryVehiculo{
 	
 	/**
-	 * Crea y devuelve un objeto de tipo Vehiculo según los parámetros proporcionados.
+	 * Crea y devuelve un objeto de tipo Vehiculo segï¿½n los parï¿½metros proporcionados.
 	 * 
-	 * @param nroPatente         El número de patente del vehículo.
-	 * @param cantMaxPasajeros   La cantidad máxima de pasajeros que puede llevar el vehículo.
-	 * @param petFriendly        Indica si el vehículo es apto para mascotas o no.
-	 * @param baul               Indica si el vehículo tiene baul o no.
-	 * @return Un objeto de tipo Vehiculo creado según los parámetros.
-	 * @throws NoSePuedeCrearVehiculoException si no se puede crear el vehículo con los parámetros dados.
+	 * @param nroPatente         El nï¿½mero de patente del vehï¿½culo.
+	 * @param cantMaxPasajeros   La cantidad mï¿½xima de pasajeros que puede llevar el vehï¿½culo.
+	 * @param petFriendly        Indica si el vehï¿½culo es apto para mascotas o no.
+	 * @param baul               Indica si el vehï¿½culo tiene baul o no.
+	 * @return Un objeto de tipo Vehiculo creado segï¿½n los parï¿½metros.
+	 * @throws NoSePuedeCrearVehiculoException si no se puede crear el vehï¿½culo con los parï¿½metros dados.
 	 */
 	public Vehiculo getVehiculo(String nroPatente, int cantMaxPasajeros, boolean petFriendly, boolean baul) throws NoSePuedeCrearVehiculoException {
 		Vehiculo vehiculo=null;
 		
-		if(!petFriendly && !baul)
+		if(!petFriendly && !baul && (cantMaxPasajeros==1))
 			vehiculo = new Moto(nroPatente, cantMaxPasajeros, petFriendly, baul);
 		else
-			if(!petFriendly && baul)
+			if(!petFriendly && baul && (cantMaxPasajeros==10))
 				vehiculo = new Combi(nroPatente, cantMaxPasajeros, petFriendly, baul);
 			else 
-				if(petFriendly && baul)
+				if(petFriendly && baul && (cantMaxPasajeros==4))
 					vehiculo = new Auto(nroPatente, cantMaxPasajeros, petFriendly, baul);
 		
 		if(vehiculo==null)

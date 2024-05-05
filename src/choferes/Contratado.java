@@ -7,7 +7,7 @@ import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 /**
  * Clase que representa a un chofer contratado.
  * Extiende de la clase chofer.
- * Esta clase lanza las excepciones PorcentajeExeption, DNImalingresadoExeption y SueldoBasicoIncorrectoExeption si los valores ingresados no son válidos.
+ * Esta clase lanza las excepciones PorcentajeExeption, DNImalingresadoExeption y SueldoBasicoIncorrectoExeption si los valores ingresados no son vï¿½lidos.
  */
 
 public class Contratado extends Chofer {
@@ -20,10 +20,10 @@ public class Contratado extends Chofer {
      * 
      * @param gananciaViaje El porcentaje de ganancia que obtiene por cada viaje.
      * @param nombre 		El nombre del chofer.
-     * @param DNI 			El número de DNI del chofer.
+     * @param DNI 			El nï¿½mero de DNI del chofer.
      * @throws PorcentajeExeption 		      Si el porcentaje de ganancia es negativo.
-     * @throws DNImalingresadoExeption		  Si el formato del DNI no es válido.
-     * @throws SueldoBasicoIncorrectoExeption Si el sueldo básico es negativo.
+     * @throws DNImalingresadoExeption		  Si el formato del DNI no es vï¿½lido.
+     * @throws SueldoBasicoIncorrectoExeption Si el sueldo bï¿½sico es negativo.
      */
     public Contratado(double gananciaViaje, String nombre, String DNI) throws PorcentajeExeption, DNImalingresadoExeption, SueldoBasicoIncorrectoExeption{
         super(nombre, DNI);
@@ -74,10 +74,10 @@ public class Contratado extends Chofer {
     }
 
     /**
-     * Establece el sueldo básico del chofer contratado.
+     * Establece el sueldo bï¿½sico del chofer contratado.
      * 
-     * @param sueldo El nuevo sueldo básico del chofer contratado.
-     * @throws lanza SueldoBasicoIncorrectoExeption Si el sueldo básico es negativo.
+     * @param sueldo El nuevo sueldo bï¿½sico del chofer contratado.
+     * @throws lanza SueldoBasicoIncorrectoExeption Si el sueldo bï¿½sico es negativo.
      */
     public void setSueldo(double sueldo) throws SueldoBasicoIncorrectoExeption{
         if(sueldo >= 0)
@@ -88,8 +88,8 @@ public class Contratado extends Chofer {
     
     @Override
     public String toString() {
-        return "Contratado\nnombre:"+getNombre()+"\nDNI:"+getDNI()+"\nsueldo:"+getSueldo()
-        +"\npuntaje:"+getPuntaje()+"\nporcentaje por viaje:"+getGananciaViaje();
+        return "Contratado:"+getNombre()+" -- DNI:"+getDNI()+" -- Sueldo: "+getSueldo()
+        + "-- Puntaje:"+getPuntaje()+" -- Porcentaje por viaje:"+getGananciaViaje();
     }
 
     /**

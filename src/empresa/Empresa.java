@@ -6,6 +6,9 @@ import choferes.Chofer;
 import choferes.Contratado;
 import choferes.Temporario;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import vehiculos.FactoryVehiculo;
+import vehiculos.Vehiculo;
+import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
 
 import java.time.LocalDate;
 import vehiculos.Vehiculo;
@@ -40,7 +43,7 @@ public class Empresa {
 	
     /**
      * Constructor privado de la clase Empresa.
-     * Se inicializan las listas de clientes, choferes, viajes y vehículos.
+     * Se inicializan las listas de clientes, choferes, viajes y vehï¿½culos.
      */
 	public Empresa() {
 		this.choferes=new ArrayList<Chofer>();
@@ -50,9 +53,9 @@ public class Empresa {
 	}
 	
 		/**
-		 * Método para obtener la instancia única de la clase Empresa (patrón singleton).
+		 * Mï¿½todo para obtener la instancia ï¿½nica de la clase Empresa (patrï¿½n singleton).
 		 *
-		 * @return La instancia única de la empresa.
+		 * @return La instancia ï¿½nica de la empresa.
 		 */
 		public static Empresa getReferencia()
         {
@@ -64,13 +67,15 @@ public class Empresa {
         
 	    /**
 	     * Inserta un chofer en la lista de choferes de la empresa.
-	     * Si el chofer ya existe, lanza una excepción.
+	     * Si el chofer ya existe, lanza una excepciï¿½n.
 	     *
 	     * @param chofer El chofer a insertar.
 	     * @throws 
 	     */
         public void insertarChofer(Chofer chofer)
-        {
+        {	if (choferes.isEmpty())
+        	setChofer(chofer);
+        	else
             if(!buscarChofer(chofer)) 
                 setChofer(chofer);
             else
@@ -92,6 +97,7 @@ public class Empresa {
             while(i<choferes.size() && !aux.equals(chofer))
             {
                 i++;
+                if (i<choferes.size())
                 aux=getChofer(i);
             }
             return i<choferes.size();
@@ -122,7 +128,7 @@ public class Empresa {
         /**
          * Obtiene el chofer indicado segun el parametro 
          * 
-         * @param index El índice del chofer.
+         * @param index El ï¿½ndice del chofer.
          * @return El chofer correspondiente del arraylist.
          */
         public Chofer getChofer(int index)
@@ -144,7 +150,7 @@ public class Empresa {
          * Devuelve una cadena con los datos de todos los choferes de la empresa.
          * 
          * @return un string con los datos de todos los choferes
-         * @throws SueldoBasicoIncorrectoExeption si ocurre un error al calcular el sueldo básico de algún chofer.
+         * @throws SueldoBasicoIncorrectoExeption si ocurre un error al calcular el sueldo bï¿½sico de algï¿½n chofer.
          */
         public String ListarChoferes() throws SueldoBasicoIncorrectoExeption
         {
@@ -205,19 +211,19 @@ public class Empresa {
         //codigo vehiculos
         
         /**
-         * Devuelve un vehículo de la lista según su índice.
+         * Devuelve un vehï¿½culo de la lista segï¿½n su ï¿½ndice.
          * 
-         * @param index El índice del vehículo en la lista.
-         * @return el vehículo de la lista en la posición especificada. 
+         * @param index El ï¿½ndice del vehï¿½culo en la lista.
+         * @return el vehï¿½culo de la lista en la posiciï¿½n especificada. 
          */
         public Vehiculo getVehiculo(int index)
         {
             return vehiculos.get(index);
         }
         /**
-         * Inserta un vehículo en la lista de vehículos.
+         * Inserta un vehï¿½culo en la lista de vehï¿½culos.
          * 
-         * @param vehiculo El vehículo que se desea insertar. 
+         * @param vehiculo El vehï¿½culo que se desea insertar. 
          */
         private void setVehiculo(Vehiculo vehiculo)
         {
@@ -225,7 +231,7 @@ public class Empresa {
         }
        
         /**
-         * Devuelve una cadena con la representación de todos los vehículos.
+         * Devuelve una cadena con la representaciï¿½n de todos los vehï¿½culos.
          * 
          * @return una cadena con todos los vehiculos.
          */
@@ -244,10 +250,10 @@ public class Empresa {
         }
         
         /**
-         * Busca un vehículo en la lista.
+         * Busca un vehï¿½culo en la lista.
          * 
-         * @param vehiculo El vehículo que se desea buscar.
-         * @return true si el vehículo existe en la lista, false de lo contrario.
+         * @param vehiculo El vehï¿½culo que se desea buscar.
+         * @return true si el vehï¿½culo existe en la lista, false de lo contrario.
          */
         public boolean buscarVehiculo(Vehiculo vehiculo)
         {
@@ -256,15 +262,16 @@ public class Empresa {
             while(i<vehiculos.size() && !aux.equals(vehiculo))
             {
                 i++;
+                if (i<vehiculos.size())
                 aux=getVehiculo(i);
             }
             return i<vehiculos.size();
         }
 	
          /**
-          * Busca un vehículo en la lista y devuelve una referencia a él.
+          * Busca un vehï¿½culo en la lista y devuelve una referencia a ï¿½l.
           * 
-          * @param vehiculo El vehículo que se desea buscar.
+          * @param vehiculo El vehï¿½culo que se desea buscar.
           * @return el vehiculo encontrado, si no lo encuentra devuelve null.
           */
          public Vehiculo buscarXVehiculo(Vehiculo vehiculo)
@@ -284,29 +291,35 @@ public class Empresa {
         }
          
         /**
-         * Inserta un vehículo en la lista de vehículos, si no existe.
+         * Inserta un vehï¿½culo en la lista de vehï¿½culos, si no existe.
          * 
-         * @param vehiculo El vehículo que se desea insertar.
-         * @throws TODO IllegalArgumentException si el vehículo ya existe en la lista.
+         * @param vehiculo El vehï¿½culo que se desea insertar.
+         * @throws TODO IllegalArgumentException si el vehï¿½culo ya existe en la lista.
          */ 
         public void insertarVehiculo(Vehiculo vehiculo)
-        {
+        {	if(vehiculos.isEmpty()) 
+        	setVehiculo(vehiculo);
+        	else
             if(!buscarVehiculo(vehiculo))
                 setVehiculo(vehiculo);
             else
             {
                 //aca va una exepcion
-            	//throw new IllegalArgumentException("El vehículo ya existe en la lista.");
+            	//throw new IllegalArgumentException("El vehï¿½culo ya existe en la lista.");
             }
         }
+        
+
+        
+        
         
         //codigo de clientes
         
         /**
-         * Obtiene un cliente de la lista según su índice.
+         * Obtiene un cliente de la lista segï¿½n su ï¿½ndice.
          * 
-         * @param index El índice del cliente en la lista.
-         * @return devuelve un cliente de la lista en la posición especificada.
+         * @param index El ï¿½ndice del cliente en la lista.
+         * @return devuelve un cliente de la lista en la posiciï¿½n especificada.
          */
         public Cliente getCliente(int index)
         {
@@ -324,7 +337,7 @@ public class Empresa {
         }
         
         /**
-         * Genera una cadena con la representación de todos los clientes.
+         * Genera una cadena con la representaciï¿½n de todos los clientes.
          * 
          * @return una cadena con todos los clientes.
          */
@@ -355,6 +368,7 @@ public class Empresa {
             while(i<clientes.size() && ! aux.equals(cliente))
             {
                 i++;
+                if (i<clientes.size())
                 aux=getCliente(i);
             }
             return i<clientes.size();
@@ -429,21 +443,23 @@ public class Empresa {
          * @throws TODO ClienteExistenteException Si el cliente ya existe en la lista.
          */
         public void insertarCliente(Cliente cliente)
-        {
+        {	if(clientes.isEmpty())
+        		setCliente(cliente);
+        	else
             if(!buscarCliente(cliente))
                 setCliente(cliente);
             else
             {
-            	// Lanza una excepción si el cliente ya existe
+            	// Lanza una excepciï¿½n si el cliente ya existe
                 //throw new ClienteExistenteException("El cliente ya existe en la lista.");
             }
         }
         
         /**
-         * Obtiene un viaje de la lista según su índice.
+         * Obtiene un viaje de la lista segï¿½n su ï¿½ndice.
          * 
-         * @param index El índice del viaje en la lista.
-         * @return el viaje en la posición especificada.
+         * @param index El ï¿½ndice del viaje en la lista.
+         * @return el viaje en la posiciï¿½n especificada.
          */
         public TipoDeViaje getViaje(int index)
         {
@@ -524,7 +540,7 @@ public class Empresa {
         }
 
         /**
-         * Desde la clase Empresa, establece el sueldo de los choferes contratados según la cantidad de viajes que realizaron.
+         * Desde la clase Empresa, establece el sueldo de los choferes contratados segï¿½n la cantidad de viajes que realizaron.
          * @throws TODO SueldoBasicoIncorrectoExeption()
          */
         public void setiarSueldoContratados() throws SueldoBasicoIncorrectoExeption
@@ -616,7 +632,7 @@ public class Empresa {
          * Calcula el total a pagar de la empresa en sueldos.
          * 
          * @return Devuelve el total a pagar de la empresa en sueldos.
-         * @throws SueldoBasicoIncorrectoExeption Si el calculo del sueldo básico es incorrecto.
+         * @throws SueldoBasicoIncorrectoExeption Si el calculo del sueldo bï¿½sico es incorrecto.
          */
         public double TotalPagar() throws SueldoBasicoIncorrectoExeption
         {

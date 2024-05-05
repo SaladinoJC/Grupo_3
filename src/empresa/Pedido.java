@@ -8,7 +8,7 @@ import empresa.excepciones.ZoneInvalidException;
 
 /**
  * La clase Pedido representa un pedido de viaje en la empresa.
- * Contiene información sobre la fecha, hora, zona, mascotas, equipaje, cantidad de pasajeros y el cliente asociado al pedido.
+ * Contiene informaciï¿½n sobre la fecha, hora, zona, mascotas, equipaje, cantidad de pasajeros y el cliente asociado al pedido.
  */
 
 public class Pedido implements Cloneable{
@@ -39,9 +39,10 @@ public class Pedido implements Cloneable{
      * @throws TODO error en la fecha - dateInvalidException
      * @throws TODO error en la zona  - zoneInvalidException	
      * @throws TODO error en equipaje - luggageInvalideException
-     * @throws TODO error en cant de pasajeros, tal vez puede ser una precondición
+     * @throws TODO error en cant de pasajeros, tal vez puede ser una precondiciï¿½n
      */
 	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException{
+
 		if(fecha.getYear()>0)
 			this.fecha = fecha;
          else
@@ -63,10 +64,11 @@ public class Pedido implements Cloneable{
 			
 		if(cantDePasajeros > 0)
 			this.cantDePasajeros = cantDePasajeros;
-		else
-			 //Lanza una excepción por cantidad de pasajeros inválida
-			
+		else {
+			 //Lanza una excepciï¿½n por cantidad de pasajeros invï¿½lida
+		}
 		this.cliente = cliente;
+
 	}
 	
     /**
@@ -134,7 +136,7 @@ public class Pedido implements Cloneable{
 
     @Override
     public String toString() {
-        return "Pedido {" + "\nfecha: " + fecha +"\nfue a la hora: "+hora+ "\nzona: " + zona + "\nmascotas: " + mascotas + "\nequipaje: " + equipaje + "\ncantDePasajeros: " + cantDePasajeros + "\ncliente " + cliente +" }";
+        return "Pedido {" + "\nfecha: " + fecha +"\nfue a la hora: "+hora+ "\nzona: " + zona + "\nmascotas: " + mascotas + "\nequipaje: " + equipaje + "\ncantDePasajeros: " + cantDePasajeros + "\ncliente " + this.cliente +" }";
     }
 
 	@Override
