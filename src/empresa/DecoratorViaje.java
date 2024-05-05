@@ -1,9 +1,9 @@
 package empresa;
-import empresa.TipoDeViaje;
+
 
 /**
- * La clase abstracta DecoratorViaje es una implementación de TipoDeViaje que actúa como un decorador para tipos de viaje.
- * Proporciona métodos para obtener y establecer el tipo de viaje decorado.
+ * La clase abstracta DecoratorViaje es una implementaciï¿½n de TipoDeViaje que actï¿½a como un decorador para tipos de viaje.
+ * Proporciona mï¿½todos para obtener y establecer el tipo de viaje decorado.
  */
 
 public abstract class DecoratorViaje implements TipoDeViaje {
