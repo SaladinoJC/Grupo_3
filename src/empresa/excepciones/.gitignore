@@ -2,3 +2,5 @@
 /LuggageInvalidException.class
 /ZoneInvalidException.class
 /ClienteExistenteException.class
+/NoHayChoferDisponibleException.class
+/NoHayVehiculoDisponibleException.class

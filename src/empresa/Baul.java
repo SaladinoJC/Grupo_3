@@ -25,21 +25,21 @@ public class Baul extends Equipaje {
      */
 	@Override
 	public double getIncPax() {
-		return 1.1 * getPrecioBase()*getPasajeros() + this.getTipoDeViaje().getIncPax();
+		return 0.1 * getPrecioBase()*getPasajeros() + this.getTipoDeViaje().getIncPax();
 	}
 
     /**
-     * Calcula el incremento en el costo por kilómetro del equipaje Baul.
+     * Calcula el incremento en el costo por kilï¿½metro del equipaje Baul.
      * 
-     * @return El incremento en el costo por kilómetro del equipaje Baul.
+     * @return El incremento en el costo por kilï¿½metro del equipaje Baul.
      */
 	@Override
 	public double getIncKm() {
-		return 1.05 * getPrecioBase()*getDistanciaRealRecorrida() + this.getTipoDeViaje().getIncKm();
+		return 0.05 * getPrecioBase()*getDistanciaRealRecorrida() + this.getTipoDeViaje().getIncKm();
 	}
 
     /**
-     * Devuelve una representación en forma de cadena del objeto Baul.
+     * Devuelve una representaciï¿½n en forma de cadena del objeto Baul.
      * 
      * @return Una cadena que representa el objeto Baul.
      */
@@ -89,9 +89,9 @@ public class Baul extends Equipaje {
 	}
 
     /**
-     * Obtiene el vehículo asociado al tipo de viaje.
+     * Obtiene el vehï¿½culo asociado al tipo de viaje.
      * 
-     * @return El vehículo asociado al tipo de viaje.
+     * @return El vehï¿½culo asociado al tipo de viaje.
      */
 	@Override
 	public Vehiculo getVehiculo() {

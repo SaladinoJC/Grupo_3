@@ -4,7 +4,7 @@ import choferes.Chofer;
 import vehiculos.Vehiculo;
 
 /**
- * Representa un tipo de viaje estándar.
+ * Representa un tipo de viaje estï¿½ndar.
  * Este tipo de viaje se caracteriza por tener un incremento de tarifa basado en la distancia recorrida y la cantidad de pasajeros.
  */
 public class Estandar extends Viaje {
@@ -15,7 +15,7 @@ public class Estandar extends Viaje {
 	 * @param pedido                 El pedido asociado.
 	 * @param chofer                 El chofer asignado.
 	 * @param distanciaRealRecorrida La distancia real recorrida en el viaje.
-	 * @param vehiculo               El tipo de vehículo utilizado en el viaje.
+	 * @param vehiculo               El tipo de vehï¿½culo utilizado en el viaje.
 	 */
 	public Estandar(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
 		super(pedido, chofer, distanciaRealRecorrida, vehiculo);
@@ -28,17 +28,17 @@ public class Estandar extends Viaje {
 	 */
 	@Override
 	public double getIncPax() {
-		return 1.1 * getPrecioBase() * getPasajeros();
+		return 0.1 * getPrecioBase() * getPasajeros()+getPrecioBase();
 	}
 
 	/**
 	 * Calcula el incremento en la tarifa debido a la distancia recorrida.
 	 * 
-	 * @return El incremento en la tarifa por kilómetro recorrido.
+	 * @return El incremento en la tarifa por kilï¿½metro recorrido.
 	 */
 	@Override
 	public double getIncKm() {
-		return 1.1 * getPrecioBase() * getDistanciaRealRecorrida();
+		return 0.1 * getPrecioBase() * getDistanciaRealRecorrida();
 	}
 	
 	public String toString() {
@@ -54,9 +54,9 @@ public class Estandar extends Viaje {
 	}
 
 	/**
-	 * Calcula el costo total del viaje estándar.
+	 * Calcula el costo total del viaje estï¿½ndar.
 	 * 
-	 * @return El costo total del viaje estándar.
+	 * @return El costo total del viaje estï¿½ndar.
 	 */
 	@Override
 	public double getCostoTotal() {

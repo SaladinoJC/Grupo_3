@@ -1,12 +1,15 @@
 package empresa;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import choferes.Chofer;
 import choferes.Contratado;
 import choferes.Temporario;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import empresa.excepciones.ClienteExistenteException;
+import empresa.excepciones.NoHayChoferDisponibleException;
+import empresa.excepciones.NoHayVehiculoDisponibleException;
 import vehiculos.FactoryVehiculo;
 import vehiculos.Vehiculo;
 import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
@@ -661,6 +664,46 @@ public class Empresa {
 		public String toString() {
 			return "Empresa [clientes=" + clientes + ", choferes=" + choferes + ", viajes=" + viajes + ", vehiculos="
 					+ vehiculos + "]";
+		}
+
+		public Chofer asignoChofer() throws NoHayChoferDisponibleException{
+			if (this.choferes.isEmpty())
+				 throw new NoHayChoferDisponibleException();
+			else
+				return this.getChofer(0);
+		}
+
+		public void dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
+			int i=0;
+			boolean ok=false;
+			Vehiculo aux;
+			while(i<vehiculos.size()&& !ok)
+            {
+               aux=getVehiculo(i);
+               if ((p.getCantDePasajeros()<=aux.getCantMaxPasajeros())&&((p.isMascotas()==false)||(p.isMascotas()==aux.isPetFriendly()))&&((p.getEquipaje().equalsIgnoreCase("Manual"))||(p.getEquipaje().equalsIgnoreCase("Baul")&&aux.isBaul())))
+               ok=true;
+               i++;
+            }
+			if (!ok) {
+				throw new NoHayVehiculoDisponibleException();
+			}
+			
+			
+			
+		}
+
+		public double getDistancia() {
+			Random random = new Random();
+			return random.nextInt(30)+1;
+		}
+		/**
+         * Devuelve el vehiculo con mas prioridad para el pedido recibido por parametro
+         * 
+         * @return Devuelve el vehiculo a asignar
+         */
+		public Vehiculo asignoVehiculo(Pedido p) {
+			System.out.println("El vehiculo a asignarrrrrrrrr es"+ this.vehiculos.get(2));
+			return this.vehiculos.get(2);
 		}
         
         

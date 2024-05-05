@@ -1,10 +1,14 @@
 package prueba;
 
 import empresa.Sistema;
+import empresa.TipoDeViaje;
+import empresa.Viaje;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.ZoneInvalidException;
 import empresa.excepciones.LuggageInvalidException;
+import empresa.excepciones.NoHayChoferDisponibleException;
+import empresa.excepciones.NoHayVehiculoDisponibleException;
 import empresa.FactoryViaje;
 import vehiculos.FactoryVehiculo;
 import vehiculos.Vehiculo;
@@ -39,7 +43,7 @@ public class Main {
         //LocalDate fechaEjemplo3 = LocalDate.of(2004, 12, 12);
         // Crear una nueva instancia de Sistema
         Sistema s = new Sistema(adm);
-        Empresa E = new Empresa(); //cambie el constructor a public para poder testear
+        //Empresa E = new Empresa(); //cambie el constructor a public para poder testear
         FactoryViaje factoryviaje = new FactoryViaje();
         FactoryVehiculo factoryvehiculo = new FactoryVehiculo();
         
@@ -60,7 +64,7 @@ public class Main {
         
         try {
             Vehiculo v1 = factoryvehiculo.getVehiculo("111AAA", 4, true, true);
-            E.insertarVehiculo(v1);
+            s.GUILLEsa.insertarVehiculo(v1);
         } catch (NoSePuedeCrearVehiculoException e) {
             // Manejo de la excepción si no se puede crear el vehículo
             System.out.println("No se pudo crear el vehículo: " + e.getNroPatente());
@@ -70,7 +74,7 @@ public class Main {
 		}    
         try {
         	Vehiculo v2 = factoryvehiculo.getVehiculo("222BBB", 3, true, true);
-            E.insertarVehiculo(v2);
+        	s.GUILLEsa.insertarVehiculo(v2);
         } catch (NoSePuedeCrearVehiculoException e) {
             // Manejo de la excepción si no se puede crear el vehículo
             System.out.println("No se pudo crear el vehículo: " + e.getNroPatente());
@@ -80,7 +84,7 @@ public class Main {
 		}  
         try {
         	Vehiculo v3 = factoryvehiculo.getVehiculo("333CCC", 10, false, true);
-            E.insertarVehiculo(v3);
+        	s.GUILLEsa.insertarVehiculo(v3);
         } catch (NoSePuedeCrearVehiculoException e) {
             // Manejo de la excepción si no se puede crear el vehículo
             System.out.println("No se pudo crear el vehículo: " + e.getNroPatente());
@@ -90,7 +94,7 @@ public class Main {
 		}  
         try {
         	Vehiculo v4 = factoryvehiculo.getVehiculo("444DDD", 10, true, true);
-            E.insertarVehiculo(v4);
+        	s.GUILLEsa.insertarVehiculo(v4);
         } catch (NoSePuedeCrearVehiculoException e) {
             // Manejo de la excepción si no se puede crear el vehículo
             System.out.println("No se pudo crear el vehículo: " + e.getNroPatente());
@@ -100,8 +104,8 @@ public class Main {
 		}  
         try {
         	Vehiculo v5 = factoryvehiculo.getVehiculo("555EEE", 1, false, false);
-            E.insertarVehiculo(v5);
-            E.insertarVehiculo(v5);
+        	s.GUILLEsa.insertarVehiculo(v5);
+        	s.GUILLEsa.insertarVehiculo(v5);
         } catch (NoSePuedeCrearVehiculoException e) {
             // Manejo de la excepción si no se puede crear el vehículo
             System.out.println("No se pudo crear el vehículo: " + e.getNroPatente());
@@ -111,7 +115,7 @@ public class Main {
 		}  
         try {
         	Vehiculo v6 = factoryvehiculo.getVehiculo("666FFF", 3, false, true);
-            E.insertarVehiculo(v6);
+        	s.GUILLEsa.insertarVehiculo(v6);
         } catch (NoSePuedeCrearVehiculoException e) {
             // Manejo de la excepción si no se puede crear el vehículo
             System.out.println("No se pudo crear el vehículo: " + e.getNroPatente());
@@ -136,47 +140,52 @@ public class Main {
        // System.out.println("c3 es " + c3);
       //  System.out.println("c4 es " + c4);
         
-        E.insertarChofer(ch1);
-        E.insertarChofer(ch2);
-        E.insertarChofer(ch3);
-        E.insertarChofer(ch4);
+        s.GUILLEsa.insertarChofer(ch1);
+        s.GUILLEsa.insertarChofer(ch2);
+        s.GUILLEsa.insertarChofer(ch3);
+        s.GUILLEsa.insertarChofer(ch4);
         try {
-			E.insertarCliente(c1);
+        	s.GUILLEsa.insertarCliente(c1);
 		} catch (ClienteExistenteException e) {
 			// TODO Auto-generated catch block
 			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
 		}
         try {
-			E.insertarCliente(c2);
+        	s.GUILLEsa.insertarCliente(c2);
 		} catch (ClienteExistenteException e) {
 			// TODO Auto-generated catch block
 			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
 		}
         try {
-			E.insertarCliente(c3);
+        	s.GUILLEsa.insertarCliente(c3);
 		} catch (ClienteExistenteException e) {
 			// TODO Auto-generated catch block
 			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
 		}
         try {
-			E.insertarCliente(c4);
+        	s.GUILLEsa.insertarCliente(c4);
 		} catch (ClienteExistenteException e) {
 			// TODO Auto-generated catch block
 			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
 		}
         try {
-			E.insertarCliente(c4);
+        	s.GUILLEsa.insertarCliente(c4);
 		} catch (ClienteExistenteException e) {
 			// TODO Auto-generated catch block
 			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
 		}
 
         try {
-        	Pedido p = new Pedido(fechaEjemplo1, timeEjemplo1, "Sin asfaltar", false, "Manual", 3, c1);
-        //	try{
-        	//	E.dispVehiculo(p);
-        	//	Viaje v1 = factoryviaje.getViaje(p, E.asignoChofer(),  );
-        	//}
+        	Pedido p = new Pedido(fechaEjemplo1, timeEjemplo1, "Sin asfaltar", false, "Manual", 2, c1);
+        	s.GUILLEsa.dispVehiculo(p);
+        	TipoDeViaje v1 = factoryviaje.getViaje(p, s.GUILLEsa.asignoChofer(), s.GUILLEsa.getDistancia(), s.GUILLEsa.asignoVehiculo(p));
+            System.out.println(" ");
+            System.out.println(" ");
+        	System.out.println(v1);
+        	s.GUILLEsa.setViaje(v1);
+        }
+        catch(NoHayVehiculoDisponibleException e) {
+        	
         }
         catch(DateInvalidException e1){
         	LocalDate date = e1.getDate();
@@ -189,18 +198,23 @@ public class Main {
         catch(LuggageInvalidException e3){
         	String luggage = e3.getLuggage();
         	System.out.println("Error, el dato: "+ luggage + " es invalido");
-        }
+        } catch (NoHayChoferDisponibleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("             Listado de Choferes");
-        System.out.println(E.ListarChoferes());
+        System.out.println(s.GUILLEsa.ListarChoferes());
         System.out.println("             Listado de Vehiculos");
-        System.out.println(E.ListarVehiculos());
+        System.out.println(s.GUILLEsa.ListarVehiculos());
         System.out.println("             Listado de Clientes");
-        System.out.println(E.ListarClientes());
+        System.out.println(s.GUILLEsa.ListarClientes());
         System.out.println("             Listado de Viajes");
-        System.out.println(E.ListarViajes());
-        System.out.println("Total a pagar a los choferes= "+E.TotalPagar());
+        System.out.println(s.GUILLEsa.ListarViajes());
+        System.out.println("Total a pagar a los choferes= "+s.GUILLEsa.TotalPagar());
+
+
 
     }
 }

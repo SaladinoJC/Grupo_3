@@ -6,7 +6,7 @@ import vehiculos.Vehiculo;
 
 /**
  * La clase SinMascota representa un tipo de viaje sin mascotas.
- * Extiende la clase Mascota e implementa métodos específicos para este tipo de viaje.
+ * Extiende la clase Mascota e implementa mï¿½todos especï¿½ficos para este tipo de viaje.
  */
 public class SinMascota extends Mascota {
 
@@ -30,9 +30,9 @@ public class SinMascota extends Mascota {
 	}
 	
     /**
-     * Obtiene el incremento de costo por kilómetro para un viaje sin mascotas. (no aumenta)
+     * Obtiene el incremento de costo por kilï¿½metro para un viaje sin mascotas. (no aumenta)
      * 
-     * @return El incremento de costo por kilómetro.
+     * @return El incremento de costo por kilï¿½metro.
      */
 	@Override
 	public double getIncKm() {
@@ -41,7 +41,7 @@ public class SinMascota extends Mascota {
 
 	@Override
 	public String toString() {
-		return "Viaje SinMascota " + this.getTipoDeViaje().toString() + "\n\nSu costo total fue: $"+ this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm() +".\n\n\n";
+		return "Viaje SinMascota " + this.getTipoDeViaje().toString() + "\nSu costo total fue: $"+( this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm()) +".\n";
 	}
 
     /**
@@ -86,9 +86,9 @@ public class SinMascota extends Mascota {
 	}
 
     /**
-     * Obtiene el vehículo asociado al viaje sin mascotas.
+     * Obtiene el vehï¿½culo asociado al viaje sin mascotas.
      * 
-     * @return El vehículo asociado al viaje sin mascotas.
+     * @return El vehï¿½culo asociado al viaje sin mascotas.
      */
 	@Override
 	public Vehiculo getVehiculo() {

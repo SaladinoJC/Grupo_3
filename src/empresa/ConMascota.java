@@ -1,4 +1,4 @@
-package empresa;
+	package empresa;
 
 import choferes.Chofer;
 import vehiculos.Vehiculo;
@@ -24,22 +24,22 @@ public class ConMascota extends Mascota {
      */
 	@Override
 	public double getIncPax() {
-		return 1.1 * getPrecioBase()*getPasajeros() + getTipoDeViaje().getIncPax();
+		return 0.1 * getPrecioBase()*getPasajeros() + getTipoDeViaje().getIncPax();
 	}
 	
     /**
-     * Calcula el incremento en el costo por kilómetro del viaje.
+     * Calcula el incremento en el costo por kilï¿½metro del viaje.
      * 
-     * @return El incremento en el costo por kilómetro del viaje.
+     * @return El incremento en el costo por kilï¿½metro del viaje.
      */
 	@Override
 	public double getIncKm() {
-		return 1.2 * getPrecioBase()*getDistanciaRealRecorrida() + getTipoDeViaje().getIncKm();
+		return 0.2 * getPrecioBase()*getDistanciaRealRecorrida() + getTipoDeViaje().getIncKm();
 	}
 	
 	@Override
 	public String toString() {
-		return "Viaje ConMascota " + this.getTipoDeViaje().toString() + "\n\n Su costo total fue: $"+ this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm() +".\n\n\n";
+		return "Viaje ConMascota " + this.getTipoDeViaje().toString() + "\n\n Su costo total fue: $"+ (this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm() )+".\n\n\n";
 	}
 
     /**
@@ -84,9 +84,9 @@ public class ConMascota extends Mascota {
 	}
 	
     /**
-     * Obtiene el vehículo asociado al tipo de viaje.
+     * Obtiene el vehï¿½culo asociado al tipo de viaje.
      * 
-     * @return El vehículo asociado al tipo de viaje.
+     * @return El vehï¿½culo asociado al tipo de viaje.
      */
 	@Override
 	public Vehiculo getVehiculo() {

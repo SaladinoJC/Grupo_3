@@ -5,7 +5,7 @@ import vehiculos.Vehiculo;
 
 /**
  * La clase SinAsfaltar representa un tipo de viaje considerado como zona sin asfaltar.
- * Extiende la clase Viaje e implementa métodos específicos para este tipo de viaje.
+ * Extiende la clase Viaje e implementa mï¿½todos especï¿½ficos para este tipo de viaje.
  */
 public class SinAsfaltar extends Viaje {
 
@@ -15,7 +15,7 @@ public class SinAsfaltar extends Viaje {
      * @param pedido                  El pedido asociado.
      * @param chofer                  El chofer asignado.
      * @param distanciaRealRecorrida  La distancia real recorrida en el viaje.
-     * @param vehiculo                El vehículo utilizado en el viaje.
+     * @param vehiculo                El vehï¿½culo utilizado en el viaje.
      */
 	public SinAsfaltar(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
 		super(pedido,chofer,distanciaRealRecorrida,vehiculo);
@@ -28,22 +28,22 @@ public class SinAsfaltar extends Viaje {
      */
 	@Override
 	public double getIncPax() {
-		return 1.2 * getPrecioBase() * getPasajeros();
+		return 0.2 * getPrecioBase() * getPasajeros()+getPrecioBase();
 	}
 
     /**
-     * Calcula el incremento de costo por kilómetro para una zona sin asfaltar.
+     * Calcula el incremento de costo por kilï¿½metro para una zona sin asfaltar.
      * 
-     * @return El incremento de costo por kilómetro.
+     * @return El incremento de costo por kilï¿½metro.
      */
 	@Override
 	public double getIncKm() {
-		return 1.15 * getPrecioBase() * getDistanciaRealRecorrida();
+		return 0.15 * getPrecioBase() * getDistanciaRealRecorrida();
 	}
 
 	@Override
 	public String toString() {
-		return "en Zona SinAsfaltar [ fecha: " + getPedido().getFecha() +" fue a la hora: "+getPedido().getHora()+" la cantidad de pasajeros transportados fue: "+ getPasajeros() +".\n\nCliente: "+ this.getPedido().getCliente() +"\n\nChofer: " + getChofer() + "\n\nVehiculo: " + getVehiculo() + "\n\ndistanciaRealRecorrida=" + getDistanciaRealRecorrida() + "km ]";
+		return "en Zona SinAsfaltar fecha:" + getPedido().getFecha() +" hora:"+getPedido().getHora()+" Pasajeros: "+ getPedido().getCantDePasajeros() +".\nCliente: "+ this.getPedido().getCliente() +"\nChofer: " + getChofer() + "\nVehiculo: " + getVehiculo() + "\nDistanciaRecorrida=" + getDistanciaRealRecorrida() + "km ]";
 	}
 
     /**
