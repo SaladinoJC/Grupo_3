@@ -1,3 +1,4 @@
 /DateInvalidException.class
 /LuggageInvalidException.class
 /ZoneInvalidException.class
+/ClienteExistenteException.class

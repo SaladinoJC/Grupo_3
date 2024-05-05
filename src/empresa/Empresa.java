@@ -6,9 +6,11 @@ import choferes.Chofer;
 import choferes.Contratado;
 import choferes.Temporario;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import empresa.excepciones.ClienteExistenteException;
 import vehiculos.FactoryVehiculo;
 import vehiculos.Vehiculo;
 import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
+import vehiculos.exepciones.VehiculoExistenteException;
 
 import java.time.LocalDate;
 import vehiculos.Vehiculo;
@@ -163,10 +165,12 @@ public class Empresa {
             {
                 aux=getChofer(i);
                 cadena=cadena.concat(aux.toString());
-                cadena=cadena.concat("\n\n");
+                cadena=cadena.concat("\n");
             }
             return cadena;
         }
+        
+        
         
         /**
          * Devuelve una cadena con los viajes realizados por un chofer entre dos fechas.
@@ -244,7 +248,7 @@ public class Empresa {
             {
                 aux=getVehiculo(i);
                 cadena=cadena.concat(aux.toString());
-                cadena=cadena.concat("\n\n");
+                cadena=cadena.concat("\n");
             }
             return cadena;
         }
@@ -294,9 +298,10 @@ public class Empresa {
          * Inserta un veh�culo en la lista de veh�culos, si no existe.
          * 
          * @param vehiculo El veh�culo que se desea insertar.
+         * @throws VehiculoExistenteException 
          * @throws TODO IllegalArgumentException si el veh�culo ya existe en la lista.
          */ 
-        public void insertarVehiculo(Vehiculo vehiculo)
+        public void insertarVehiculo(Vehiculo vehiculo) throws VehiculoExistenteException
         {	if(vehiculos.isEmpty()) 
         	setVehiculo(vehiculo);
         	else
@@ -305,7 +310,7 @@ public class Empresa {
             else
             {
                 //aca va una exepcion
-            	//throw new IllegalArgumentException("El veh�culo ya existe en la lista.");
+            	throw new VehiculoExistenteException(vehiculo);
             }
         }
         
@@ -350,7 +355,7 @@ public class Empresa {
             {
                 aux=getCliente(i);
                 cadena=cadena.concat(aux.toString());
-                cadena=cadena.concat("\n\n");
+                cadena=cadena.concat("\n");
             }
             return cadena;
         }
@@ -440,9 +445,10 @@ public class Empresa {
          * Inserta un cliente en la lista si este no existe.
          * 
          * @param cliente El cliente que se desea insertar.
+         * @throws ClienteExistenteException 
          * @throws TODO ClienteExistenteException Si el cliente ya existe en la lista.
          */
-        public void insertarCliente(Cliente cliente)
+        public void insertarCliente(Cliente cliente) throws ClienteExistenteException
         {	if(clientes.isEmpty())
         		setCliente(cliente);
         	else
@@ -451,7 +457,7 @@ public class Empresa {
             else
             {
             	// Lanza una excepci�n si el cliente ya existe
-                //throw new ClienteExistenteException("El cliente ya existe en la lista.");
+                throw new ClienteExistenteException(cliente);
             }
         }
         
@@ -488,7 +494,7 @@ public class Empresa {
             {
                 aux=viajes.get(i);
                 cadena=cadena.concat(aux.toString());
-                cadena=cadena.concat("\n\n");
+                cadena=cadena.concat("\n");
             }
             return cadena;
         }
@@ -648,6 +654,8 @@ public class Empresa {
             }
             return total;
         }
+        
+        
 
 		@Override
 		public String toString() {

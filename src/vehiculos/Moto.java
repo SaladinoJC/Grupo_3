@@ -1,14 +1,14 @@
 package vehiculos;
 /**
- * Clase que representa un objeto de tipo Moto, que es un tipo de Vehículo.
+ * Clase que representa un objeto de tipo Moto, que es un tipo de Vehï¿½culo.
  */
 public class Moto extends Vehiculo {
 
     /**
      * Constructor de la clase Moto.
      * 
-     * @param nroPatente        El número de patente de la moto.
-     * @param cantMaxPasajeros  La cantidad máxima de pasajeros que puede llevar la moto.
+     * @param nroPatente        El nï¿½mero de patente de la moto.
+     * @param cantMaxPasajeros  La cantidad mï¿½xima de pasajeros que puede llevar la moto.
      * @param petFriendly       Indica si la moto es apta para mascotas o no.
      * @param baul              Indica si la moto tiene baul o no.
      */
@@ -33,12 +33,12 @@ public class Moto extends Vehiculo {
 	}
 
     /**
-     * Devuelve una representación en forma de cadena del objeto Moto.
+     * Devuelve una representaciï¿½n en forma de cadena del objeto Moto.
      * 
      * @return Una cadena que representa el objeto Moto.
      */
 	@Override
 	public String toString() {
-		return "Moto\nnroPatente: " + nroPatente + "\ncantMaxPasajeros="+ cantMaxPasajeros +"\npetFriendly: "+ petFriendly + "\nbaul: "+ baul;
+		return "Moto:  nroPatente: " + nroPatente + "  cantMaxPasajeros="+ cantMaxPasajeros +"  petFriendly: "+ petFriendly + "  baul: "+ baul;
 	}       
 }

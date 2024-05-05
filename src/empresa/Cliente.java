@@ -1,5 +1,7 @@
 package empresa;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -14,7 +16,7 @@ public class Cliente {
      * Constructor de la clase Cliente.
      * 
      * @param nombreDeUsuario El nombre de usuario del cliente.
-     * @param contrasena      La contraseña del cliente.
+     * @param contrasena      La contraseï¿½a del cliente.
      * @param nombreReal      El nombre real del cliente.
      */
     public Cliente(String nombreDeUsuario, String contrasena, String nombreReal) {
@@ -42,18 +44,18 @@ public class Cliente {
 	}
 	
     /**
-     * Obtiene la contraseña del cliente.
+     * Obtiene la contraseï¿½a del cliente.
      * 
-     * @return La contraseña del cliente.
+     * @return La contraseï¿½a del cliente.
      */
 	public String getContrasena() {
 		return contrasena;
 	}
 	
     /**
-     * Establece la contraseña del cliente.
+     * Establece la contraseï¿½a del cliente.
      * 
-     * @param contrasena La nueva contraseña del cliente.
+     * @param contrasena La nueva contraseï¿½a del cliente.
      */
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
@@ -68,6 +70,7 @@ public class Cliente {
 		return nombreReal;
 	}
 
+	
     /**
      * Comprueba si un objeto es igual al cliente.
      * 
@@ -94,7 +97,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Ciente nombre real:"+this.nombreReal+"\nnombre de usuario:"+this.nombreDeUsuario
-         +"\ncontraseÃ±a:"+this.contrasena;
+        return "Cliente:  Nombre "+this.nombreReal+"  Nombre de usuario:"+this.nombreDeUsuario
+         +"  ContraseÃ±a:"+this.contrasena;
     }   
 }

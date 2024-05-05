@@ -1,15 +1,15 @@
 package vehiculos;
 
 /**
- * Clase que representa un objeto de tipo Combi, que es un tipo de Vehículo.
+ * Clase que representa un objeto de tipo Combi, que es un tipo de Vehï¿½culo.
  */
 public class Combi extends Vehiculo {
 
     /**
      * Constructor de la clase Combi.
      * 
-     * @param nroPatente        El número de patente de la combi.
-     * @param cantMaxPasajeros  La cantidad máxima de pasajeros que puede llevar la combi.
+     * @param nroPatente        El nï¿½mero de patente de la combi.
+     * @param cantMaxPasajeros  La cantidad mï¿½xima de pasajeros que puede llevar la combi.
      * @param petFriendly       Indica si la combi es apta para mascotas o no.
      * @param baul              Indica si la combi tiene baul o no.
      */
@@ -38,12 +38,12 @@ public class Combi extends Vehiculo {
 	}
 
     /**
-     * Devuelve una representación en forma de cadena del objeto Combi.
+     * Devuelve una representaciï¿½n en forma de cadena del objeto Combi.
      * 
      * @return Una cadena que representa el objeto Combi.
      */
 	@Override
 	public String toString() {
-		return "Combi\nnroPatente: " + nroPatente + "\ncantMaxPasajeros="+ cantMaxPasajeros +"\npetFriendly: "+ petFriendly + "\nbaul: "+ baul;
+		return "Combi:  nroPatente: " + nroPatente + "  cantMaxPasajeros="+ cantMaxPasajeros +"  petFriendly: "+ petFriendly + "  baul: "+ baul;
 	}
 }

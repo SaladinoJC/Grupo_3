@@ -1,15 +1,15 @@
 package vehiculos;
 
 /**
- * Clase que representa un objeto de tipo Auto, que es un tipo de Vehículo.
+ * Clase que representa un objeto de tipo Auto, que es un tipo de Vehï¿½culo.
  */
 public class Auto extends Vehiculo {
 
     /**
      * Constructor de la clase Auto.
      * 
-     * @param nroPatente        El número de patente del auto.
-     * @param cantMaxPasajeros  La cantidad máxima de pasajeros que puede llevar el auto.
+     * @param nroPatente        El nï¿½mero de patente del auto.
+     * @param cantMaxPasajeros  La cantidad mï¿½xima de pasajeros que puede llevar el auto.
      * @param petFriendly       Indica si el auto es apto para mascotas o no.
      * @param baul              Indica si el auto tiene baul o no.
      */
@@ -38,13 +38,13 @@ public class Auto extends Vehiculo {
 	}
 	
     /**
-     * Devuelve una representación en forma de cadena del objeto Auto.
+     * Devuelve una representaciï¿½n en forma de cadena del objeto Auto.
      * 
      * @return Una cadena que representa el objeto Auto.
      */
 	@Override
 	public String toString() {
-		return "Auto\nnroPatente: " + nroPatente + "\ncantMaxPasajeros="+ cantMaxPasajeros +"\npetFriendly: "+ petFriendly + "\nbaul: "+ baul;
+		return "Auto:  nroPatente: " + nroPatente + "  cantMaxPasajeros="+ cantMaxPasajeros +"  petFriendly: "+ petFriendly + "  baul: "+ baul;
 	}
         
 }
