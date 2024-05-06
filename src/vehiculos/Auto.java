@@ -26,15 +26,15 @@ public class Auto extends Vehiculo {
      * @return La prioridad calculada para el auto.
      */
 	@Override
-	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros) {
+	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros, int CantPasajeros) {
 		if(condPasajeros) {
 			if(condBaul)
-				return this.getCantMaxPasajeros() * 40;
+				return CantPasajeros * 40;
 			else
-				return this.getCantMaxPasajeros() * 30;
+				return CantPasajeros * 30;
 		}
 		else
-			return null;
+			return 0;
 	}
 	
     /**

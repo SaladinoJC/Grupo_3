@@ -142,6 +142,11 @@ public class Sistema implements ManejoDeListas{
     }
 
     @Override
+    public void mueveChofer() {
+      GUILLEsa.mueveChofer();
+   }
+    
+    @Override
      public void insertarCliente(Cliente cliente) throws ClienteExistenteException {
        GUILLEsa.insertarCliente(cliente);
     }
@@ -153,7 +158,7 @@ public class Sistema implements ManejoDeListas{
 
     @Override
     public void setViaje(TipoDeViaje viaje) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    	GUILLEsa.setViaje(viaje);
     }
 
     @Override
@@ -195,6 +200,14 @@ public class Sistema implements ManejoDeListas{
     public Vehiculo asignoVehiculo(Pedido p) {
          return GUILLEsa.asignoVehiculo(p);
     }
+
+	public String ListarViajes() {
+		return GUILLEsa.ListarViajes();
+	}
+
+	public String ordenarViajesXCostos() {
+		return GUILLEsa.ordenarViajesXCostos();
+		}
    
     
 }

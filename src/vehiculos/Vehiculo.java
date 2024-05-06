@@ -16,10 +16,10 @@ public abstract class Vehiculo{
     /**
      * Constructor de la clase Vehiculo.
      * 
-     * @param nroPatente        El número de patente del vehículo.
-     * @param cantMaxPasajeros  La cantidad máxima de pasajeros que puede llevar el vehículo.
-     * @param petFriendly       Indica si el vehículo es apto para mascotas o no.
-     * @param baul              Indica si el vehículo tiene baul o no.
+     * @param nroPatente        El nï¿½mero de patente del vehï¿½culo.
+     * @param cantMaxPasajeros  La cantidad mï¿½xima de pasajeros que puede llevar el vehï¿½culo.
+     * @param petFriendly       Indica si el vehï¿½culo es apto para mascotas o no.
+     * @param baul              Indica si el vehï¿½culo tiene baul o no.
      */
 	public Vehiculo(String nroPatente, int cantMaxPasajeros, boolean petFriendly, boolean baul) {
 		this.nroPatente = nroPatente;
@@ -30,10 +30,10 @@ public abstract class Vehiculo{
 	
 
     /**
-     * Verifica si el vehículo puede llevar la cantidad de pasajeros requerida por un pedido.
+     * Verifica si el vehï¿½culo puede llevar la cantidad de pasajeros requerida por un pedido.
      * 
      * @param pedido El pedido que se desea verificar.
-     * @return true si el vehículo puede llevar la cantidad de pasajeros requerida, false de lo contrario.
+     * @return true si el vehï¿½culo puede llevar la cantidad de pasajeros requerida, false de lo contrario.
      */
 	public boolean verificaCantPasajeros(Pedido pedido) {
 		if(pedido.getCantDePasajeros() <= this.getCantMaxPasajeros())
@@ -43,28 +43,28 @@ public abstract class Vehiculo{
 	}
 
     /**
-     * Obtiene la prioridad del vehículo para un pedido.
+     * Obtiene la prioridad del vehï¿½culo para un pedido.
      * 
      * @param pedido El pedido para el que se calcula la prioridad.
-     * @return La prioridad del vehículo para el pedido.
+     * @return La prioridad del vehï¿½culo para el pedido.
      */
 	
 	public Integer getPrioridad(Pedido pedido) {
 		boolean condPasajeros=this.verificaCantPasajeros(pedido);
 		boolean condBaul=this.verificaUsoBaul(pedido);
 		boolean condMascota=this.verificaTransporteMascota(pedido);
-		return calculaPrioridad(condBaul,condMascota,condPasajeros);
+		return calculaPrioridad(condBaul,condMascota,condPasajeros,pedido.getCantDePasajeros());
 	}
 	
     /**
-     * Calcula la prioridad del vehículo para un pedido.
+     * Calcula la prioridad del vehï¿½culo para un pedido.
      * 
-     * @param condBaul       Indica si el vehículo tiene baul o no.
-     * @param condMascota    Indica si el vehículo es apto para mascotas o no.
-     * @param condPasajeros  Indica si el vehículo puede llevar la cantidad de pasajeros requerida por el pedido.
-     * @return La prioridad del vehículo para el pedido.
+     * @param condBaul       Indica si el vehï¿½culo tiene baul o no.
+     * @param condMascota    Indica si el vehï¿½culo es apto para mascotas o no.
+     * @param condPasajeros  Indica si el vehï¿½culo puede llevar la cantidad de pasajeros requerida por el pedido.
+     * @return La prioridad del vehï¿½culo para el pedido.
      */
-	protected abstract Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros);
+	protected abstract Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros, int CantPasajeros);
 	
 	/**
 	 * Verifica si el vehiculo acepta mascotas segun las condiciones del pedido.
@@ -80,59 +80,61 @@ public abstract class Vehiculo{
 	}
 	
 	/**
-	 * Verifica si el vehículo puede usar el baul según las condiciones del pedido.
+	 * Verifica si el vehï¿½culo puede usar el baul segï¿½n las condiciones del pedido.
 	 * 
 	 * @param pedido El pedido que se desea verificar
 	 * @return true si el pedido solicita un baul y si el vehiculo tiene baul, false en caso contrario
 	 */
 	protected boolean verificaUsoBaul(Pedido pedido) {
-		if(pedido.getEquipaje().equalsIgnoreCase("Baul") && this.baul)
-			return true;
-		else
-			return false;
+		if(pedido.getEquipaje().equalsIgnoreCase("Baul") && this.baul) {
+			//System.out.println("cond baul es true");
+			return true;}
+		else {
+			//System.out.println("cond baul es false");
+			return false;}
 	}
 
     /**
-     * Obtiene el número de patente del vehículo.
+     * Obtiene el nï¿½mero de patente del vehï¿½culo.
      * 
-     * @return El número de patente del vehículo.
+     * @return El nï¿½mero de patente del vehï¿½culo.
      */
 	public String getNroPatente() {
 		return nroPatente;
 	}
 	
     /**
-     * Obtiene la cantidad máxima de pasajeros que puede llevar el vehículo.
+     * Obtiene la cantidad mï¿½xima de pasajeros que puede llevar el vehï¿½culo.
      * 
-     * @return La cantidad máxima de pasajeros que puede llevar el vehículo.
+     * @return La cantidad mï¿½xima de pasajeros que puede llevar el vehï¿½culo.
      */
 	public int getCantMaxPasajeros() {
 		return cantMaxPasajeros;
 	}
 	
     /**
-     * Verifica si el vehículo es apto para mascotas.
+     * Verifica si el vehï¿½culo es apto para mascotas.
      * 
-     * @return true si el vehículo es apto para mascotas, false de lo contrario.
+     * @return true si el vehï¿½culo es apto para mascotas, false de lo contrario.
      */
 	public boolean isPetFriendly() {
 		return petFriendly;
 	}
 
     /**
-     * Verifica si el vehículo tiene baul.
+     * Verifica si el vehï¿½culo tiene baul.
      * 
-     * @return true si el vehículo tiene baul, false de lo contrario.
+     * @return true si el vehï¿½culo tiene baul, false de lo contrario.
      */
 	public boolean isBaul() {
 		return baul;
 	}
 
 	 /**
-     * Compara este vehículo con otro objeto para determinar si son iguales.
+     * Compara este vehï¿½culo con otro objeto para determinar si son iguales.
      * 
-     * @param obj El objeto con el que se compara este vehículo.
-     * @return true si los vehículos son iguales, false de lo contrario.
+     * @param obj El objeto con el que se compara este vehï¿½culo.
+     * @return true si los vehï¿½culos son iguales, false de lo contrario.
      */
     @Override
     public boolean equals(Object obj) {

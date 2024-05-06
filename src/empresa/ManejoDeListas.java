@@ -45,6 +45,7 @@ public interface ManejoDeListas {
     public void dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException;
     public double getDistancia();
     public Vehiculo asignoVehiculo(Pedido p);
+	public void mueveChofer();
      
 }
 

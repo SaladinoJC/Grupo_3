@@ -4,19 +4,19 @@ import choferes.Chofer;
 import vehiculos.Vehiculo;
 
 /**
- * La clase FactoryViaje crea instancias de diferentes tipos de viaje según las especificaciones proporcionadas.
+ * La clase FactoryViaje crea instancias de diferentes tipos de viaje segï¿½n las especificaciones proporcionadas.
  */
 
 public class FactoryViaje {
 
     /**
-     * Crea y devuelve un tipo de viaje según las especificaciones proporcionadas.
+     * Crea y devuelve un tipo de viaje segï¿½n las especificaciones proporcionadas.
      * 
-     * @param pedido La información del pedido.
+     * @param pedido La informaciï¿½n del pedido.
      * @param chofer El chofer asignado al viaje.
      * @param distanciaRealRecorrida La distancia real recorrida en el viaje.
-     * @param vehiculo El vehículo utilizado en el viaje.
-     * @return Un tipo de viaje creado según las especificaciones.
+     * @param vehiculo El vehï¿½culo utilizado en el viaje.
+     * @return Un tipo de viaje creado segï¿½n las especificaciones.
      */
 	public TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
 		TipoDeViaje componenteConc=null, encapsuladoMascota=null, encapsuladoEquipaje=null;
@@ -34,7 +34,7 @@ public class FactoryViaje {
 			if(pedido.getEquipaje().equalsIgnoreCase("Manual"))
 				encapsuladoEquipaje=new DeMano(componenteConc);
 			else
-				if(pedido.getZona().equalsIgnoreCase("Baul"))
+				if(pedido.getEquipaje().equalsIgnoreCase("Baul")) 
 					encapsuladoEquipaje=new Baul(componenteConc);
 		}
 		

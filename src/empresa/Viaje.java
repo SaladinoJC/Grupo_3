@@ -5,8 +5,8 @@ import vehiculos.Vehiculo;
 import empresa.FactoryViaje;
 
 /**
- * La clase abstracta Viaje representa un tipo genérico de viaje.
- * Implementa la interfaz TipoDeViaje y proporciona métodos comunes para los diferentes tipos de viaje.
+ * La clase abstracta Viaje representa un tipo genï¿½rico de viaje.
+ * Implementa la interfaz TipoDeViaje y proporciona mï¿½todos comunes para los diferentes tipos de viaje.
  */
 
 public abstract class Viaje implements TipoDeViaje{
@@ -24,7 +24,7 @@ public abstract class Viaje implements TipoDeViaje{
     protected Chofer chofer;
 
     /**
-     * El vehículo utilizado en el viaje.
+     * El vehï¿½culo utilizado en el viaje.
      * @aggregation shared
      */
     protected Vehiculo vehiculo;
@@ -43,8 +43,8 @@ public abstract class Viaje implements TipoDeViaje{
      * @param pedido                  El pedido asociado al viaje.
      * @param chofer                  El chofer asignado al viaje.
      * @param distanciaRealRecorrida  La distancia real recorrida en el viaje.
-     * @param vehiculo                El vehículo utilizado en el viaje.
-     * @throws TODO Lanza excepcion en caos de que la distanciaRealRecorrida sea menor a 0, puede ser una precondición
+     * @param vehiculo                El vehï¿½culo utilizado en el viaje.
+     * @throws TODO Lanza excepcion en caos de que la distanciaRealRecorrida sea menor a 0, puede ser una precondiciï¿½n
      */
 	public Viaje(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
         this.pedido = pedido;
@@ -52,16 +52,17 @@ public abstract class Viaje implements TipoDeViaje{
 		if(distanciaRealRecorrida > 0)
 			this.distanciaRealRecorrida = distanciaRealRecorrida;
 		else
-			//exception
+			System.out.println("roberto");//exception
 		this.vehiculo=vehiculo;
 	}
 	
     /**
-     * Obtiene el vehículo utilizado en el viaje.
+     * Obtiene el vehï¿½culo utilizado en el viaje.
      * 
-     * @return El vehículo del viaje.
+     * @return El vehï¿½culo del viaje.
      */
 	public Vehiculo getVehiculo() {
+		
 		return vehiculo;
 	}
 
@@ -69,7 +70,7 @@ public abstract class Viaje implements TipoDeViaje{
      * Establece el precio base del viaje.
      * 
      * @param precioBase El nuevo precio base del viaje.
-     * @throws TODO Lanza excepcion en caso de que el precio base sea menor a 0, podria ser una precondición.
+     * @throws TODO Lanza excepcion en caso de que el precio base sea menor a 0, podria ser una precondiciï¿½n.
      */
 	public static void setPrecioBase(double precioBase) {
 		if(precioBase > 0)
@@ -119,7 +120,7 @@ public abstract class Viaje implements TipoDeViaje{
     /**
      * Obtiene la cantidad de pasajeros del viaje.
      * 
-     * @return El número de pasajeros del viaje.
+     * @return El nï¿½mero de pasajeros del viaje.
      */
 	@Override
 	public int getPasajeros() {

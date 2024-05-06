@@ -41,7 +41,7 @@ public class SinMascota extends Mascota {
 
 	@Override
 	public String toString() {
-		return "Viaje SinMascota " + this.getTipoDeViaje().toString() + "\nSu costo total fue: $"+( this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm()) +".\n";
+		return "Viaje Sin Mascota " + this.getTipoDeViaje().toString() + "\nSu costo total fue: $"+( this.getTipoDeViaje().getIncPax() + this.getTipoDeViaje().getIncKm()) +".\n";
 	}
 
     /**

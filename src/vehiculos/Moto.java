@@ -25,11 +25,11 @@ public class Moto extends Vehiculo {
      * @return La prioridad calculada para la moto.
      */
 	@Override
-	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros) {
+	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros, int CantPasajeros) {
 		if(!condBaul && !condMascota && condPasajeros)
 			return 1000;
 		else
-			return null;
+			return 0;
 	}
 
     /**

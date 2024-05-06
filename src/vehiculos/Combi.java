@@ -26,15 +26,15 @@ public class Combi extends Vehiculo {
      * @return La prioridad calculada para la combi.
      */
 	@Override
-	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros) {
+	protected Integer calculaPrioridad(boolean condBaul, boolean condMascota, boolean condPasajeros, int CantPasajeros) {
 		if(!condMascota && condPasajeros) {
 			if(condBaul)
-				return 100 + this.getCantMaxPasajeros() * 10;
+				return 100 + CantPasajeros * 10;
 			else
-				return this.getCantMaxPasajeros() * 10;
+				return CantPasajeros * 10;
 		}
 		else
-			return null;
+			return 0;
 	}
 
     /**

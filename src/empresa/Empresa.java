@@ -254,14 +254,19 @@ public class Empresa {
          */
         public Vehiculo BuscarVehiculoPrioritario(Pedido p){
         	int prioridad = 0, prioridadAct, i=0;
-        	Vehiculo act, aux;
+        	Vehiculo act, aux = null;
+        	//System.out.println("el pedido es:"+p);
         	while (i<vehiculos.size()) {
         		act = getVehiculo(i);
+        		
+        		//System.out.println("act es: "+act);
         		prioridadAct = act.getPrioridad(p); 
+        		//System.out.println("la prioridad act es: "+prioridadAct);
         		if (prioridadAct > prioridad) {
         			aux = act;
         			prioridad = prioridadAct;
         		}
+        		i++;
         	}
             return aux; //Devuelvo un aux aunque no lo haya inicializado porque ya cheque que hay alguno disponible
         }
@@ -272,14 +277,6 @@ public class Empresa {
          * @return Devuelve el vehiculo a asignar
          */
 		public Vehiculo asignoVehiculo(Pedido p) {
-			try {
-				dispVehiculo(p);
-			} catch (NoHayVehiculoDisponibleException e) {
-				System.out.println("No hay vehiculo disponible para el pedido "+ p.toString());
-			}
-			System.out.println("El vehiculo a asignar es"+ BuscarVehiculoPrioritario(p));
-			
-			//return this.vehiculos.get(2);
 			return BuscarVehiculoPrioritario(p);
 		}
         
@@ -575,6 +572,7 @@ public class Empresa {
             for(i=0;i<viajes.size();i++)
             {
                 aux=viajes.get(i);
+                //System.out.println("aux es: "+aux);
                 cadena=cadena.concat(aux.toString());
                 cadena=cadena.concat("\n");
             }
@@ -736,6 +734,11 @@ public class Empresa {
                total+=aux.getSueldo();
             }
             return total;
+        }
+        
+        public void mueveChofer() {
+        	Chofer aux=this.choferes.remove(0);
+        	this.choferes.add(aux);
         }
         
 		@Override
