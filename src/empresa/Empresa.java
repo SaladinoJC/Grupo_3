@@ -6,6 +6,7 @@ import java.util.Random;
 import choferes.Chofer;
 import choferes.Contratado;
 import choferes.Temporario;
+import choferes.exepciones.PorcentajeExeption;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.NoHayChoferDisponibleException;
@@ -77,9 +78,9 @@ public class Empresa {
 	     * Si el chofer ya existe, lanza una excepci�n.
 	     *
 	     * @param chofer El chofer a insertar.
-	     * @throws TODO 
+	     * @throws TODO choferNoExisteException
 	     */
-        public void insertarChofer(Chofer chofer)
+        public void insertarChofer(Chofer chofer) //choferNoExisteException
         {	if (choferes.isEmpty())
         	setChofer(chofer);
         	else
@@ -87,8 +88,7 @@ public class Empresa {
                 setChofer(chofer);
             else
             {
-            	
-                //una exepcion
+            	// throw new choferNoExisteException();
             }   
         }
         
@@ -466,12 +466,12 @@ public class Empresa {
                 }
             }
             else
-                if(!buscarCliente(cliente))
-                	System.out.println("roberto");
-                    //exepcion el cliente no existe
-                else
-                	System.out.println("roberto");
-                    //le fecha ingresadas. inicio no es menor a fin
+                if(!buscarCliente(cliente)) {
+                    //excepcion el cliente no existe
+                }
+                else {
+                    //El cliente si existe
+                }
              return cadena;
         }
         
@@ -529,12 +529,12 @@ public class Empresa {
                 }
             }
             else
-                if(!buscarChofer(chofer))
-                	System.out.println("robertiti");
-                  	//exepcion el chofer no existe
-                else
-                	System.out.println("roberto");
-                    //otra exepcion por que la fecha inicio no es menor fin
+                if(!buscarChofer(chofer)) {
+                  	//Excepcion el chofer no existe
+                }
+                else {
+                    //El chofer no existe
+                }
             return cadena;
         }
         

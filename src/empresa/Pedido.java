@@ -28,6 +28,7 @@ public class Pedido implements Cloneable{
 	
     /**
      * Constructor de la clase Pedido.
+     * Precondicion: cantDePasajeros > 0
      * 
      * @param fecha            La fecha del pedido.
      * @param hora             La hora del pedido.
@@ -36,10 +37,9 @@ public class Pedido implements Cloneable{
      * @param equipaje         El tipo de equipaje.
      * @param cantDePasajeros  La cantidad de pasajeros.
      * @param cliente          El cliente que realiza el pedido.
-     * @throws TODO error en la fecha - dateInvalidException
-     * @throws TODO error en la zona  - zoneInvalidException	
-     * @throws TODO error en equipaje - luggageInvalideException
-     * @throws TODO error en cant de pasajeros, tal vez puede ser una precondici�n
+     * @throws Fecha invalida - dateInvalidException
+     * @throws Zona invalida - zoneInvalidException	
+     * @throws Equipaje invalido - luggageInvalideException
      */
 	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException{
 

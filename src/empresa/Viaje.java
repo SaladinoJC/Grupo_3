@@ -39,12 +39,11 @@ public abstract class Viaje implements TipoDeViaje{
         
     /**
      * Constructor de la clase Viaje.
-     * 
+     * Precondicion: distanciaRealRecorrida > 0
      * @param pedido                  El pedido asociado al viaje.
      * @param chofer                  El chofer asignado al viaje.
      * @param distanciaRealRecorrida  La distancia real recorrida en el viaje.
      * @param vehiculo                El veh�culo utilizado en el viaje.
-     * @throws TODO Lanza excepcion en caos de que la distanciaRealRecorrida sea menor a 0, puede ser una precondici�n
      */
 	public Viaje(Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
         this.pedido = pedido;
@@ -68,16 +67,15 @@ public abstract class Viaje implements TipoDeViaje{
 
     /**
      * Establece el precio base del viaje.
-     * 
+     * Precondicion precioBase > 0
      * @param precioBase El nuevo precio base del viaje.
-     * @throws TODO Lanza excepcion en caso de que el precio base sea menor a 0, podria ser una precondici�n.
      */
 	public static void setPrecioBase(double precioBase) {
 		if(precioBase > 0)
 			Viaje.precioBase = precioBase;  
-		else
-			System.out.println("roberto");
-			//exception
+		else {
+			//no entra porque es una precondicion
+		}
 	}
 	
     /**
