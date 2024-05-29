@@ -31,17 +31,10 @@ public abstract class DecoratorViaje implements TipoDeViaje {
 	}
 	
 	@Override
-	public Object clone(){
-		//La clase DecoratorViaje SIEMPRE sera cloneable
-		
+	public Object clone() throws CloneNotSupportedException{
 		DecoratorViaje decoratorClon=null;
-		try {
-			decoratorClon = (DecoratorViaje)super.clone();
-		}
-		catch (CloneNotSupportedException e) {
-			//ESTE BLOQUE NO SE EJECUTA JAMAS
-			e.printStackTrace();
-		}
+		decoratorClon = (DecoratorViaje)super.clone();
+		decoratorClon.tipoDeViaje = (TipoDeViaje) this.tipoDeViaje.clone();
 		return decoratorClon;
 	}
 

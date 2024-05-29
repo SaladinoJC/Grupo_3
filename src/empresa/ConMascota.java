@@ -114,7 +114,7 @@ public class ConMascota extends Mascota {
 	}
 
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		ConMascota conMascotaClon=null;
 		conMascotaClon = (ConMascota) super.clone();
 		conMascotaClon.tipoDeViaje = (TipoDeViaje) this.tipoDeViaje.clone();

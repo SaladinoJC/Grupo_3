@@ -119,7 +119,7 @@ public class Baul extends Equipaje {
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		Baul baulClon=null;
 		baulClon = (Baul) super.clone();
 		baulClon.tipoDeViaje = (TipoDeViaje) this.tipoDeViaje.clone();

@@ -4,12 +4,12 @@ import vehiculos.Vehiculo;
 import choferes.Chofer;
 
 /**
- * La interfaz TipoDeViaje define métodos para obtener información sobre un viaje.
- * Estos métodos deben ser implementados por las clases que implementen TipoDeViaje.
+ * La interfaz TipoDeViaje define mï¿½todos para obtener informaciï¿½n sobre un viaje.
+ * Estos mï¿½todos deben ser implementados por las clases que implementen TipoDeViaje.
  */
 public interface TipoDeViaje extends Cloneable{
     /**
-     * Obtiene el incremento en el costo del viaje debido al número de pasajeros.
+     * Obtiene el incremento en el costo del viaje debido al nï¿½mero de pasajeros.
      * 
      * @return El incremento en el costo del viaje por pasajero.
      */
@@ -18,7 +18,7 @@ public interface TipoDeViaje extends Cloneable{
 	/**
      * Obtiene el incremento en el costo del viaje debido a la distancia recorrida.
      * 
-     * @return El incremento en el costo del viaje por kilómetro recorrido.
+     * @return El incremento en el costo del viaje por kilï¿½metro recorrido.
      */
 	public double getIncKm();
 	
@@ -39,7 +39,7 @@ public interface TipoDeViaje extends Cloneable{
     /**
      * Obtiene la cantidad de pasajeros del viaje.
      * 
-     * @return El número de pasajeros del viaje.
+     * @return El nï¿½mero de pasajeros del viaje.
      */
 	public int getPasajeros();
 	
@@ -59,9 +59,9 @@ public interface TipoDeViaje extends Cloneable{
 	
 
     /**
-     * Obtiene el vehículo utilizado en el viaje.
+     * Obtiene el vehï¿½culo utilizado en el viaje.
      * 
-     * @return El vehículo del viaje.
+     * @return El vehï¿½culo del viaje.
      */
 	public Vehiculo getVehiculo();
 	
@@ -72,6 +72,6 @@ public interface TipoDeViaje extends Cloneable{
      * @return El precio base del viaje.
      */
 	public double getPrecioBase();
-	public Object clone();
+	public Object clone() throws CloneNotSupportedException;
 	public String toString();
 }

@@ -126,15 +126,10 @@ public abstract class Viaje implements TipoDeViaje{
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		Viaje viajeClon=null;
-		try {
-			viajeClon = (Viaje)super.clone();
-		}
-		catch (CloneNotSupportedException e) {
-			//ESTE BLOQUE NO SE EJECUTA JAMAS
-			e.printStackTrace();
-		}
+		viajeClon = (Viaje)super.clone();
+		viajeClon.pedido = (Pedido) this.pedido.clone();
 		return viajeClon;
 	}
 }

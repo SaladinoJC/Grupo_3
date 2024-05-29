@@ -5,14 +5,14 @@ import vehiculos.Vehiculo;
 
 /**
  * La clase DeMano extiende de equipaje y representa un equipaje para un viaje existente.
- * Este tipo de equipaje no agrega ningún costo adicional al viaje, simplemente es un tipo de identificación.
+ * Este tipo de equipaje no agrega ningï¿½n costo adicional al viaje, simplemente es un tipo de identificaciï¿½n.
  */
 public class DeMano extends Equipaje {
 
 	/**
 	 * Constructor de la clase DeMano.
 	 * 
-	 * @param tipo_de_viaje El tipo de viaje al que se añade el equipaje de mano.
+	 * @param tipo_de_viaje El tipo de viaje al que se aï¿½ade el equipaje de mano.
 	 */
 	public DeMano(TipoDeViaje tipo_de_viaje) {
 		super(tipo_de_viaje);
@@ -31,7 +31,7 @@ public class DeMano extends Equipaje {
 	/**
 	 * Obtiene el incremento en la tarifa debido a la distancia recorrida.
 	 * 
-	 * @return El incremento en la tarifa por kilómetro recorrido.
+	 * @return El incremento en la tarifa por kilï¿½metro recorrido.
 	 */
 	@Override
 	public double getIncKm() {
@@ -84,9 +84,9 @@ public class DeMano extends Equipaje {
 	}
 
 	/**
-	 * Obtiene el vehículo asociado al viaje.
+	 * Obtiene el vehï¿½culo asociado al viaje.
 	 * 
-	 * @return El vehículo asociado al viaje.
+	 * @return El vehï¿½culo asociado al viaje.
 	 */
 	@Override
 	public Vehiculo getVehiculo() {
@@ -114,7 +114,7 @@ public class DeMano extends Equipaje {
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		DeMano deManoClon=null;
 		deManoClon = (DeMano) super.clone();
 		deManoClon.tipoDeViaje = (TipoDeViaje) this.tipoDeViaje.clone();

@@ -57,7 +57,7 @@ public class Peligrosa extends Viaje {
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		Peligrosa peligrosaClon=null;
 		peligrosaClon = (Peligrosa) super.clone();
 		peligrosaClon.pedido = (Pedido) peligrosaClon.pedido.clone();

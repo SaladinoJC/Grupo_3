@@ -618,10 +618,16 @@ public class Empresa {
          */
         private TipoDeViaje[] clon()
         {
-            TipoDeViaje[] vector=new TipoDeViaje[viajes.size()];
+            TipoDeViaje[] vector=null;
             int i;
-            for(i=0;i<viajes.size();i++)
-                vector[i]=(TipoDeViaje)viajes.get(i).clone();
+            try {
+            	vector=new TipoDeViaje[viajes.size()];
+            	for(i=0;i<viajes.size();i++)
+					vector[i]=(TipoDeViaje)viajes.get(i).clone();
+			} 
+            catch (CloneNotSupportedException e) {
+				throw new InternalError(e.toString());
+			}
             return vector;
         }
                 

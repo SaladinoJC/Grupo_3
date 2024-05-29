@@ -57,7 +57,7 @@ public class SinAsfaltar extends Viaje {
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		SinAsfaltar sinAsfaltarClon=null;
 		sinAsfaltarClon = (SinAsfaltar) super.clone();
 		sinAsfaltarClon.pedido = (Pedido) sinAsfaltarClon.pedido.clone();

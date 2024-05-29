@@ -116,7 +116,7 @@ public class SinMascota extends Mascota {
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		SinMascota sinMascotaClon=null;
 		sinMascotaClon = (SinMascota)super.clone();
 		sinMascotaClon.tipoDeViaje = (TipoDeViaje)this.tipoDeViaje.clone();

@@ -46,7 +46,7 @@ public class Estandar extends Viaje {
 	}
 	
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		Estandar estandarClon=null;
 		estandarClon = (Estandar) super.clone();
 		estandarClon.pedido = (Pedido) estandarClon.pedido.clone();

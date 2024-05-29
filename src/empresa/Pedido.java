@@ -140,15 +140,9 @@ public class Pedido implements Cloneable{
     }
 
 	@Override
-	public Object clone(){
+	public Object clone() throws CloneNotSupportedException{
 		Object pedidoClon=null;
-		try {
-			pedidoClon = super.clone();
-		}
-		catch (CloneNotSupportedException e) {
-			//ESTE BLOQUE NO SE EJECUTA JAMAS
-			e.printStackTrace();
-		}
+		pedidoClon = super.clone();
 		return pedidoClon;
 	}
 	
