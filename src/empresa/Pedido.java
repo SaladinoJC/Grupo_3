@@ -13,7 +13,7 @@ import empresa.excepciones.ZoneInvalidException;
 
 public class Pedido implements Cloneable{
 	private LocalDate fecha;
-    private LocalTime hora;
+        private LocalTime hora;
 	private String zona;
 	private boolean mascotas;
 	private String equipaje;
