@@ -4,6 +4,9 @@
  */
 package interfaces;
 
+import empresa.Cliente;
+import empresa.excepciones.ClienteNoExistenteExeption;
+
 /**
  *
  * @author manso
@@ -33,6 +36,7 @@ public class LogueoUsuario extends javax.swing.JFrame {
         jPasswordFieldContraseña = new javax.swing.JPasswordField();
         jLabelContraseña = new javax.swing.JLabel();
         jLabel_UsuarioIncorrecto = new javax.swing.JLabel();
+        jLabelClienteNoExiste = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -73,10 +77,13 @@ public class LogueoUsuario extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jButtonRegistrarce)
                         .addComponent(jLabel1)
-                        .addComponent(jButtonAceptar)
                         .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                        .addComponent(jPasswordFieldContraseña)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                        .addComponent(jPasswordFieldContraseña))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonAceptar)
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabelClienteNoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +97,9 @@ public class LogueoUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jButtonAceptar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAceptar)
+                    .addComponent(jLabelClienteNoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -112,20 +121,47 @@ public class LogueoUsuario extends javax.swing.JFrame {
         String nombreUsuario,contraseña;
         contraseña=jPasswordFieldContraseña.getText();
         nombreUsuario=jTextFieldNombreUsuario.getText();
+        Cliente aux;
+        PedidoIterface ventana;
         
+        if(Valido(nombreUsuario, contraseña))
+        {
+            try{
+                aux=Controlador.buscarCliente(nombreUsuario, contraseña);
+                ventana=new PedidoIterface(nombreUsuario,contraseña);
+                this.setVisible(false);
+                this.dispose();
+                ventana.setVisible(true);
+            }
+            catch(ClienteNoExistenteExeption e)
+            {
+                jLabelClienteNoExiste.setText("el cliente ingresado no existe");
+            }
+        }
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
+   
+
+    private boolean Valido(String nombreUsuario,String contraseña)
+    {
+        boolean bandera=true;
         if(tieneEspacios(contraseña))
-                jLabelContraseña.setText("la contraseña no puede tener espacios");
+        {
+            jLabelContraseña.setText("la contraseña no puede tener espacios");
+            bandera=false;
+        }
         else
-                jLabelContraseña.setText("");
+           jLabelContraseña.setText("");
         
         if(tieneEspacios(nombreUsuario))
-                jLabel_UsuarioIncorrecto.setText("el nombre de usuario no puede contener espacios");
+        {
+           jLabel_UsuarioIncorrecto.setText("el nombre de usuario no puede contener espacios");
+           bandera=false;
+        }
         else
-                jLabel_UsuarioIncorrecto.setText("");
-        
-        
-    }//GEN-LAST:event_jButtonAceptarActionPerformed
-   //verifica si tiene espacios una cadena de texto
+          jLabel_UsuarioIncorrecto.setText("");
+        return bandera;
+    }
+//verifica si tiene espacios una cadena de texto
     private boolean tieneEspacios(String aux)
     {
        int i=0;
@@ -178,6 +214,7 @@ public class LogueoUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonRegistrarce;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelClienteNoExiste;
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabel_UsuarioIncorrecto;
     private javax.swing.JPasswordField jPasswordFieldContraseña;

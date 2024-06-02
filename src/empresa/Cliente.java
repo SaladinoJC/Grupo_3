@@ -99,5 +99,9 @@ public class Cliente {
     public String toString() {
         return "Cliente:  Nombre "+this.nombreReal+"  Nombre de usuario:"+this.nombreDeUsuario
          +"  Contraseña:"+this.contrasena;
-    }   
+    }
+    public String toString2()
+    {
+        return "Cliente: "+this.nombreReal+" usuario: "+this.nombreDeUsuario;
+    }
 }

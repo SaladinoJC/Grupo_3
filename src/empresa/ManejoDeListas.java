@@ -7,6 +7,7 @@ package empresa;
 import choferes.Chofer;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import empresa.excepciones.ClienteExistenteException;
+import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
 import java.time.LocalDate;
@@ -32,8 +33,8 @@ public interface ManejoDeListas {
     public Cliente getCliente(int index);
     public String ListarClientes();
     public  boolean buscarCliente(Cliente cliente);
-    public Cliente buscarXcliente (Cliente cliente);
-    public String ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin);
+    public Cliente buscarXcliente (Cliente cliente) throws ClienteNoExistenteExeption;
+    public String ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin) throws ClienteNoExistenteExeption;
     public void insertarCliente(Cliente cliente) throws ClienteExistenteException;
     public TipoDeViaje getViaje(int index);
     public void setViaje(TipoDeViaje viaje);

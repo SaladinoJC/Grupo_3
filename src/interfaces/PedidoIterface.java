@@ -4,12 +4,16 @@
  */
 package interfaces;
 
+import empresa.Cliente;
+import empresa.excepciones.ClienteNoExistenteExeption;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 
 /**
@@ -21,8 +25,9 @@ public class PedidoIterface extends javax.swing.JFrame {
     /**
      * Creates new form Pedido
      */
-    public PedidoIterface() {
+    public PedidoIterface(String nombreUsuario,String contraseña) {
         initComponents();
+        SeterCliente(nombreUsuario, contraseña);
         SeterFecha();
         SeterHora();
     }
@@ -137,13 +142,8 @@ public class PedidoIterface extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabelFaltaEquipaje)
                                             .addComponent(jLabelEquipaje)))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabelCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
-                                .addComponent(jLabelFecha)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelHora)
-                        .addGap(138, 138, 138))
+                            .addComponent(jLabelCliente))
+                        .addGap(138, 177, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelPasajeros)
@@ -155,15 +155,22 @@ public class PedidoIterface extends javax.swing.JFrame {
                             .addComponent(jLabelFaltaZona)
                             .addComponent(jRadioButtonEstandar))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(jLabelFecha)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelHora)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCliente)
                     .addComponent(jLabelFecha)
                     .addComponent(jLabelHora))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelCliente)
                 .addGap(39, 39, 39)
                 .addComponent(jLabelPasajeros)
                 .addGap(18, 18, 18)
@@ -201,30 +208,60 @@ public class PedidoIterface extends javax.swing.JFrame {
 
     private void jButtonPedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedirActionPerformed
         String cantPasajeros=jTextFieldPasajeros.getText();
-        
+        ViajeInterface ventana;
+        if(Valido(cantPasajeros))
+        {   
+            ventana=new ViajeInterface(cantPasajeros,);
+            this.setVisible(false);
+            this.dispose();
+            ventana.setVisible(true);
+        }
+ 
+    }//GEN-LAST:event_jButtonPedirActionPerformed
+
+    //devuelve si un pedio es valido
+    private boolean  Valido(String cantPasajeros)
+    {
+        boolean bandera=true;
         if(buttonGroupANIMALES.getSelection() == null)
+        {
+            bandera=false;
             jLabelFaltaMascota.setText("selecione si o no Mascota");
+        }
         else
             jLabelFaltaMascota.setText("");
         
         if(buttonGroupZONA.getSelection() == null)
+        {
+            bandera=false;
             jLabelFaltaZona.setText("selecione una Zona");
+        }
         else
             jLabelFaltaZona.setText("");
         
         if(buttonGroupEquipaje.getSelection() == null)
+        {
+             bandera=false;
              jLabelFaltaEquipaje.setText("selecione un tipo de equipaje");
+        }
         else
             jLabelFaltaEquipaje.setText("");
         
-        if(tieneLetras(cantPasajeros))
+        if(tieneLetras(cantPasajeros)){
+            bandera=false;
             jLabelPasajeros.setText("Cantidad de Pasajeros: Tiene que se numeros");
+        }
         else
-            jLabelPasajeros.setText("Cantidad de Pasajeros");
-        
-        
-    }//GEN-LAST:event_jButtonPedirActionPerformed
-
+            if(Integer.parseInt(cantPasajeros)>30)
+            {   
+                bandera=false;
+                jLabelPasajeros.setText("Cantidad de Pasajeros maxima  es 30");
+            }
+            else
+                jLabelPasajeros.setText("Cantidad de Pasajeros");
+       return bandera;
+    }
+    
     //devuelve verdadero, si no es un digito la cantidad de pasajeros
     private boolean tieneLetras(String pasajeros)
     {
@@ -272,9 +309,21 @@ public class PedidoIterface extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PedidoIterface().setVisible(true);
+                new PedidoIterface(null,null).setVisible(true);
             }
         });
+    }
+    
+    //setea el label de cliente
+    private void SeterCliente(String nombreUsuario,String contraseña)
+    {
+        Cliente aux=new Cliente(null,null,null);
+        try {
+           aux=Controlador.buscarCliente(nombreUsuario, contraseña);
+        } catch (ClienteNoExistenteExeption ex) {
+            
+        }
+        jLabelCliente.setText(aux.toString2());
     }
     //setea la fecha de label Fecha
     private void SeterFecha()

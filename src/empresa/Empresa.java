@@ -9,6 +9,7 @@ import choferes.Temporario;
 import choferes.exepciones.PorcentajeExeption;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import empresa.excepciones.ClienteExistenteException;
+import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
 import vehiculos.FactoryVehiculo;
@@ -400,7 +401,7 @@ public class Empresa {
          * @param cliente El cliente que se desea buscar.
          * @return true si existe el cliente, false si no existe.
          */
-        public  boolean buscarCliente(Cliente cliente)
+        public boolean buscarCliente(Cliente cliente)
         {
             int i=0;
             Cliente aux=getCliente(i);
@@ -417,22 +418,27 @@ public class Empresa {
          * Busca un cliente 
          * 
          * @param cliente El cliente que se desea buscar.
-         * @return el cliente si lo encuentra, null si no lo encuentra.
+         * @return el cliente si lo encuentra, si no lo encuentra lanza una exepcion.
          */
-         public Cliente buscarXcliente (Cliente cliente)
+         public Cliente buscarXcliente (Cliente cliente) throws ClienteNoExistenteExeption
         {
             Cliente aux;
             int i=0;
-            aux=getCliente(i);
-            while(i<clientes.size() && !aux.equals(cliente))
+            if(clientes.size()>0)//si no existe la lista no hay ningun cliente
             {
-                i++;
                 aux=getCliente(i);
+                while(i<clientes.size() && !aux.equals(cliente))
+                {
+                     i++;
+                    aux=getCliente(i);
+                }
+                if(i<clientes.size())
+                    return aux;
+                else
+                    throw new ClienteNoExistenteExeption(cliente);
             }
-            if(i<clientes.size())
-                return aux;
             else
-                return null;
+                throw  new ClienteNoExistenteExeption(cliente);
         }
          
         /**
@@ -445,7 +451,7 @@ public class Empresa {
          * @throws TODO excepcion si el cliente no existe
          * @throws TODO excepcion fecha de fin con fecha anterior a fecha de inicio o ponerlo en las precondiciones
          */
-        public String ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin)
+        public String ListarViajesXcliente(Cliente cliente,LocalDate inicio,LocalDate fin) throws ClienteNoExistenteExeption
         {
             LocalDate fecha;
             TipoDeViaje viaje;
@@ -467,7 +473,7 @@ public class Empresa {
             }
             else
                 if(!buscarCliente(cliente)) {
-                    //excepcion el cliente no existe
+                    throw new ClienteNoExistenteExeption(cliente);
                 }
                 else {
                     //El cliente si existe

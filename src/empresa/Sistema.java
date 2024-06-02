@@ -3,9 +3,12 @@ package empresa;
 import choferes.Chofer;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import empresa.excepciones.ClienteExistenteException;
+import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
 import java.time.LocalDate;
+import java.util.Observable;
+import java.util.Observer;
 import vehiculos.Vehiculo;
 import vehiculos.exepciones.VehiculoExistenteException;
 
@@ -38,7 +41,7 @@ public class Sistema implements ManejoDeListas{
         this.GUILLEsa=Empresa.getReferencia();
         this.admin=admin;
     }
-        
+ 
     /**
      * Obtiene una referencia al sistema.
      * Si no existe una referencia, se crea una nueva instancia del sistema con un administrador predeterminado.
@@ -132,12 +135,12 @@ public class Sistema implements ManejoDeListas{
     }
 
     @Override
-    public Cliente buscarXcliente(Cliente cliente) {
+    public Cliente buscarXcliente(Cliente cliente) throws ClienteNoExistenteExeption{
         return GUILLEsa.buscarXcliente(cliente);
     }
 
     @Override
-    public String ListarViajesXcliente(Cliente cliente, LocalDate inicio, LocalDate fin) {
+    public String ListarViajesXcliente(Cliente cliente, LocalDate inicio, LocalDate fin) throws ClienteNoExistenteExeption{
         return GUILLEsa.ListarViajesXcliente(cliente, inicio, fin);
     }
 
@@ -183,6 +186,7 @@ public class Sistema implements ManejoDeListas{
 
     @Override
     public Chofer asignoChofer() throws NoHayChoferDisponibleException {
+        
         return GUILLEsa.asignoChofer();
     }
 

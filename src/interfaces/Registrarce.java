@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import empresa.excepciones.ClienteExistenteException;
+
 
 
 /**
@@ -31,11 +33,12 @@ public class Registrarce extends javax.swing.JFrame {
         jTextFieldNombreReal = new javax.swing.JTextField();
         jTextFieldNombreUsuario = new javax.swing.JTextField();
         jTextFieldContraseña = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonRegistrarce = new javax.swing.JButton();
         jLabel_NombreIncorrecto = new javax.swing.JLabel();
         jLabel_NombreUsuario_Incorrecto_Existente = new javax.swing.JLabel();
         jLabel_ContraseñaIncorrecto = new javax.swing.JLabel();
         jButtonVolver = new javax.swing.JButton();
+        jLabelExistente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +60,10 @@ public class Registrarce extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Registrarce");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRegistrarce.setText("Registrarce");
+        jButtonRegistrarce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRegistrarceActionPerformed(evt);
             }
         });
 
@@ -77,16 +80,18 @@ public class Registrarce extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonVolver)
                     .addComponent(jLabel_ContraseñaIncorrecto)
                     .addComponent(jLabel_NombreUsuario_Incorrecto_Existente)
                     .addComponent(jLabel_NombreIncorrecto)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextFieldNombreReal)
-                        .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                        .addComponent(jTextFieldContraseña)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonRegistrarce)
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabelExistente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNombreReal)
+                    .addComponent(jTextFieldNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                    .addComponent(jTextFieldContraseña))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,9 +108,12 @@ public class Registrarce extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addComponent(jLabel_ContraseñaIncorrecto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jButtonRegistrarce))
+                    .addComponent(jLabelExistente))
                 .addGap(31, 31, 31)
                 .addComponent(jButtonVolver)
                 .addContainerGap(78, Short.MAX_VALUE))
@@ -129,26 +137,49 @@ public class Registrarce extends javax.swing.JFrame {
            
     }//GEN-LAST:event_jTextFieldNombreRealInputMethodTextChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-              String nombre,nombreUsuario,contraseña;
-              nombre=jTextFieldNombreReal.getText();
-              nombreUsuario=jTextFieldNombreUsuario.getText();
-              contraseña=jTextFieldContraseña.getText();   
-             
-              if(tieneNumeros(nombre))//si tiene numeros un nombre Real es incorrecto
-                jLabel_NombreIncorrecto.setText("Nombre incorecto, no puede llevar numeros"); 
-              else
-                jLabel_NombreIncorrecto.setText("");
-              if(tieneEspacios(nombreUsuario))
-                  jLabel_NombreUsuario_Incorrecto_Existente.setText("el nombre de usuario no debe llevar espacios");
-              else
-                  jLabel_NombreUsuario_Incorrecto_Existente.setText("");
-              if(tieneEspacios(contraseña))
-                   jLabel_ContraseñaIncorrecto.setText("la contraseña no debe contar con espacios");
-              else
-                  jLabel_ContraseñaIncorrecto.setText("");
-              
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonRegistrarceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarceActionPerformed
+            String nombre,nombreUsuario,contraseña;
+            nombre=jTextFieldNombreReal.getText();
+            nombreUsuario=jTextFieldNombreUsuario.getText();
+            contraseña=jTextFieldContraseña.getText();
+            if(Valido(nombre, nombreUsuario, contraseña)){    
+                try{
+                    Controlador.registrarce(nombre, nombreUsuario, contraseña);
+                    jLabelExistente.setText("registro exitoso");
+                }
+                catch(ClienteExistenteException e){
+                       jLabelExistente.setText("usuario ya existente");
+                }
+            }
+    }//GEN-LAST:event_jButtonRegistrarceActionPerformed
+    //verifica si todos los campos son validos
+    private boolean Valido(String nombre,String nombreUsuario,String contraseña) {
+        boolean bandera=true;
+        if(tieneNumeros(nombre))//si tiene numeros un nombre Real es incorrecto
+        {
+            jLabel_NombreIncorrecto.setText("Nombre incorecto, no puede llevar numeros");
+            bandera=false;
+        }
+        else
+            jLabel_NombreIncorrecto.setText("");
+        if(tieneEspacios(nombreUsuario))
+        {
+          jLabel_NombreUsuario_Incorrecto_Existente.setText("el nombre de usuario no debe llevar espacios");
+          bandera=false;
+        }
+        else
+           jLabel_NombreUsuario_Incorrecto_Existente.setText("");
+        if(tieneEspacios(contraseña))
+        {
+          jLabel_ContraseñaIncorrecto.setText("la contraseña no debe contar con espacios");
+          bandera=false;
+        }
+        else
+           jLabel_ContraseñaIncorrecto.setText("");
+        return bandera;
+    }
+    
+    
     
     //verifica si un string tiene numeros 
     private boolean tieneNumeros(String aux)
@@ -213,8 +244,9 @@ public class Registrarce extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonRegistrarce;
     private javax.swing.JButton jButtonVolver;
+    private javax.swing.JLabel jLabelExistente;
     private javax.swing.JLabel jLabel_ContraseñaIncorrecto;
     private javax.swing.JLabel jLabel_NombreIncorrecto;
     private javax.swing.JLabel jLabel_NombreUsuario_Incorrecto_Existente;

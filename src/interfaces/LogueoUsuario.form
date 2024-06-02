@@ -37,12 +37,16 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jButtonRegistrarce" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonAceptar" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldNombreUsuario" pref="276" max="32767" attributes="0"/>
                       <Component id="jPasswordFieldContraseña" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jButtonAceptar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="jLabelClienteNoExiste" min="-2" pref="182" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="68" max="32767" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -58,7 +62,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPasswordFieldContraseña" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="jButtonAceptar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelClienteNoExiste" alignment="1" min="-2" pref="27" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -107,6 +114,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel_UsuarioIncorrecto">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelClienteNoExiste">
     </Component>
   </SubComponents>
 </Form>

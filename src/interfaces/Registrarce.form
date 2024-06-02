@@ -25,17 +25,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButtonVolver" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel_ContraseñaIncorrecto" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel_NombreUsuario_Incorrecto_Existente" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel_NombreIncorrecto" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextFieldNombreReal" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextFieldNombreUsuario" alignment="0" pref="263" max="32767" attributes="0"/>
-                      <Component id="jTextFieldContraseña" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jButtonRegistrarce" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="jLabelExistente" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="jTextFieldNombreReal" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jTextFieldNombreUsuario" alignment="0" pref="263" max="32767" attributes="0"/>
+                  <Component id="jTextFieldContraseña" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="74" max="32767" attributes="0"/>
           </Group>
@@ -55,9 +57,14 @@
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="jLabel_ContraseñaIncorrecto" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextFieldContraseña" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jTextFieldContraseña" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jButtonRegistrarce" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabelExistente" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="jButtonVolver" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="78" max="32767" attributes="0"/>
@@ -87,12 +94,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldContrase&#xf1;aActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jButtonRegistrarce">
       <Properties>
         <Property name="text" type="java.lang.String" value="Registrarce"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRegistrarceActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel_NombreIncorrecto">
@@ -108,6 +115,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVolverActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelExistente">
     </Component>
   </SubComponents>
 </Form>
