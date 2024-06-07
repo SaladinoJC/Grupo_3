@@ -191,8 +191,8 @@ public class Sistema implements ManejoDeListas{
     }
 
     @Override
-    public void dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
-        GUILLEsa.dispVehiculo(p);
+    public void dispVehiculo(Pedido p, Boolean estadoVehiculo) {
+       GUILLEsa.dispVehiculo(p);
     }
 
     @Override

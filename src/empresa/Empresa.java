@@ -10,14 +10,19 @@ import choferes.exepciones.PorcentajeExeption;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.ClienteNoExistenteExeption;
+import empresa.excepciones.DateInvalidException;
+import empresa.excepciones.LuggageInvalidException;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
+import empresa.excepciones.ZoneInvalidException;
 import vehiculos.FactoryVehiculo;
 import vehiculos.Vehiculo;
 import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
 import vehiculos.exepciones.VehiculoExistenteException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+
 import vehiculos.Vehiculo;
 
 /**
@@ -232,7 +237,7 @@ public class Empresa {
          * @param p El pedido que le llega para chequear si hay un auto disponible para ese pedido
          * @throws NoHayVehiculoDisponibleException
          */
-		public void dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
+		public void dispVehiculo(Pedido p, boolean estadoVehiculo) throws NoHayVehiculoDisponibleException{
 			int i=0;
 			boolean ok=false;
 			Vehiculo aux;
@@ -244,8 +249,10 @@ public class Empresa {
                i++;
             }
 			if (!ok) {
-				throw new NoHayVehiculoDisponibleException();
-			}			
+				estadoVehiculo=false;
+				throw new NoHayVehiculoDisponibleException();}
+			else
+				estadoVehiculo=true;
 		}
 		
         /**
@@ -752,6 +759,88 @@ public class Empresa {
         	Chofer aux=this.choferes.remove(0);
         	this.choferes.add(aux);
         }
+        
+        
+        
+        
+        
+        
+        
+    	public Pedido creapedido(int zona, int baul, int mascota, int pasajeros, Cliente c, LocalTime horaActual,
+    			LocalDate fechaActual) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException {
+    		String zonapedido=" ";
+    		String baulpedido;
+    		Boolean mascotapedido;
+    		switch(zona) {
+    		case 0:{
+    			zonapedido="Sin asfaltar";
+    			break;
+    		}
+    		case 1:{
+    			zonapedido="Estandar";
+    			break;
+    		}
+    		case 2:{
+    			zonapedido="Peligrosa";
+    			break;
+    		}
+    		}
+    		if (baul==1)
+    			baulpedido="Baul";
+    		else
+    			baulpedido="Manual";
+    		if(mascota==1)
+    			mascotapedido=true;
+    		else
+    			mascotapedido=false;
+    		
+    		Pedido p1 = new Pedido(fechaActual, horaActual, zonapedido, mascotapedido, baulpedido, pasajeros, c);
+    		return p1;
+    	}
+
+    	public synchronized void solicitaviaje(Pedido p, Cliente c) {
+    		while (!this.choferDisponible() || !this.vehiculoDisponible(p))
+    			try
+    			{
+    				System.out.println("El cliente" + c.getNombreReal() + "tiene que esperar");
+    				wait();
+    			} catch (InterruptedException e)
+    			{
+    				
+    				e.printStackTrace();
+    			}
+    		System.out.println("se acepta el viaje de " + c.getNombreReal());
+    		// Marcar chofer como ocupado
+    		// Marcar Vehiculo como no disponible
+    		// Crear viaje en listado de viajes actuales
+    		notifyAll();
+    		
+    	}
+
+    	public void pagaviaje(Pedido p, Cliente c) {
+    		// TODO Auto-generated method stub
+    		
+    	}
+        
+    	public synchronized void asignaVehiculo(Viaje v) {
+    		
+    	}
+    	
+    	public synchronized void asignaChofer() {   //toma un viaje de la lista
+    		
+    	}
+    	
+    	public synchronized void finalizaViaje() {
+    		
+    	}
+        
+        
+        
+        
+        
+        
+        
+        
         
 		@Override
 		public String toString() {

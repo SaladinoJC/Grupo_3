@@ -6,6 +6,8 @@ import empresa.Viaje;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.ZoneInvalidException;
+import threads.RC;
+import threads.ThreadCliente;
 import empresa.excepciones.LuggageInvalidException;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
@@ -45,6 +47,7 @@ public class Main {
         LocalTime timeEjemplo2 = LocalTime.of(10,15);
         LocalTime timeEjemplo3 = LocalTime.of(4,33);
         LocalTime timeEjemplo4 = LocalTime.of(11,20);
+        Boolean estadoPedido;
         // Se crea una nueva instancia de Sistema
         Sistema s = new Sistema(adm);
         // se instancian los factorys que seran usados despues
@@ -139,6 +142,7 @@ public class Main {
         
         //Crear clientes
         Cliente c1 = new Cliente("cliente1", "pass1", "Cliente Uno");
+		ThreadCliente tc1 = new ThreadCliente(c1, rc);
         Cliente c2 = new Cliente("cliente2", "pass2", "Cliente Dos"); 
         Cliente c3 = new Cliente("cliente3", "pass3", "Cliente Tres"); 
         Cliente c4 = new Cliente("cliente4", "pass4", "Cliente Cuatro");
@@ -233,14 +237,19 @@ public class Main {
         //1-   Sin asfaltar, sin mascota, sin baul, 1 pasajero, cliente 1, deberia asignar una moto
         try {
         	Pedido p1 = new Pedido(fechaEjemplo1, timeEjemplo1, "Sin asfaltar", false, "Manual", 1, c1);
-        	s.dispVehiculo(p1);
-        	//System.out.println("VEHICULO ASIGNADO 1:"+s.asignoVehiculo(p1));
+        	estadoPedido=s.dispVehiculo(p1);
+        	if (estadoPedido) {
         	TipoDeViaje v1 = factoryviaje.getViaje(p1, s.asignoChofer(), s.getDistancia(), s.asignoVehiculo(p1));
-            //System.out.println(" ");
-            //System.out.println(" ");
         	s.setViaje(v1);
-        	//System.out.println("el primer viaje es: "+s.GUILLEsa.viajes.get(0));
         	s.mueveChofer();
+        	}
+        	else
+				throw new NoHayVehiculoDisponibleException();
+            //System.out.println(" ");
+            //System.out.println(" ");
+        	
+        	//System.out.println("el primer viaje es: "+s.GUILLEsa.viajes.get(0));
+        	
         }
         catch(NoHayVehiculoDisponibleException e) {
         	System.out.println(e.mensaje);
