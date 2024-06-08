@@ -25,6 +25,7 @@ import empresa.Administrador;
 import empresa.Empresa;
 import empresa.Pedido;
 import empresa.Cliente;
+import empresa.excepciones.ChoferExistenteException;
 import choferes.Contratado;
 import choferes.Empleado;
 import choferes.Permanente;
@@ -74,6 +75,10 @@ public class Main {
 	        catch(valorPositivoExeption e) {
 	        	System.out.println("No se pudo crear el chofer, VALOR INVALIDO, DEBE SER ENTERO y MAYOR a 0");
 	        }
+        	catch(ChoferExistenteException e) {
+        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
+        	}
+        	
         try {
 	        Permanente ch1 = new Permanente(20, 30, 1, fechaEjemplo1, 0.1, "Roberto", "42231365", 300000);
 	        s.insertarChofer(ch1);
@@ -93,6 +98,10 @@ public class Main {
 	        catch(valorPositivoExeption e) {
 	        	System.out.println("No se pudo crear el chofer, VALOR INVALIDO, DEBE SER ENTERO y MAYOR a 0");
 	        }
+        	catch(ChoferExistenteException e) {
+        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
+        	}
+        
         try {
             Contratado ch2 = new Contratado(1500, "Jimeno", "42231366");
             s.insertarChofer(ch2);
@@ -107,6 +116,9 @@ public class Main {
             catch(SueldoBasicoIncorrectoExeption e) {
             	System.out.println("No se pudo crear el chofer, SUELDO BASICO ERRONEO");
             }
+        	catch(ChoferExistenteException e) {
+        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
+        	}
 
         try {
         	Temporario ch3 = new Temporario(10, 0.2, "Rumiante", "42231367", 200000);
@@ -122,6 +134,9 @@ public class Main {
             catch(SueldoBasicoIncorrectoExeption e) {
             	System.out.println("No se pudo crear el chofer, SUELDO BASICO ERRONEO");
             }
+        	catch(ChoferExistenteException e) {
+        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
+        	}
 
         try {
         	Contratado ch4 = new Contratado(10,"Sullivan", "42231368");
@@ -136,6 +151,9 @@ public class Main {
             catch(SueldoBasicoIncorrectoExeption e) {
             	System.out.println("No se pudo crear el chofer, SUELDO BASICO ERRONEO");
             }
+        	catch(ChoferExistenteException e) {
+        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
+        	}
 
 
               
@@ -232,6 +250,9 @@ public class Main {
         } catch (VehiculoExistenteException e) {
         	System.out.println("No se pudo insertar el vehículo: " + e.vehiculo+" ya que ya esta en el arraylist");
 		}  
+        
+        
+        
        
        //Crear Pedidos
         //1-   Sin asfaltar, sin mascota, sin baul, 1 pasajero, cliente 1, deberia asignar una moto

@@ -8,6 +8,7 @@ import choferes.Contratado;
 import choferes.Temporario;
 import choferes.exepciones.PorcentajeExeption;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import empresa.excepciones.ChoferExistenteException;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.DateInvalidException;
@@ -15,11 +16,18 @@ import empresa.excepciones.LuggageInvalidException;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
 import empresa.excepciones.ZoneInvalidException;
+
+import persistencia.EmpresaDTO;
+import persistencia.PersistenciaXML;
+import persistencia.IPersistencia;
+import persistencia.ParametrosIniciales;
+import persistencia.UtilEmpresa;
 import vehiculos.FactoryVehiculo;
 import vehiculos.Vehiculo;
 import vehiculos.exepciones.NoSePuedeCrearVehiculoException;
 import vehiculos.exepciones.VehiculoExistenteException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -30,6 +38,9 @@ import vehiculos.Vehiculo;
  * Puede lanzar excepciones
  */
 
+/**
+ * 
+ */
 public class Empresa {
 	private static Empresa referencia;
 
@@ -64,6 +75,76 @@ public class Empresa {
         this.vehiculos=new ArrayList<Vehiculo>();
 	}
 	
+	
+	/**
+	 * Metodo que retorna el ArrayList de los clientes que tiene la empresa
+	 * 
+	 * @return ArrayList de los clientes que tiene la empresa
+	 */
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+	
+	/**
+	 * Metodo que setea el ArrayList de los clientes que tiene la empresa
+	 * @param clientes: ArrayList de los clientes de la empresa
+	 */
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	/**
+	 * Metodo que retorna el ArrayList de los choferes que tiene la empresa
+	 * 
+	 * @return ArrayList de los choferes que tiene la empresa
+	 */
+	public ArrayList<Chofer> getChoferes() {
+		return choferes;
+	}
+
+	/**
+	 * Metodo que setea el ArrayList de los choferes que tiene la empresa
+	 * @param choferes: ArrayList de los choferes de la empresa
+	 */
+	public void setChoferes(ArrayList<Chofer> choferes) {
+		this.choferes = choferes;
+	}
+
+	/**
+	 * Metodo que retorna el ArrayList de los viajes que tiene la empresa
+	 * 
+	 * @return ArrayList de los viajes que tiene la empresa
+	 */
+	public ArrayList<TipoDeViaje> getViajes() {
+		return viajes;
+	}
+
+	/**
+	 * Metodo que setea el ArrayList de los viajes que tiene la empresa
+	 * @param viajes: ArrayList de los viajes, por parte de los clientes, que tiene la empresa
+	 */
+	public void setViajes(ArrayList<TipoDeViaje> viajes) {
+		this.viajes = viajes;
+	}
+
+	/**
+	 * Metodo que retorna el ArrayList de los vehiculos que tiene la empresa
+	 * 
+	 * @return ArrayList de los vehiculos que tiene la empresa
+	 */
+	public ArrayList<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+
+	/**
+	 * Metodo que setea el ArrayList de los vehiculos que tiene la empresa
+	 * @param vehiculos: ArrayList de los vehiculos que tiene la empresa
+	 */
+	public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
+
 		/**
 		 * Metodo para obtener la instancia unica de la clase Empresa (patron singleton).
 		 *
@@ -84,18 +165,17 @@ public class Empresa {
 	     * Si el chofer ya existe, lanza una excepci�n.
 	     *
 	     * @param chofer El chofer a insertar.
+	     * @throws ChoferExistenteException 
 	     * @throws TODO choferNoExisteException
 	     */
-        public void insertarChofer(Chofer chofer) //choferNoExisteException
+        public void insertarChofer(Chofer chofer) throws ChoferExistenteException
         {	if (choferes.isEmpty())
         	setChofer(chofer);
         	else
             if(!buscarChofer(chofer)) 
                 setChofer(chofer);
             else
-            {
-            	// throw new choferNoExisteException();
-            }   
+            	throw new ChoferExistenteException(chofer);
         }
         
         /**
@@ -755,12 +835,31 @@ public class Empresa {
             return total;
         }
         
+        
         public void mueveChofer() {
         	Chofer aux=this.choferes.remove(0);
         	this.choferes.add(aux);
         }
         
         
+        public void persistirInformacion(int cantClientes, int cantMaximaViajesPorCliente, int cantChoferesDeCadaTipo, int cantMaximaViajesPorChofer, int cantMaximaVehiculosDeCadaTipo) throws IOException {
+        	IPersistencia persistencia = new PersistenciaXML();
+        	persistencia.abrirOutput("DatosDeLaEmpresa.xml");
+        	EmpresaDTO edto = UtilEmpresa.empresaDTOfromEmpresa(this, cantClientes, cantMaximaViajesPorCliente, cantChoferesDeCadaTipo, cantMaximaViajesPorChofer, cantMaximaVehiculosDeCadaTipo);
+        	persistencia.escribir(edto);
+        	persistencia.cerrarOutput();
+        	
+        }
+        
+        public ParametrosIniciales despersistirInformacion() throws IOException, ClassNotFoundException {
+        	IPersistencia persistencia = new PersistenciaXML();
+            persistencia.abrirInput("DatosDeLaEmpresa.xml");
+            
+            EmpresaDTO edto = (EmpresaDTO) persistencia.leer();
+            UtilEmpresa.empresaFromEmpresaDTO(edto,this);
+            persistencia.cerrarInput();
+			return UtilEmpresa.obtenerParametrosIniciales(edto);
+        }
         
         
         

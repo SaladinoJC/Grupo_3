@@ -6,11 +6,17 @@ package empresa;
 
 import choferes.Chofer;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import empresa.excepciones.ChoferExistenteException;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
+import persistencia.ParametrosIniciales;
+
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 import vehiculos.Vehiculo;
 import vehiculos.exepciones.VehiculoExistenteException;
 
@@ -19,7 +25,7 @@ import vehiculos.exepciones.VehiculoExistenteException;
  * @author manso
  */
 public interface ManejoDeListas {
-    public void insertarChofer(Chofer chofer);
+    public void insertarChofer(Chofer chofer) throws ChoferExistenteException;
     public boolean buscarChofer(Chofer chofer);
     public Chofer buscarXchofer(Chofer chofer);
     public Chofer getChofer(int index);
@@ -47,6 +53,15 @@ public interface ManejoDeListas {
     public double getDistancia();
     public Vehiculo asignoVehiculo(Pedido p);
 	public void mueveChofer();
-     
+	public ArrayList<Cliente> getClientes();
+	public void setClientes(ArrayList<Cliente> clientes);
+	public ArrayList<Chofer> getChoferes();
+	public void setChoferes(ArrayList<Chofer> choferes);
+	public ArrayList<TipoDeViaje> getViajes();
+	public void setViajes(ArrayList<TipoDeViaje> viajes);
+	public ArrayList<Vehiculo> getVehiculos();
+	public void setVehiculos(ArrayList<Vehiculo> vehiculos);
+	public void persistirInformacion(int cantClientes, int cantMaximaViajesPorCliente, int cantChoferesDeCadaTipo, int cantMaximaViajesPorChofer, int cantMaximaVehiculosDeCadaTipo) throws IOException;
+	public ParametrosIniciales despersistirInformacion() throws IOException, ClassNotFoundException;
 }
 

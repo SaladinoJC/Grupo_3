@@ -2,11 +2,16 @@ package empresa;
 
 import choferes.Chofer;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
+import empresa.excepciones.ChoferExistenteException;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
+import persistencia.ParametrosIniciales;
+
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import vehiculos.Vehiculo;
@@ -64,7 +69,7 @@ public class Sistema implements ManejoDeListas{
         
         
     @Override
-    public void insertarChofer(Chofer chofer) {
+    public void insertarChofer(Chofer chofer) throws ChoferExistenteException {
         GUILLEsa.insertarChofer(chofer);
     }
 
@@ -191,8 +196,8 @@ public class Sistema implements ManejoDeListas{
     }
 
     @Override
-    public void dispVehiculo(Pedido p, Boolean estadoVehiculo) {
-       GUILLEsa.dispVehiculo(p);
+    public void dispVehiculo(Pedido p, Boolean estadoVehiculo) throws NoHayVehiculoDisponibleException {
+       GUILLEsa.dispVehiculo(p, estadoVehiculo);;
     }
 
     @Override
@@ -211,7 +216,56 @@ public class Sistema implements ManejoDeListas{
 
 	public String ordenarViajesXCostos() {
 		return GUILLEsa.ordenarViajesXCostos();
-		}
-   
+	}
+
+	@Override
+	public ArrayList<Cliente> getClientes() {
+		return GUILLEsa.getClientes();
+	}
+
+	@Override
+	public void setClientes(ArrayList<Cliente> clientes) {
+		GUILLEsa.setClientes(clientes);
+	}
+
+	@Override
+	public ArrayList<Chofer> getChoferes() {
+		return GUILLEsa.getChoferes();
+	}
+
+	@Override
+	public void setChoferes(ArrayList<Chofer> choferes) {
+		GUILLEsa.setChoferes(choferes);
+	}
+
+	@Override
+	public ArrayList<TipoDeViaje> getViajes() {
+		return GUILLEsa.getViajes();
+	}
+
+	@Override
+	public void setViajes(ArrayList<TipoDeViaje> viajes) {
+		GUILLEsa.setViajes(viajes);
+	}
+
+	@Override
+	public ArrayList<Vehiculo> getVehiculos() {
+		return GUILLEsa.getVehiculos();
+	}
+
+	@Override
+	public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+		GUILLEsa.setVehiculos(vehiculos);
+	}
+
+	@Override
+	public void persistirInformacion(int cantClientes, int cantMaximaViajesPorCliente, int cantChoferesDeCadaTipo, int cantMaximaViajesPorChofer, int cantMaximaVehiculosDeCadaTipo) throws IOException {
+		GUILLEsa.persistirInformacion(cantClientes, cantMaximaViajesPorCliente, cantChoferesDeCadaTipo, cantMaximaViajesPorChofer, cantMaximaVehiculosDeCadaTipo);
+	}
+
+	@Override
+	public ParametrosIniciales despersistirInformacion() throws IOException, ClassNotFoundException {
+		return GUILLEsa.despersistirInformacion();
+	}
     
 }

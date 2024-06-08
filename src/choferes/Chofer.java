@@ -5,8 +5,8 @@ import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import java.util.Objects;
 /**
  * Clase abstracta que representa a un chofer.
- * Esta clase es abstracta y proporciona métodos base comunes para todos los tipos de choferes.
- * Las clases hijas deben implementar los métodos abstractos para definir comportamientos específicos.
+ * Esta clase es abstracta y proporciona mï¿½todos base comunes para todos los tipos de choferes.
+ * Las clases hijas deben implementar los mï¿½todos abstractos para definir comportamientos especï¿½ficos.
  * 
  * @author manso
  */
@@ -21,8 +21,8 @@ public abstract class Chofer{
      * Constructor de Chofer.
      * 
      * @param nombre El nombre del chofer.
-     * @param DNI El número de DNI del chofer.
-     * @throws DNImalingresadoExeption Si el formato del DNI no es válido.
+     * @param DNI El nï¿½mero de DNI del chofer.
+     * @throws DNImalingresadoExeption Si el formato del DNI no es vï¿½lido.
      */
     public Chofer(String nombre, String DNI)throws DNImalingresadoExeption{
         this.nombre = nombre;
@@ -43,18 +43,18 @@ public abstract class Chofer{
     }
     
     /**
-     * Obtiene el número de DNI del chofer.
+     * Obtiene el nï¿½mero de DNI del chofer.
      * 
-     * @return El número de DNI del chofer.
+     * @return El nï¿½mero de DNI del chofer.
      */
     public String getDNI() {
         return DNI;
     }
 
     /**
-     * Incrementa los kilómetros recorridos por el chofer.
+     * Incrementa los kilï¿½metros recorridos por el chofer.
      * 
-     * @param La cantidad de kilómetros a aumentar.
+     * @param La cantidad de kilï¿½metros a aumentar.
      */
    public void aumentarKmRecorridos(double km){
        this.kmRecorridos+=km;
@@ -93,12 +93,13 @@ public abstract class Chofer{
     public abstract String toString();
 
     /**
-     * Método abstracto para obtener el sueldo del chofer.
+     * Mï¿½todo abstracto para obtener el sueldo del chofer.
      * 
      * @return El sueldo del chofer.
      */
     public abstract double getSueldo();
-
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
