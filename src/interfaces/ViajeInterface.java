@@ -4,9 +4,7 @@
  */
 package interfaces;
 
-import empresa.Cliente;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 /**
  *
@@ -17,7 +15,7 @@ public class ViajeInterface extends javax.swing.JFrame {
     /**
      * Creates new form Viaje
      */
-    public ViajeInterface(int cantPasajeros,String zona,String equipaje,boolean mascota,LocalDate fecha,LocalTime hora,Cliente cliente) {
+    public ViajeInterface() {
         initComponents();
     }
 

@@ -7,6 +7,7 @@ import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
+import interfaces.Controlador;
 import persistencia.ParametrosIniciales;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import vehiculos.exepciones.VehiculoExistenteException;
  * Contiene una referencia a la empresa y al administrador del sistema.
  * Implementa manejoDeListas que tiene todos los metodos de empresa.
  */
-public class Sistema implements ManejoDeListas{
+public class Sistema extends  Observable implements ManejoDeListas{
     private static Sistema referencia=null;
 
     /**
@@ -43,8 +44,10 @@ public class Sistema implements ManejoDeListas{
      */
     public Sistema(Administrador admin)
     {
+        
         this.GUILLEsa=Empresa.getReferencia();
         this.admin=admin;
+        addObserver(Controlador.getReferencia());
     }
  
     /**
@@ -66,11 +69,20 @@ public class Sistema implements ManejoDeListas{
 	public String toString() {
 		return "Sistema [GUILLEsa=" + GUILLEsa + ", admin=" + admin + "]";
 	}
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        super.addObserver(o); 
+    }
+        
+     
         
         
     @Override
     public void insertarChofer(Chofer chofer) throws ChoferExistenteException {
         GUILLEsa.insertarChofer(chofer);
+        setChanged();
+        notifyObservers(chofer);
     }
 
     @Override
@@ -122,6 +134,8 @@ public class Sistema implements ManejoDeListas{
     @Override
     public void insertarVehiculo(Vehiculo vehiculo) throws VehiculoExistenteException {
         GUILLEsa.insertarVehiculo(vehiculo);
+        setChanged();
+        notifyObservers(vehiculo);
     }
 
     @Override
@@ -157,6 +171,8 @@ public class Sistema implements ManejoDeListas{
     @Override
      public void insertarCliente(Cliente cliente) throws ClienteExistenteException {
        GUILLEsa.insertarCliente(cliente);
+       setChanged();
+       notifyObservers(cliente);
     }
 
     @Override
@@ -167,6 +183,8 @@ public class Sistema implements ManejoDeListas{
     @Override
     public void setViaje(TipoDeViaje viaje) {
     	GUILLEsa.setViaje(viaje);
+        setChanged();
+        notifyObservers(viaje);
     }
 
     @Override
@@ -191,7 +209,6 @@ public class Sistema implements ManejoDeListas{
 
     @Override
     public Chofer asignoChofer() throws NoHayChoferDisponibleException {
-        
         return GUILLEsa.asignoChofer();
     }
 

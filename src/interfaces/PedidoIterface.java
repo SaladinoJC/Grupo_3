@@ -6,6 +6,9 @@ package interfaces;
 
 import empresa.Cliente;
 import empresa.excepciones.ClienteNoExistenteExeption;
+import empresa.excepciones.DateInvalidException;
+import empresa.excepciones.LuggageInvalidException;
+import empresa.excepciones.ZoneInvalidException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -21,13 +24,17 @@ import javax.swing.Timer;
  * @author manso
  */
 public class PedidoIterface extends javax.swing.JFrame {
+    private String nombreUsuario;//la interface tiene el nombre de usuario y la contrseña 
+    private String contraseña;
 
     /**
      * Creates new form Pedido
      */
     public PedidoIterface(String nombreUsuario,String contraseña) {
         initComponents();
-        SeterCliente(nombreUsuario, contraseña);
+        this.nombreUsuario=nombreUsuario;
+        this.contraseña=contraseña;
+        SeterCliente(this.nombreUsuario,this.contraseña);
         SeterFecha();
         SeterHora();
     }
@@ -208,17 +215,58 @@ public class PedidoIterface extends javax.swing.JFrame {
 
     private void jButtonPedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedirActionPerformed
         String cantPasajeros=jTextFieldPasajeros.getText();
-        ViajeInterface ventana;
         if(Valido(cantPasajeros))
         {   
-            ventana=new ViajeInterface(cantPasajeros,);
             this.setVisible(false);
-            this.dispose();
-            ventana.setVisible(true);
+            enviarDatos();
+            this.dispose(); 
         }
- 
     }//GEN-LAST:event_jButtonPedirActionPerformed
-
+    //este metodo extrae los dato de la interface pedido y se los envia al controlador
+    private void enviarDatos()
+    {
+        
+        int cantPasajeros=Integer.parseInt(jTextFieldPasajeros.getText());
+        String zona,equipaje,usuario,contraseña;
+        boolean animales;
+        LocalDate fecha=LocalDate.now();
+        LocalTime hora=LocalTime.now();
+     
+        //zona
+        if(jRadioButtonEstandar.isSelected())
+            zona="Estandar";
+        else if(jRadioButtonPeligrosa.isSelected())
+              zona="Peligrosa";
+        else
+              zona="Sin asfalta";
+        
+        //animales
+        if(jCheckBoxSI.isSelected())
+            animales=true;
+        else
+            animales=false;
+        //equipaje
+        if(jCheckBoxBaul.isSelected())
+            equipaje="Baul";
+        else
+            equipaje="Manual";
+            
+        try {
+            try {
+                Controlador.HacerPedido(cantPasajeros, zona, equipaje, animales, fecha, hora,Controlador.buscarCliente(this.nombreUsuario,this.contraseña));
+            } catch (DateInvalidException ex) {
+                Logger.getLogger(PedidoIterface.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ZoneInvalidException ex) {
+                Logger.getLogger(PedidoIterface.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LuggageInvalidException ex) {
+                Logger.getLogger(PedidoIterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ClienteNoExistenteExeption ex) {
+            Logger.getLogger(PedidoIterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     //devuelve si un pedio es valido
     private boolean  Valido(String cantPasajeros)
     {
