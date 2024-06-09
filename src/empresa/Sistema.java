@@ -82,7 +82,7 @@ public class Sistema extends  Observable implements ManejoDeListas{
     public void insertarChofer(Chofer chofer) throws ChoferExistenteException {
         GUILLEsa.insertarChofer(chofer);
         setChanged();
-        notifyObservers(chofer);
+        notifyObservers("se agrego el chofer a la lista de choferes "+chofer.getNombre());
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Sistema extends  Observable implements ManejoDeListas{
     public void insertarVehiculo(Vehiculo vehiculo) throws VehiculoExistenteException {
         GUILLEsa.insertarVehiculo(vehiculo);
         setChanged();
-        notifyObservers(vehiculo);
+        notifyObservers("se agrego el vehiculo a la lista de vehiculos "+vehiculo.getNroPatente());
     }
 
     @Override
@@ -172,7 +172,7 @@ public class Sistema extends  Observable implements ManejoDeListas{
      public void insertarCliente(Cliente cliente) throws ClienteExistenteException {
        GUILLEsa.insertarCliente(cliente);
        setChanged();
-       notifyObservers(cliente);
+       notifyObservers("se agrego el cliente a la lista de clientes "+cliente.getNombreDeUsuario());
     }
 
     @Override
@@ -184,7 +184,7 @@ public class Sistema extends  Observable implements ManejoDeListas{
     public void setViaje(TipoDeViaje viaje) {
     	GUILLEsa.setViaje(viaje);
         setChanged();
-        notifyObservers(viaje);
+        notifyObservers("se agrego a la lista de viajes el viaje "+viaje.getPedido().toString());
     }
 
     @Override
@@ -209,11 +209,14 @@ public class Sistema extends  Observable implements ManejoDeListas{
 
     @Override
     public Chofer asignoChofer() throws NoHayChoferDisponibleException {
+        Chofer aux=GUILLEsa.asignoChofer();
+        setChanged();
+        notifyObservers("asigno chofer "+aux.getNombre());
         return GUILLEsa.asignoChofer();
     }
 
     @Override
-    public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
+    public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException{
        return GUILLEsa.dispVehiculo(p);
     }
 
@@ -224,7 +227,11 @@ public class Sistema extends  Observable implements ManejoDeListas{
 
     @Override
     public Vehiculo asignoVehiculo(Pedido p) {
+         setChanged();
+         Vehiculo aux=GUILLEsa.asignoVehiculo(p);
+         notifyObservers("se asigno el vehiculo"+ aux.getNroPatente()+ "al pedido "+p.getCliente());
          return GUILLEsa.asignoVehiculo(p);
+         
     }
 
 	public String ListarViajes() {

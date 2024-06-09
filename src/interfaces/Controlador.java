@@ -6,11 +6,8 @@ package interfaces;
 
 import choferes.Chofer;
 import empresa.Cliente;
-import empresa.Estandar;
 import empresa.FactoryViaje;
 import empresa.Pedido;
-import empresa.Peligrosa;
-import empresa.SinAsfaltar;
 import empresa.Sistema;
 import empresa.TipoDeViaje;
 import empresa.Viaje;
@@ -36,7 +33,7 @@ import vehiculos.Vehiculo;
 public class Controlador implements Observer{
     private static Sistema sistema=Sistema.getReferencia();
     private static Controlador referencia=null;
-    private General general;
+    private static General general;
     
     private Controlador(){
        this.general=new General();
@@ -73,6 +70,7 @@ public class Controlador implements Observer{
         ventana.setVisible(true);
         boolean disponible;
         Pedido nuevoPedido=new Pedido(fecha, hora, zona, mascota, equipaje, cantPasajeros, cliente);
+        general.agregarAcciones("el cliente "+cliente.getNombreDeUsuario()+" realizo un pedido");
         TipoDeViaje nuevoViaje=null;
         while(nuevoViaje == null)
         {
@@ -88,12 +86,15 @@ public class Controlador implements Observer{
                 }
                   catch(NoHayVehiculoDisponibleException e){
                       ventana.agregar("no vehiculo disponible");
+             
                   }
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            if(nuevoViaje == null){
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
         }
         sistema.setViaje(nuevoViaje);
     }
@@ -103,26 +104,8 @@ public class Controlador implements Observer{
         if(o !=sistema)
             throw  new IllegalArgumentException();
         
-        if(arg instanceof Cliente)
-        {
-            Cliente aux=(Cliente)arg;
-            general.agregarAcciones("se agrego el cliente "+aux.getNombreDeUsuario());
-        }
-        if(arg instanceof Chofer)
-        {
-            Chofer aux=(Chofer) arg;
-            general.agregarAcciones("se agrego al chofer "+aux.getNombre());
-        }
-        if(arg instanceof Viaje)
-        {
-            Viaje aux=(Viaje)arg;
-            general.agregarAcciones("se agrego el viaje "+aux.toString());
-        }
-        if(arg instanceof Vehiculo)
-        {
-            Vehiculo aux=(Vehiculo)arg;
-            general.agregarAcciones("se agrego el vehiculo "+aux.getNroPatente());
-        }
+        String texto=(String)arg; 
+        general.agregarAcciones(texto);  
     }
     
     
