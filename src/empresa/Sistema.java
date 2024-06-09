@@ -213,8 +213,8 @@ public class Sistema extends  Observable implements ManejoDeListas{
     }
 
     @Override
-    public void dispVehiculo(Pedido p, Boolean estadoVehiculo) throws NoHayVehiculoDisponibleException {
-       GUILLEsa.dispVehiculo(p, estadoVehiculo);;
+    public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException {
+       return GUILLEsa.dispVehiculo(p);
     }
 
     @Override

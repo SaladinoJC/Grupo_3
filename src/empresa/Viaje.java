@@ -51,7 +51,7 @@ public abstract class Viaje implements TipoDeViaje{
 		if(distanciaRealRecorrida > 0)
 			this.distanciaRealRecorrida = distanciaRealRecorrida;
 		else
-			System.out.println("roberto");//exception
+		     System.out.println("roberto");//exception
 		this.vehiculo=vehiculo;
 	}
 	

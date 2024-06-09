@@ -6,18 +6,27 @@ package interfaces;
 
 import choferes.Chofer;
 import empresa.Cliente;
+import empresa.Estandar;
+import empresa.FactoryViaje;
 import empresa.Pedido;
+import empresa.Peligrosa;
+import empresa.SinAsfaltar;
 import empresa.Sistema;
+import empresa.TipoDeViaje;
 import empresa.Viaje;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.ClienteNoExistenteExeption;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.LuggageInvalidException;
+import empresa.excepciones.NoHayChoferDisponibleException;
+import empresa.excepciones.NoHayVehiculoDisponibleException;
 import empresa.excepciones.ZoneInvalidException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import vehiculos.Vehiculo;
 
 /**
@@ -60,7 +69,33 @@ public class Controlador implements Observer{
     
     public static void HacerPedido(int cantPasajeros,String zona,String equipaje,boolean mascota,LocalDate fecha,LocalTime hora,Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException
     {
-        Pedido nuevo=new Pedido(fecha, hora, zona, mascota, equipaje, cantPasajeros, cliente);
+        ViajeInterface ventana=new ViajeInterface();
+        ventana.setVisible(true);
+        boolean disponible;
+        Pedido nuevoPedido=new Pedido(fecha, hora, zona, mascota, equipaje, cantPasajeros, cliente);
+        TipoDeViaje nuevoViaje=null;
+        while(nuevoViaje == null)
+        {
+            try {
+                disponible=sistema.dispVehiculo(nuevoPedido);
+                nuevoViaje = FactoryViaje.getViaje(nuevoPedido,sistema.asignoChofer(),sistema.getDistancia(),sistema.asignoVehiculo(nuevoPedido));
+                ventana.agregar("se asigno el chofer "+sistema.asignoChofer().getNombre());
+                ventana.agregar("se asigno el vehiculo "+sistema.asignoVehiculo(nuevoPedido).getNroPatente());
+                ventana.agregar("el precio a pagar es "+nuevoViaje.getCostoTotal());
+                ventana.botonPagar();
+                } catch (NoHayChoferDisponibleException ex) {
+                    ventana.agregar("no hay chofer disponible");
+                }
+                  catch(NoHayVehiculoDisponibleException e){
+                      ventana.agregar("no vehiculo disponible");
+                  }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        }
+        sistema.setViaje(nuevoViaje);
     }
 
     @Override

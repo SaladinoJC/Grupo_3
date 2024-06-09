@@ -317,7 +317,7 @@ public class Empresa {
          * @param p El pedido que le llega para chequear si hay un auto disponible para ese pedido
          * @throws NoHayVehiculoDisponibleException
          */
-		public void dispVehiculo(Pedido p, boolean estadoVehiculo) throws NoHayVehiculoDisponibleException{
+		public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException{
 			int i=0;
 			boolean ok=false;
 			Vehiculo aux;
@@ -329,10 +329,9 @@ public class Empresa {
                i++;
             }
 			if (!ok) {
-				estadoVehiculo=false;
 				throw new NoHayVehiculoDisponibleException();}
 			else
-				estadoVehiculo=true;
+				return true;
 		}
 		
         /**
@@ -356,6 +355,7 @@ public class Empresa {
         		}
         		i++;
         	}
+            aux=getVehiculo(prioridad);
             return aux; //Devuelvo un aux aunque no lo haya inicializado porque ya cheque que hay alguno disponible
         }
         

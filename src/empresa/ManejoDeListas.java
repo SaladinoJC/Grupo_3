@@ -49,7 +49,7 @@ public interface ManejoDeListas {
     public void calculoDePuntaje();
     public double TotalPagar() throws SueldoBasicoIncorrectoExeption;
     public Chofer asignoChofer() throws NoHayChoferDisponibleException;
-    public void dispVehiculo(Pedido p, Boolean estadoVehiculo) throws NoHayVehiculoDisponibleException;
+    public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException;
     public double getDistancia();
     public Vehiculo asignoVehiculo(Pedido p);
 	public void mueveChofer();

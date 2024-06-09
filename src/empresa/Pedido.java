@@ -41,19 +41,18 @@ public class Pedido implements Cloneable{
      * @throws Zona invalida - zoneInvalidException	
      * @throws Equipaje invalido - luggageInvalideException
      */
-	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException{
-
-		if(fecha.getYear()>0)
-			this.fecha = fecha;
-         else
+	public Pedido(LocalDate fecha, LocalTime hora, String zona, boolean mascotas, String equipaje, int cantDePasajeros, Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException{    
+            if(fecha.getYear()>0)
+		this.fecha = fecha;
+           else
         	throw new DateInvalidException(fecha);
         	 
-		this.hora = hora;
+            this.hora = hora;
 		
-		if(zona.equalsIgnoreCase("Estandar") || zona.equalsIgnoreCase("Sin asfaltar") || zona.equalsIgnoreCase("Peligrosa")) 
-			this.zona = zona;
-		else
-			throw new ZoneInvalidException(zona);
+            if(zona.equalsIgnoreCase("Estandar") || zona.equalsIgnoreCase("Sin asfaltar") || zona.equalsIgnoreCase("Peligrosa")) 
+		this.zona = zona;
+            else
+		throw new ZoneInvalidException(zona);
 			
 		this.mascotas = mascotas;
 		

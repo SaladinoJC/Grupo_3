@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -17,6 +19,7 @@ public class ViajeInterface extends javax.swing.JFrame {
      */
     public ViajeInterface() {
         initComponents();
+         jButtonPagar.setVisible(false);
     }
 
     /**
@@ -45,6 +48,16 @@ public class ViajeInterface extends javax.swing.JFrame {
         jLabelPrecio.setText("Precio:");
 
         jButtonPagar.setText("Pagar");
+        jButtonPagar.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                jButtonPagarComponentHidden(evt);
+            }
+        });
+        jButtonPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPagarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,6 +91,16 @@ public class ViajeInterface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonPagarComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButtonPagarComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPagarComponentHidden
+
+    private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
+            JOptionPane aux=new JOptionPane("PAGO EXITOSO");
+            this.setVisible(false);
+            this.dispose();
+    }//GEN-LAST:event_jButtonPagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,6 +138,23 @@ public class ViajeInterface extends javax.swing.JFrame {
         });
     }
 
+    public void botonPagar()
+    {
+        jButtonPagar.setVisible(true);
+    }
+    
+    
+    public void agregar(String agregar)
+    {
+        String texto=jTextArea1.getText();
+        agregar=agregar.concat("\n");
+        texto=texto.concat(agregar); 
+        jTextArea1.setText(texto);
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JLabel jLabelEstado;

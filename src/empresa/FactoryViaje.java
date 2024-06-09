@@ -18,7 +18,7 @@ public class FactoryViaje {
      * @param vehiculo El veh�culo utilizado en el viaje.
      * @return Un tipo de viaje creado seg�n las especificaciones.
      */
-	public TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
+	public static TipoDeViaje getViaje (Pedido pedido, Chofer chofer, double distanciaRealRecorrida, Vehiculo vehiculo) {
 		TipoDeViaje componenteConc=null, encapsuladoMascota=null, encapsuladoEquipaje=null;
 		
 		if(pedido.getZona().equalsIgnoreCase("Estandar"))
