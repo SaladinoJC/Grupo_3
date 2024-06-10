@@ -1017,7 +1017,7 @@ public class Empresa extends Observable {
 		public synchronized void asignaVehiculo() {
     		while (this.viajesSinVehiculo.isEmpty() || this.asignoVehiculo(viajesSinVehiculo.getFirst())==null) {
     			try {
-                                System.out.println("estan esperando un vehiculo");
+                            //    System.out.println("estan esperando un vehiculo");
                                 wait();
     			}
     			catch (InterruptedException e)

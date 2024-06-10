@@ -58,7 +58,7 @@ public class Main {
         // se instancian los factorys que seran usados despues
         FactoryViaje factoryviaje = new FactoryViaje();
         FactoryVehiculo factoryvehiculo = new FactoryVehiculo();        
-        System.out.println(s.countObservers()+ "es la cantidad de obs");        
+       // System.out.println(s.countObservers()+ "es la cantidad de obs");        
         // Crear choferes
         try {             //CHOFER CON DNI MAL CREADO
 	        Permanente ch1 = new Permanente(20, 30, 1, fechaEjemplo1, 0.1, "Roberto", "42.231.365", 300000);
