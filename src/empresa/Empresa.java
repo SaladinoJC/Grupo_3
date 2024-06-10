@@ -1,6 +1,7 @@
 package empresa;
 
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Random;
 
 import choferes.Chofer;
@@ -16,7 +17,7 @@ import empresa.excepciones.LuggageInvalidException;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
 import empresa.excepciones.ZoneInvalidException;
-
+import interfaces.Controlador;
 import persistencia.EmpresaDTO;
 import persistencia.PersistenciaXML;
 import persistencia.IPersistencia;
@@ -41,7 +42,7 @@ import vehiculos.Vehiculo;
 /**
  * 
  */
-public class Empresa {
+public class Empresa extends Observable {
 	private static Empresa referencia;
 
     /**
@@ -53,7 +54,7 @@ public class Empresa {
      * @aggregation composite
      */
     private ArrayList<Chofer>choferes;
-
+    
     /**
      * @aggregation shared
      */
@@ -63,7 +64,14 @@ public class Empresa {
      * @aggregation composite
      */
     private ArrayList<Vehiculo>vehiculos;
+        
+    private ArrayList<Pedido>viajesSinVehiculo;
 	
+    private ArrayList<TipoDeViaje>viajesConVehiculo;
+    
+    private ArrayList<TipoDeViaje>viajesSinPagar;
+    
+    private ArrayList<TipoDeViaje>viajesPagados;
     /**
      * Constructor privado de la clase Empresa.
      * Se inicializan las listas de clientes, choferes, viajes y veh�culos.
@@ -72,7 +80,11 @@ public class Empresa {
 		this.choferes=new ArrayList<Chofer>();
 		this.clientes=new ArrayList<Cliente>();
 		this.viajes=new ArrayList<TipoDeViaje>();
-                this.vehiculos=new ArrayList<Vehiculo>();
+        this.vehiculos=new ArrayList<Vehiculo>();
+        this.viajesSinVehiculo= new ArrayList<Pedido>();
+        this.viajesConVehiculo= new ArrayList<TipoDeViaje>();
+        this.viajesSinPagar = new ArrayList<TipoDeViaje>();
+        this.viajesPagados = new ArrayList<TipoDeViaje>();
 	}
 	
 	
@@ -263,10 +275,17 @@ public class Empresa {
         }
         
         public Chofer asignoChofer() throws NoHayChoferDisponibleException{
+        	int i=0;
 			if (this.choferes.isEmpty())
 				 throw new NoHayChoferDisponibleException();
 			else
-				return this.getChofer(0);
+				while(i<this.choferes.size() && !this.choferes.get(i).isDisponible()) {
+					i++;
+				}
+			if (i==this.choferes.size())
+				return null;
+			else
+				return this.getChofer(i);
 		}
               
 
@@ -317,7 +336,8 @@ public class Empresa {
          * @param p El pedido que le llega para chequear si hay un auto disponible para ese pedido
          * @throws NoHayVehiculoDisponibleException
          */
-		public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException{
+		public boolean dispVehiculo(Pedido p) //throws NoHayVehiculoDisponibleException
+		{
 			int i=0;
 			boolean ok=false;
 			Vehiculo aux;
@@ -329,7 +349,9 @@ public class Empresa {
                i++;
             }
 			if (!ok) {
-				throw new NoHayVehiculoDisponibleException();}
+				return false;
+				//throw new NoHayVehiculoDisponibleException();
+				}
 			else
 				return true;
 		}
@@ -347,7 +369,10 @@ public class Empresa {
         		act = getVehiculo(i);
         		
         		//System.out.println("act es: "+act);
+        		if(act.isDisponible())
         		prioridadAct = act.getPrioridad(p); 
+        		else
+        		prioridadAct= -1;
         		//System.out.println("la prioridad act es: "+prioridadAct);
         		if (prioridadAct > prioridad) {
         			aux = act;
@@ -355,9 +380,13 @@ public class Empresa {
         		}
         		i++;
         	}
-            aux=getVehiculo(prioridad);
-            return aux; //Devuelvo un aux aunque no lo haya inicializado porque ya cheque que hay alguno disponible
-        }
+           // aux=getVehiculo(prioridad);
+        	if (prioridad== -1)
+        		return null;
+        	else
+        		return aux; //Devuelvo un aux aunque no lo haya inicializado porque ya cheque que hay alguno disponible
+        }       
+        
         
         /**
          * Devuelve el vehiculo con mas prioridad para el pedido recibido por parametro
@@ -861,6 +890,44 @@ public class Empresa {
 			return UtilEmpresa.obtenerParametrosIniciales(edto);
         }
         
+    	private void crearViajeSinVehiculo(Pedido p) {
+			this.viajesSinVehiculo.add(p);
+		}
+    	
+    	private void crearViajeConVehiculo(Pedido p, Vehiculo v) {
+    	TipoDeViaje viaje = FactoryViaje.getViaje(p, null, this.getDistancia(), v);
+			this.viajesConVehiculo.add(viaje);
+		}
+    	
+    	private Pedido getPedidoLista() {
+    		Pedido p=this.viajesConVehiculo.getFirst().getPedido();
+    		return p;
+		}
+    	
+		private Vehiculo getVehiculoLista() {
+			Vehiculo v=this.viajesConVehiculo.getFirst().getVehiculo();
+			return v;
+		}
+		
+    	private int EstaMiViaje(Cliente c) {
+			int i=0;
+			while (i<this.viajesSinPagar.size() && !this.viajesSinPagar.get(i).getPedido().getCliente().equals(c))
+				i++;
+			if (i==this.viajesSinPagar.size())
+				return -1;
+			else
+				return i;
+		}
+    	
+		private int EstaMiViajePagado(Chofer c) {
+			int i=0;
+			while (i<this.viajesPagados.size() && !this.viajesPagados.get(i).getChofer().equals(c))
+				i++;
+			if (i==this.viajesPagados.size())
+				return -1;
+			else
+				return i;
+		}
         
         
         
@@ -897,8 +964,14 @@ public class Empresa {
     		return p1;
     	}
 
-    	public synchronized void solicitaviaje(Pedido p, Cliente c) {
-    		while (!this.choferDisponible() || !this.vehiculoDisponible(p))
+    	
+    	
+    	
+    	
+    	
+    	
+    	public synchronized void solicitaviaje(Pedido p, Cliente c) throws NoHayChoferDisponibleException{
+    		while (this.asignoChofer()==null || !this.dispVehiculo(p)) {
     			try
     			{
     				System.out.println("El cliente" + c.getNombreReal() + "tiene que esperar");
@@ -908,39 +981,113 @@ public class Empresa {
     				
     				e.printStackTrace();
     			}
+    		}
+    		setChanged();
+    		notifyObservers("se acepta el viaje de " + c.getNombreReal());
     		System.out.println("se acepta el viaje de " + c.getNombreReal());
-    		// Marcar chofer como ocupado
-    		// Marcar Vehiculo como no disponible
-    		// Crear viaje en listado de viajes actuales
+    		if (c.getNombreReal().equals("Cliente Tres"))
+    			Controlador.infoCliente("se acepta el viaje de " + c.getNombreReal());
+    		this.crearViajeSinVehiculo(p);
     		notifyAll();
     		
     	}
 
-    	public void pagaviaje(Pedido p, Cliente c) {
-    		// TODO Auto-generated method stub
-    		
+    
+
+
+		public synchronized void pagaviaje(Cliente c) {
+    	while ( this.viajesSinPagar.isEmpty() || this.EstaMiViaje(c)<0) {
+    		try {
+    			wait();
+    		}
+    		catch (InterruptedException e) {
+    			
+    		}
+    	}
+    	setChanged();
+		notifyObservers("Se paga al viaje de " + c.getNombreReal());
+    	System.out.println("Se paga al viaje de " + c.getNombreReal());
+    	if (c.getNombreReal().equals("Cliente Tres"))
+			Controlador.infoCliente("Se paga al viaje de " + c.getNombreReal());
+    	this.viajesPagados.add(this.viajesSinPagar.get(EstaMiViaje(c)));
+    	this.viajesSinPagar.remove(EstaMiViaje(c));
+    	notifyAll();
     	}
         
-    	public synchronized void asignaVehiculo(Viaje v) {
+		public synchronized void asignaVehiculo() {
+    		while (this.viajesSinVehiculo.isEmpty() || this.asignoVehiculo(viajesSinVehiculo.getFirst())==null) {
+    			try {
+    			wait();
+    			}
+    			catch (InterruptedException e)
+    			{
+				e.printStackTrace();
+    			}
+    		}
+    		Vehiculo v=this.asignoVehiculo(viajesSinVehiculo.getFirst());     //asignoVehiculo devuelve el vehiculo ideal para p
+    		this.crearViajeConVehiculo(this.viajesSinVehiculo.getFirst(), v);
+    		this.viajesSinVehiculo.remove(0);
+    		v.setDisponible(false);
+    		setChanged();
+    		notifyObservers("Se asigna el vehiculo" + v.getNroPatente());
+    		System.out.println("Se asigna el vehiculo" + v.getNroPatente());
+    		notifyAll();
     		
     	}
     	
-    	public synchronized void asignaChofer() {   //toma un viaje de la lista
+    
+		public synchronized void asignaChofer() throws NoHayChoferDisponibleException {   //toma un viaje de la lista
+    		while (viajesConVehiculo.isEmpty() || this.asignoChofer()==null) {
+    			try {
+    			wait();
+    			}
+    			catch (InterruptedException e)
+    			{
+				e.printStackTrace();
+    			}
+    		}
+    		Chofer c = this.asignoChofer();    
+    		Pedido pedido = getPedidoLista();
+    		Vehiculo vehiculo = getVehiculoLista();
+    		TipoDeViaje viaje = FactoryViaje.getViaje(pedido, c, this.getDistancia(), vehiculo);
+    		this.setViaje(viaje);
+    		this.viajesSinPagar.add(viaje);
+    		c.setDisponible(false);
+    		this.viajesConVehiculo.remove(0);
+    		setChanged();
+    		notifyObservers("Se asigna el chofer" + c.getNombre());
+    		System.out.println("Se asigna el chofer" + c.getNombre());
+    		notifyAll();
     		
     	}
     	
-    	public synchronized void finalizaViaje() {
-    		
-    	}
+
+
+
+		public synchronized void finalizaViaje(Chofer c) {
+			//System.out.println("Estoy entrando a finaliza viaje");
+    		while ( this.viajesPagados.isEmpty() || this.EstaMiViajePagado(c)<0) {
+        		try {
+        			wait();
+        		}
+        		catch (InterruptedException e) {
+        			
+        		}
+        	}
+    		setChanged();
+    		notifyObservers("El Chofer " + c.getNombre() + "Finaliza el viaje");
+        	System.out.println("El Chofer " + c.getNombre() + "Finaliza el viaje");
+        	this.viajesPagados.get(EstaMiViajePagado(c)).getChofer().setDisponible(true);
+        	this.viajesPagados.get(EstaMiViajePagado(c)).getVehiculo().setDisponible(true);
+        	this.viajesPagados.remove(EstaMiViajePagado(c));
+        	
+        	notifyAll();
+        }
         
         
-        
-        
-        
-        
-        
-        
-        
+  
+
+
 		@Override
 		public String toString() {
 			return "Empresa [clientes=" + clientes + ", choferes=" + choferes + ", viajes=" + viajes + ", vehiculos=" + vehiculos + "]";

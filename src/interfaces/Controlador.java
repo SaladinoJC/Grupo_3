@@ -6,6 +6,7 @@ package interfaces;
 
 import choferes.Chofer;
 import empresa.Cliente;
+import empresa.Empresa;
 import empresa.FactoryViaje;
 import empresa.Pedido;
 import empresa.Sistema;
@@ -31,20 +32,30 @@ import vehiculos.Vehiculo;
  * @author manso
  */
 public class Controlador implements Observer{
-    private static Sistema sistema=Sistema.getReferencia();
+    private static Sistema sistema;
+    private static Empresa empresa;
     private static Controlador referencia=null;
     private static General general;
+    private static ViajeInterface viajeinterface;
     
     private Controlador(){
        this.general=new General();
        this.general.setVisible(true);
+       this.sistema=Sistema.getReferencia();
+       this.empresa=Empresa.getReferencia();
+       this.viajeinterface = new ViajeInterface();
+       this.viajeinterface.setVisible(true);
+       
         //crea un ventana general
     }
     
    public static Controlador getReferencia()
    {
-       if(referencia == null)
+       if(referencia == null) {
            referencia=new Controlador();
+           sistema.addObserver(referencia);
+           empresa.addObserver(referencia);
+       }
        
        return referencia;
    }
@@ -84,10 +95,10 @@ public class Controlador implements Observer{
                 } catch (NoHayChoferDisponibleException ex) {
                     ventana.agregar("no hay chofer disponible");
                 }
-                  catch(NoHayVehiculoDisponibleException e){
-                      ventana.agregar("no vehiculo disponible");
+               //   catch(NoHayVehiculoDisponibleException e){
+                //      ventana.agregar("no vehiculo disponible");
              
-                  }
+                //  }
             if(nuevoViaje == null){
                 try {
                     Thread.sleep(3000);
@@ -101,12 +112,22 @@ public class Controlador implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o !=sistema)
+    	//System.out.println("O es "+ o.hashCode() + " \n Sistema es " + sistema.hashCode());
+        if(o != sistema && o!= empresa)
             throw  new IllegalArgumentException();
         
         String texto=(String)arg; 
         general.agregarAcciones(texto);  
     }
+    
+    public static void infoCliente(String texto) {
+    	viajeinterface.agregar(texto);
+    }
+    
+    public static void infoChofer(String texto) {
+    	general.agregarAcciones(texto);
+    }
+    
     
     
 }

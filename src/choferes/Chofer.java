@@ -16,6 +16,7 @@ public abstract class Chofer{
     protected int puntaje;
     protected double kmRecorridos;
     protected double sueldo;
+    protected boolean disponible;
 
     /**
      * Constructor de Chofer.
@@ -32,6 +33,7 @@ public abstract class Chofer{
             throw new DNImalingresadoExeption(DNI);
         this.puntaje = 0;
         this.kmRecorridos = 0;
+        this.disponible=true;
     }
     /**
      * Obtiene el nombre del chofer.
@@ -98,6 +100,14 @@ public abstract class Chofer{
      * @return El sueldo del chofer.
      */
     public abstract double getSueldo();
+    
+    public boolean isDisponible() {
+		return this.disponible;
+	}
+	
+	public void setDisponible(boolean disp) {
+		this.disponible=disp;
+	}
     
     
     @Override

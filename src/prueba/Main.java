@@ -6,8 +6,10 @@ import empresa.Viaje;
 import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.ZoneInvalidException;
-import threads.RC;
+import interfaces.Controlador;
+import threads.ThreadChofer;
 import threads.ThreadCliente;
+import threads.ThreadSistema;
 import empresa.excepciones.LuggageInvalidException;
 import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
@@ -39,7 +41,6 @@ import choferes.exepciones.valorPositivoExeption;
 public class Main {
     public static void main(String[] args)  {
        	//crear una nueva instancia de Administrador (si es necesario)
-        Administrador adm = new Administrador("nombre", "admin", "admin");
         LocalDate fechaEjemplo1 = LocalDate.of(2024, 5, 1);
         LocalDate fechaEjemplo2 = LocalDate.of(2022, 4, 3);
         LocalDate fechaEjemplo3 = LocalDate.of(2004, 12, 12);
@@ -50,15 +51,17 @@ public class Main {
         LocalTime timeEjemplo4 = LocalTime.of(11,20);
         Boolean estadoPedido;
         // Se crea una nueva instancia de Sistema
-        Sistema s = new Sistema(adm);
+        Sistema s = Sistema.getReferencia();
+        Controlador controlador = Controlador.getReferencia();
         // se instancian los factorys que seran usados despues
         FactoryViaje factoryviaje = new FactoryViaje();
-        FactoryVehiculo factoryvehiculo = new FactoryVehiculo();
-        
+        FactoryVehiculo factoryvehiculo = new FactoryVehiculo();        
+        System.out.println(s.countObservers()+ "es la cantidad de obs");        
         // Crear choferes
         try {             //CHOFER CON DNI MAL CREADO
 	        Permanente ch1 = new Permanente(20, 30, 1, fechaEjemplo1, 0.1, "Roberto", "42.231.365", 300000);
 	        s.insertarChofer(ch1);
+	        
 	        }
 	        catch(DNImalingresadoExeption e) {
 	        	System.out.println("No se pudo crear el chofer, DNI MAL INGRESADO");
@@ -80,8 +83,20 @@ public class Main {
         	}
         	
         try {
+        	Temporario ch3 = new Temporario(10, 0.2, "Rumiante", "42231367", 200000);
+            s.insertarChofer(ch3);
 	        Permanente ch1 = new Permanente(20, 30, 1, fechaEjemplo1, 0.1, "Roberto", "42231365", 300000);
 	        s.insertarChofer(ch1);
+            Contratado ch2 = new Contratado(1500, "Jimeno", "42231366");
+            s.insertarChofer(ch2);
+        	Contratado ch4 = new Contratado(10,"Sullivan", "42231368");
+            s.insertarChofer(ch4);
+	        ThreadChofer  tch1 = new ThreadChofer (ch1, 3, s);
+	        ThreadChofer  tch2 = new ThreadChofer (ch2, 3, s);
+	        ThreadChofer  tch3 = new ThreadChofer (ch3, 3, s);
+	        tch1.start();
+	        tch2.start();
+	        tch3.start();
 	        }
 	        catch(DNImalingresadoExeption e) {
 	        	System.out.println("No se pudo crear el chofer, DNI MAL INGRESADO");
@@ -102,65 +117,12 @@ public class Main {
         		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
         	}
         
-        try {
-            Contratado ch2 = new Contratado(1500, "Jimeno", "42231366");
-            s.insertarChofer(ch2);
-            }
-            catch(DNImalingresadoExeption e) {
-            	System.out.println("No se pudo crear el chofer, DNI MAL INGRESADO");
-            }
-
-            catch(PorcentajeExeption e) {
-            	System.out.println("No se pudo crear el chofer, PORCENTAJE ERRONEO");
-            }
-            catch(SueldoBasicoIncorrectoExeption e) {
-            	System.out.println("No se pudo crear el chofer, SUELDO BASICO ERRONEO");
-            }
-        	catch(ChoferExistenteException e) {
-        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
-        	}
-
-        try {
-        	Temporario ch3 = new Temporario(10, 0.2, "Rumiante", "42231367", 200000);
-            s.insertarChofer(ch3);
-            }
-            catch(DNImalingresadoExeption e) {
-            	System.out.println("No se pudo crear el chofer, DNI MAL INGRESADO");
-            }
-
-            catch(PorcentajeExeption e) {
-            	System.out.println("No se pudo crear el chofer, PORCENTAJE ERRONEO");
-            }
-            catch(SueldoBasicoIncorrectoExeption e) {
-            	System.out.println("No se pudo crear el chofer, SUELDO BASICO ERRONEO");
-            }
-        	catch(ChoferExistenteException e) {
-        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
-        	}
-
-        try {
-        	Contratado ch4 = new Contratado(10,"Sullivan", "42231368");
-            s.insertarChofer(ch4);
-            }
-            catch(DNImalingresadoExeption e) {
-            	System.out.println("No se pudo crear el chofer, DNI MAL INGRESADO");
-            }
-            catch(PorcentajeExeption e) {
-            	System.out.println("No se pudo crear el chofer, PORCENTAJE ERRONEO");
-            }
-            catch(SueldoBasicoIncorrectoExeption e) {
-            	System.out.println("No se pudo crear el chofer, SUELDO BASICO ERRONEO");
-            }
-        	catch(ChoferExistenteException e) {
-        		System.out.println("No se pudo insertar el chofer: " +e.chofer+", ya que este ya esta en el arraylist.");
-        	}
-
+        
 
               
         
         //Crear clientes
         Cliente c1 = new Cliente("cliente1", "pass1", "Cliente Uno");
-		ThreadCliente tc1 = new ThreadCliente(c1, rc);
         Cliente c2 = new Cliente("cliente2", "pass2", "Cliente Dos"); 
         Cliente c3 = new Cliente("cliente3", "pass3", "Cliente Tres"); 
         Cliente c4 = new Cliente("cliente4", "pass4", "Cliente Cuatro");
@@ -253,6 +215,27 @@ public class Main {
         
         
         
+        ThreadCliente tcl1 = new ThreadCliente (c1, 3, s);
+        ThreadCliente tcl2 = new ThreadCliente (c2, 3, s);
+        ThreadCliente tcl3 = new ThreadCliente (c3, 3, s);
+        
+        ThreadSistema ts = new ThreadSistema(s);
+        
+      //  try {
+		//	Controlador.HacerPedido(2, "Estandar", "Manual", false, fechaEjemplo4, timeEjemplo4, c4);
+		//} catch (DateInvalidException | ZoneInvalidException | LuggageInvalidException e) {
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
+        
+        tcl1.start();
+        tcl2.start();
+        tcl3.start();
+        ts.start();
+
+        
+        
+/*        
        
        //Crear Pedidos
         //1-   Sin asfaltar, sin mascota, sin baul, 1 pasajero, cliente 1, deberia asignar una moto
@@ -260,7 +243,7 @@ public class Main {
         	Pedido p1 = new Pedido(fechaEjemplo1, timeEjemplo1, "Sin asfaltar", false, "Manual", 1, c1);
         	estadoPedido=s.dispVehiculo(p1);
         	if (estadoPedido) {
-        	TipoDeViaje v1 = factoryviaje.getViaje(p1, s.asignoChofer(), s.getDistancia(), s.asignoVehiculo(p1));
+        	TipoDeViaje v1 = FactoryViaje.getViaje(p1, s.asignoChofer(), s.getDistancia(), s.asignoVehiculo(p1));
         	s.setViaje(v1);
         	s.mueveChofer();
         	}
@@ -300,9 +283,9 @@ public class Main {
         	s.setViaje(v2);
         	s.mueveChofer();
         }
-        catch(NoHayVehiculoDisponibleException e) {
-        	System.out.println(e.mensaje);
-        }
+      //  catch(NoHayVehiculoDisponibleException e) {
+       // 	System.out.println(e.mensaje);
+      //  }
         catch(DateInvalidException e1){
         	LocalDate date = e1.getDate();
         	System.out.println("Error, el dato: "+ date + " es invalido");
@@ -330,9 +313,9 @@ public class Main {
         	s.mueveChofer();
         	//System.out.println("el 2do viaje es: "+s.GUILLEsa.viajes.get(1));
         }
-        catch(NoHayVehiculoDisponibleException e) {
-        	System.out.println(e.mensaje);
-        }
+   //     catch(NoHayVehiculoDisponibleException e) {
+    //    	System.out.println(e.mensaje);
+     //   }
         catch(DateInvalidException e1){
         	LocalDate date = e1.getDate();
         	System.out.println("Error, el dato: "+ date + " es invalido");
@@ -357,9 +340,9 @@ public class Main {
         	s.setViaje(v4);
         	s.mueveChofer();
         }
-        catch(NoHayVehiculoDisponibleException e) {
-        	System.out.println(e.mensaje);
-        }
+     //   catch(NoHayVehiculoDisponibleException e) {
+     //   	System.out.println(e.mensaje);
+     //   }
         catch(DateInvalidException e1){
         	LocalDate date = e1.getDate();
         	System.out.println("Error, el dato: "+ date + " es invalido");
@@ -384,9 +367,9 @@ public class Main {
         	s.setViaje(v5);
         	s.mueveChofer();
         }
-        catch(NoHayVehiculoDisponibleException e) {
-        	System.out.println(e.mensaje);
-        }
+     //   catch(NoHayVehiculoDisponibleException e) {
+     //   	System.out.println(e.mensaje);
+     //   }
         catch(DateInvalidException e1){
         	LocalDate date = e1.getDate();
         	System.out.println("Error, el dato: "+ date + " es invalido");
@@ -407,7 +390,7 @@ public class Main {
         
         
         
-        
+*/        
         
         System.out.println(" ");
         System.out.println(" ");

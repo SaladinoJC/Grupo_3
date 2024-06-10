@@ -49,7 +49,7 @@ public interface ManejoDeListas {
     public void calculoDePuntaje();
     public double TotalPagar() throws SueldoBasicoIncorrectoExeption;
     public Chofer asignoChofer() throws NoHayChoferDisponibleException;
-    public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException;
+    public boolean dispVehiculo(Pedido p) /*throws NoHayVehiculoDisponibleException*/;
     public double getDistancia();
     public Vehiculo asignoVehiculo(Pedido p);
 	public void mueveChofer();
@@ -63,5 +63,8 @@ public interface ManejoDeListas {
 	public void setVehiculos(ArrayList<Vehiculo> vehiculos);
 	public void persistirInformacion(int cantClientes, int cantMaximaViajesPorCliente, int cantChoferesDeCadaTipo, int cantMaximaViajesPorChofer, int cantMaximaVehiculosDeCadaTipo) throws IOException;
 	public ParametrosIniciales despersistirInformacion() throws IOException, ClassNotFoundException;
+	public void solicitaviaje(Pedido p, Cliente c) throws NoHayChoferDisponibleException;
+	public void pagaviaje(Cliente c);
+	
 }
 
