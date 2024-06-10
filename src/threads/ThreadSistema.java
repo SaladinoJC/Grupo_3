@@ -17,11 +17,8 @@ public class ThreadSistema extends Thread {
 	{
 	for (int i=0;i<1000;i++) 
 	{
-		Util.espera();
-		s.GUILLEsa.asignaChofer();
-		s.GUILLEsa.finalizaViaje();
+		s.GUILLEsa.asignaVehiculo();
 	}
-	System.out.println(this.c.getNombre()+"Termino de realizar viajes");
 	}
 
 	

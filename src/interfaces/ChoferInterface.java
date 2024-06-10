@@ -97,7 +97,21 @@ public class ChoferInterface extends javax.swing.JFrame {
             }
         });
     }
-
+    public  void agregarAccion(String agregar)
+    {
+        String texto=jTextArea1.getText();
+        
+        agregar=agregar.concat("\n");
+        texto=texto.concat(agregar);
+        
+        jTextArea1.setText(texto);
+    }
+    public void agregarchofer(String nombre)
+    {
+        jLabelChoferNombre.setText("Nombre: "+nombre);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelChoferNombre;
     private javax.swing.JScrollPane jScrollPane1;

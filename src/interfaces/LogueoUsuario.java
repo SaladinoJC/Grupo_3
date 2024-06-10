@@ -18,6 +18,7 @@ public class LogueoUsuario extends javax.swing.JFrame {
      */
     public LogueoUsuario() {
         initComponents();
+        this.setVisible(true);
     }
 
     /**

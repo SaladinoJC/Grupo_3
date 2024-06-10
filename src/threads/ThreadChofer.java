@@ -9,7 +9,9 @@ import choferes.Chofer;
 import empresa.Sistema;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.LuggageInvalidException;
+import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.ZoneInvalidException;
+import interfaces.Controlador;
 import util.Util;
 
 public class ThreadChofer extends Thread{
@@ -20,7 +22,8 @@ public class ThreadChofer extends Thread{
 	
 	public ThreadChofer (Chofer c, int cantmax, Sistema s) {
 		this.c=c;
-		this.cant = r.nextInt(cantmax) + 1;
+		this.cant=cantmax;
+		//this.cant = r.nextInt(cantmax) + 1;
 		this.s=s;
 	}
 	
@@ -31,13 +34,22 @@ public class ThreadChofer extends Thread{
 	{
 		Util.espera();
 		//chequear si hay clientes haciendo pedidos, sino stopear
-		s.GUILLEsa.asignaChofer();
-		s.GUILLEsa.finalizaViaje();
+                 if(c.getNombre().equalsIgnoreCase("Rumiante"))
+                      Controlador.setearNombreChofer(this.c.getNombre());
+		try {
+			s.GUILLEsa.asignaChofer();
+                         if(c.getNombre().equalsIgnoreCase("Rumiante"))
+                            Controlador.infoChofer(this.c.getNombre()+"se le asigno un viaje");
+		} catch (NoHayChoferDisponibleException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		s.GUILLEsa.finalizaViaje(c);
+                if(c.getNombre().equalsIgnoreCase("Rumiante"))
+                       Controlador.infoChofer(this.c.getNombre()+" finaliza un viaje ");
 	}
-	System.out.println(this.c.getNombre()+"Termino de realizar viajes");
-	}
-
-	
-	
-	
+        if(c.getNombre().equalsIgnoreCase("Rumiante"))
+	     Controlador.infoChofer(this.c.getNombre()+"Termino de realizar viajes");
+	this.c.setDisponible(false);
+	}	
 }

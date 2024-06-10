@@ -42,12 +42,13 @@ public class Sistema extends  Observable implements ManejoDeListas{
      * 
      * @param admin El administrador del sistema.
      */
-    public Sistema(Administrador admin)
+    private Sistema(Administrador admin)
     {
         
         this.GUILLEsa=Empresa.getReferencia();
         this.admin=admin;
-    }
+       // this.addObserver(Controlador.getReferencia());
+   }
  
     /**
      * Obtiene una referencia al sistema.
@@ -215,7 +216,8 @@ public class Sistema extends  Observable implements ManejoDeListas{
     }
 
     @Override
-    public boolean dispVehiculo(Pedido p) throws NoHayVehiculoDisponibleException{
+    public boolean dispVehiculo(Pedido p)// throws NoHayVehiculoDisponibleException
+    {
        return GUILLEsa.dispVehiculo(p);
     }
 
@@ -289,6 +291,18 @@ public class Sistema extends  Observable implements ManejoDeListas{
 	@Override
 	public ParametrosIniciales despersistirInformacion() throws IOException, ClassNotFoundException {
 		return GUILLEsa.despersistirInformacion();
+	}
+	
+	@Override
+	public void solicitaviaje(Pedido p, Cliente c) throws NoHayChoferDisponibleException {
+		setChanged();
+		
+		GUILLEsa.solicitaviaje(p, c);
+	}
+	
+	@Override
+	public void pagaviaje(Cliente c)  {
+		GUILLEsa.pagaviaje(c);
 	}
     
 }

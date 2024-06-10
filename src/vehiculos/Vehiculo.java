@@ -12,6 +12,7 @@ public abstract class Vehiculo{
 	protected int cantMaxPasajeros;
 	protected boolean petFriendly;
 	protected boolean baul;
+	protected boolean disponible;
 	
     /**
      * Constructor de la clase Vehiculo.
@@ -26,6 +27,7 @@ public abstract class Vehiculo{
 		this.cantMaxPasajeros = cantMaxPasajeros;
 		this.petFriendly = petFriendly;
 		this.baul = baul;
+		this.disponible=true;
 	}
 	
 
@@ -128,6 +130,14 @@ public abstract class Vehiculo{
      */
 	public boolean isBaul() {
 		return baul;
+	}
+	
+	public boolean isDisponible() {
+		return this.disponible;
+	}
+	
+	public void setDisponible(boolean disp) {
+		this.disponible=disp;
 	}
 
 	 /**

@@ -5,8 +5,10 @@ import empresa.Pedido;
 import empresa.Sistema;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.LuggageInvalidException;
+import empresa.excepciones.NoHayChoferDisponibleException;
 import empresa.excepciones.NoHayVehiculoDisponibleException;
 import empresa.excepciones.ZoneInvalidException;
+import interfaces.Controlador;
 import util.Util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +28,8 @@ public class ThreadCliente extends Thread{
 	
 	public ThreadCliente (Cliente c, int cantmax, Sistema s) {
 		this.c=c;
-		this.cant = r.nextInt(cantmax) + 1;
+                this.cant=cantmax;
+		//this.cant = r.nextInt(cantmax) + 1;
 		this.s=s;
 	}
 	
@@ -47,18 +50,20 @@ public class ThreadCliente extends Thread{
 		try {
 			p = this.s.GUILLEsa.creapedido(zona, baul, mascota, pasajeros, c, horaActual, fechaActual);
 			Boolean estadoVehiculo = false;
-			s.dispVehiculo(p, estadoVehiculo);
+			estadoVehiculo=s.dispVehiculo(p);
 			if (estadoVehiculo) {
 				//chequear si hay choferes trabajando, sino stopear
-				this.s.GUILLEsa.solicitaviaje(p, c);
-				this.s.GUILLEsa.pagaviaje(p, c);
+				this.s.solicitaviaje(p, c);
+				this.s.pagaviaje(c);
 			}
 		} catch (DateInvalidException | ZoneInvalidException | LuggageInvalidException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoHayChoferDisponibleException e) {
 			e.printStackTrace();
 		}
 	}
-	System.out.println(this.c+"Termino de hacer pedidos");
+	if (this.c.getNombreReal().equals("Cliente Tres"))
+                Controlador.infoCliente(this.c.getNombreReal()+"Termino de hacer pedidos");
 	}
 
 	

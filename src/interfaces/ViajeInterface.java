@@ -90,7 +90,7 @@ public class ViajeInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPagarComponentHidden
     //permite pagar al usuario
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
-            JOptionPane aux=new JOptionPane("PAGO EXITOSO");
+
             this.setVisible(false);
             this.dispose();
     }//GEN-LAST:event_jButtonPagarActionPerformed
