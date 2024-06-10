@@ -60,7 +60,7 @@ public class Registrarce extends javax.swing.JFrame {
             }
         });
 
-        jButtonRegistrarce.setText("Registrarce");
+        jButtonRegistrarce.setText("Registrarse");
         jButtonRegistrarce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarceActionPerformed(evt);

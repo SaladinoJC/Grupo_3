@@ -34,22 +34,26 @@ public class ThreadChofer extends Thread{
 	{
 		Util.espera();
 		//chequear si hay clientes haciendo pedidos, sino stopear
-                 if(c.getNombre().equalsIgnoreCase("Rumiante"))
-                      Controlador.setearNombreChofer(this.c.getNombre());
+		if(c.getNombre().equalsIgnoreCase("Rumiante"))
+            Controlador.setearNombreChofer(this.c.getNombre());
 		try {
 			s.GUILLEsa.asignaChofer();
-                         if(c.getNombre().equalsIgnoreCase("Rumiante"))
-                            Controlador.infoChofer(this.c.getNombre()+"se le asigno un viaje");
+			if(c.getNombre().equalsIgnoreCase("Rumiante"))
+                Controlador.infoChofer(this.c.getNombre()+" se le asigno un viaje");
 		} catch (NoHayChoferDisponibleException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		s.GUILLEsa.finalizaViaje(c);
-                if(c.getNombre().equalsIgnoreCase("Rumiante"))
-                       Controlador.infoChofer(this.c.getNombre()+" finaliza un viaje ");
+		if(c.getNombre().equalsIgnoreCase("Rumiante"))
+            Controlador.infoChofer(this.c.getNombre()+" finaliza un viaje ");
 	}
-        if(c.getNombre().equalsIgnoreCase("Rumiante"))
-	     Controlador.infoChofer(this.c.getNombre()+"Termino de realizar viajes");
+	if(c.getNombre().equalsIgnoreCase("Rumiante"))
+		Controlador.infoChofer(this.c.getNombre()+"Termino de realizar viajes");
 	this.c.setDisponible(false);
-	}	
+	}
+
+	
+	
+	
 }

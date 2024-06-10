@@ -55,7 +55,7 @@ public class LogueoUsuario extends javax.swing.JFrame {
 
         jLabel1.setText("¿usuario nuevo?");
 
-        jButtonRegistrarce.setText("Registrarce");
+        jButtonRegistrarce.setText("Registrarse");
         jButtonRegistrarce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarceActionPerformed(evt);

@@ -7,6 +7,7 @@ import empresa.excepciones.ClienteExistenteException;
 import empresa.excepciones.DateInvalidException;
 import empresa.excepciones.ZoneInvalidException;
 import interfaces.Controlador;
+import interfaces.LogueoUsuario;
 import threads.ThreadChofer;
 import threads.ThreadCliente;
 import threads.ThreadSistema;
@@ -37,11 +38,11 @@ import choferes.exepciones.FechaMalIngresadaExeption;
 import choferes.exepciones.PorcentajeExeption;
 import choferes.exepciones.SueldoBasicoIncorrectoExeption;
 import choferes.exepciones.valorPositivoExeption;
-import interfaces.LogueoUsuario;
 
 public class Main {
     public static void main(String[] args)  {
        	//crear una nueva instancia de Administrador (si es necesario)
+    	LogueoUsuario ventana=new LogueoUsuario();
         LocalDate fechaEjemplo1 = LocalDate.of(2024, 5, 1);
         LocalDate fechaEjemplo2 = LocalDate.of(2022, 4, 3);
         LocalDate fechaEjemplo3 = LocalDate.of(2004, 12, 12);
@@ -59,7 +60,6 @@ public class Main {
         FactoryVehiculo factoryvehiculo = new FactoryVehiculo();        
         System.out.println(s.countObservers()+ "es la cantidad de obs");        
         // Crear choferes
-        LogueoUsuario ventana=new LogueoUsuario();
         try {             //CHOFER CON DNI MAL CREADO
 	        Permanente ch1 = new Permanente(20, 30, 1, fechaEjemplo1, 0.1, "Roberto", "42.231.365", 300000);
 	        s.insertarChofer(ch1);
@@ -86,26 +86,19 @@ public class Main {
         	
         try {
         	Temporario ch3 = new Temporario(10, 0.2, "Rumiante", "42231367", 200000);
-                Temporario ch7=new Temporario(15,10,"camila","30899123",250000);
             s.insertarChofer(ch3);
-            s.insertarChofer(ch7);
 	        Permanente ch1 = new Permanente(20, 30, 1, fechaEjemplo1, 0.1, "Roberto", "42231365", 300000);
-                Permanente ch5=new Permanente(30,20,2, fechaEjemplo4,20,"alberto","26660789",300000);
 	        s.insertarChofer(ch1);
-                s.insertarChofer(ch5);
-                Contratado ch2 = new Contratado(1500, "Jimeno", "42231366");
-                Contratado ch6=new Contratado(15,"julian","38889765");
+            Contratado ch2 = new Contratado(1500, "Jimeno", "42231366");
+            s.insertarChofer(ch2);
         	Contratado ch4 = new Contratado(10,"Sullivan", "42231368");
             s.insertarChofer(ch4);
-            s.insertarChofer(ch2);
-            s.insertarChofer(ch6);
-	        ThreadChofer  tch1 = new ThreadChofer (ch1, 3, s);
-	        ThreadChofer  tch2 = new ThreadChofer (ch2, 3, s);
-	        ThreadChofer  tch3 = new ThreadChofer (ch3, 3, s);
+	        ThreadChofer  tch1 = new ThreadChofer (ch1, 15, s);
+	        ThreadChofer  tch2 = new ThreadChofer (ch2, 15, s);
+	        ThreadChofer  tch3 = new ThreadChofer (ch3, 15, s);
 	        tch1.start();
 	        tch2.start();
 	        tch3.start();
-               
 	        }
 	        catch(DNImalingresadoExeption e) {
 	        	System.out.println("No se pudo crear el chofer, DNI MAL INGRESADO");
@@ -131,13 +124,10 @@ public class Main {
               
         
         //Crear clientes
-        Cliente c1 = new Cliente("joseElcapo", "pass1", "jose");
+        Cliente c1 = new Cliente("cliente1", "pass1", "Cliente Uno");
         Cliente c2 = new Cliente("cliente2", "pass2", "Cliente Dos"); 
         Cliente c3 = new Cliente("cliente3", "pass3", "Cliente Tres"); 
         Cliente c4 = new Cliente("cliente4", "pass4", "Cliente Cuatro");
-        Cliente c5 = new Cliente("tomas444", "pass5", "tomas");
-        Cliente c6 = new Cliente("josefina123", "pass6", "josefina");
-        Cliente c7 = new Cliente("albertongo", "pass7", "alberto");
         
         try {
         	s.insertarCliente(c1);
@@ -164,22 +154,6 @@ public class Main {
 		} catch (ClienteExistenteException e) {
 			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
 		}
-        try {
-        	s.insertarCliente(c5);
-		} catch (ClienteExistenteException e) {
-			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
-		}
-        try {
-        	s.insertarCliente(c6);
-		} catch (ClienteExistenteException e) {
-			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
-		}
-        try {
-        	s.insertarCliente(c7);
-		} catch (ClienteExistenteException e) {
-			System.out.println("No se pudo insertar el cliente  " + e.cliente+" ya que ya esta en el arraylist ");
-		}
-     
         
 
         
@@ -243,10 +217,9 @@ public class Main {
         
         
         
-        ThreadCliente tcl1 = new ThreadCliente (c1, 3, s);
-        ThreadCliente tcl2 = new ThreadCliente (c2, 3, s);
-        ThreadCliente tcl3 = new ThreadCliente (c3, 3, s);
-     
+        ThreadCliente tcl1 = new ThreadCliente (c1, 15, s);
+        ThreadCliente tcl2 = new ThreadCliente (c2, 15, s);
+        ThreadCliente tcl3 = new ThreadCliente (c3, 15, s);
         
         ThreadSistema ts = new ThreadSistema(s);
         
