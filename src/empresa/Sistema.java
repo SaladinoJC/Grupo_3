@@ -47,7 +47,6 @@ public class Sistema extends  Observable implements ManejoDeListas{
         
         this.GUILLEsa=Empresa.getReferencia();
         this.admin=admin;
-        addObserver(Controlador.getReferencia());
     }
  
     /**
@@ -229,7 +228,7 @@ public class Sistema extends  Observable implements ManejoDeListas{
     public Vehiculo asignoVehiculo(Pedido p) {
          setChanged();
          Vehiculo aux=GUILLEsa.asignoVehiculo(p);
-         notifyObservers("se asigno el vehiculo"+ aux.getNroPatente()+ "al pedido "+p.getCliente());
+         notifyObservers("se asigno el vehiculo"+ aux.getNroPatente()+ "al pedido "+p.getCliente().toString());
          return GUILLEsa.asignoVehiculo(p);
          
     }

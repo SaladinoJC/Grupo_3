@@ -34,7 +34,6 @@ public class ViajeInterface extends javax.swing.JFrame {
         jLabelEstado = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabelPrecio = new javax.swing.JLabel();
         jButtonPagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -44,8 +43,6 @@ public class ViajeInterface extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
-
-        jLabelPrecio.setText("Precio:");
 
         jButtonPagar.setText("Pagar");
         jButtonPagar.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -65,9 +62,7 @@ public class ViajeInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPrecio))
+                .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,9 +77,7 @@ public class ViajeInterface extends javax.swing.JFrame {
                 .addComponent(jLabelEstado)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelPrecio)
-                .addGap(18, 18, 18)
+                .addGap(52, 52, 52)
                 .addComponent(jButtonPagar)
                 .addContainerGap(111, Short.MAX_VALUE))
         );
@@ -95,7 +88,7 @@ public class ViajeInterface extends javax.swing.JFrame {
     private void jButtonPagarComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jButtonPagarComponentHidden
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPagarComponentHidden
-
+    //permite pagar al usuario
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
             JOptionPane aux=new JOptionPane("PAGO EXITOSO");
             this.setVisible(false);
@@ -158,7 +151,6 @@ public class ViajeInterface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPagar;
     private javax.swing.JLabel jLabelEstado;
-    private javax.swing.JLabel jLabelPrecio;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables

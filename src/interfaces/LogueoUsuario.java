@@ -97,9 +97,10 @@ public class LogueoUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAceptar)
-                    .addComponent(jLabelClienteNoExiste, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelClienteNoExiste, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonAceptar)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -117,6 +118,7 @@ public class LogueoUsuario extends javax.swing.JFrame {
                ventana.setVisible(true);
     }//GEN-LAST:event_jButtonRegistrarceActionPerformed
 
+    //accion del botton aceptar
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         String nombreUsuario,contraseña;
         contraseña=jPasswordFieldContraseña.getText();
@@ -124,23 +126,23 @@ public class LogueoUsuario extends javax.swing.JFrame {
         Cliente aux;
         PedidoIterface ventana;
         
-        if(Valido(nombreUsuario, contraseña))
+        if(Valido(nombreUsuario, contraseña))//cerifica si son validos los campos de la interfaces
         {
             try{
-                aux=Controlador.buscarCliente(nombreUsuario, contraseña);
+                aux=Controlador.buscarCliente(nombreUsuario, contraseña);//buscar al cliente
                 ventana=new PedidoIterface(nombreUsuario,contraseña);
                 this.setVisible(false);
                 this.dispose();
                 ventana.setVisible(true);
             }
-            catch(ClienteNoExistenteExeption e)
+            catch(ClienteNoExistenteExeption e)//si no existe el cliente avisa que el cliente no existe
             {
                 jLabelClienteNoExiste.setText("el cliente ingresado no existe");
             }
         }
     }//GEN-LAST:event_jButtonAceptarActionPerformed
    
-
+    //valida los campos sean correctos
     private boolean Valido(String nombreUsuario,String contraseña)
     {
         boolean bandera=true;

@@ -137,17 +137,18 @@ public class Registrarce extends javax.swing.JFrame {
            
     }//GEN-LAST:event_jTextFieldNombreRealInputMethodTextChanged
 
+    //la accion de registrar un nuevo ususario
     private void jButtonRegistrarceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarceActionPerformed
             String nombre,nombreUsuario,contraseña;
             nombre=jTextFieldNombreReal.getText();
             nombreUsuario=jTextFieldNombreUsuario.getText();
             contraseña=jTextFieldContraseña.getText();
-            if(Valido(nombre, nombreUsuario, contraseña)){    
+            if(Valido(nombre, nombreUsuario, contraseña)){//pregunta si sus campos son validos    
                 try{
-                    Controlador.registrarce(nombre, nombreUsuario, contraseña);
+                    Controlador.registrarce(nombre, nombreUsuario, contraseña);//intenta registrar el nuevo usuario
                     jLabelExistente.setText("registro exitoso");
                 }
-                catch(ClienteExistenteException e){
+                catch(ClienteExistenteException e){//si ya existe le avisa al ususario
                        jLabelExistente.setText("usuario ya existente");
                 }
             }

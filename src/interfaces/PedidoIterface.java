@@ -34,9 +34,9 @@ public class PedidoIterface extends javax.swing.JFrame {
         initComponents();
         this.nombreUsuario=nombreUsuario;
         this.contraseña=contraseña;
-        SeterCliente(this.nombreUsuario,this.contraseña);
-        SeterFecha();
-        SeterHora();
+        SeterCliente(this.nombreUsuario,this.contraseña);//setea un label con la informacion del cliente
+        SeterFecha();//setea un label con la fecha actual
+        SeterHora();//setea un label con la hora actual
     }
 
     /**
@@ -215,7 +215,7 @@ public class PedidoIterface extends javax.swing.JFrame {
 
     private void jButtonPedirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPedirActionPerformed
         String cantPasajeros=jTextFieldPasajeros.getText();
-        if(Valido(cantPasajeros))
+        if(Valido(cantPasajeros))//pregunta si estan todos los campos completo y con valores validos
         {   
             this.setVisible(false);
             enviarDatos();

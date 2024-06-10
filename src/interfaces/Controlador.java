@@ -52,18 +52,21 @@ public class Controlador implements Observer{
 
     public static void registrarce(String nombre,String nombreUsuario,String contraseña) throws ClienteExistenteException
     {
+        //registra un usuario nuevo, los dato los recibe de la interfazregistrarce por lo que estan validado
         Cliente nuevo=new Cliente(nombreUsuario, contraseña, nombre);
-        sistema.insertarCliente(nuevo);
+        sistema.insertarCliente(nuevo);//insierta el nuevo cliente
     }
     
     public static Cliente buscarCliente(String nombreUsuario,String contraseña) throws  ClienteNoExistenteExeption
     {
+       //busca un cliente para poder loguiarlo en caso de que exista,si no sigue lanzando la exepcion clienteNOexisteExeption
        Cliente buscar=new Cliente(nombreUsuario, contraseña,null);
        buscar=sistema.buscarXcliente(buscar); 
        return buscar;
        
     }
     
+    //realiza un pedido,a parti del pedido crea un viaje y lo informa en la ventana de viajeInterface. si no pude crear el viaje lo informa 
     public static void HacerPedido(int cantPasajeros,String zona,String equipaje,boolean mascota,LocalDate fecha,LocalTime hora,Cliente cliente) throws DateInvalidException, ZoneInvalidException, LuggageInvalidException
     {
         ViajeInterface ventana=new ViajeInterface();
@@ -99,11 +102,11 @@ public class Controlador implements Observer{
         sistema.setViaje(nuevoViaje);
     }
 
+    //catualiza la vista general de todo lo que pasa en la empresa, aparti de aplicar el patron observer/observable
     @Override
     public void update(Observable o, Object arg) {
         if(o !=sistema)
             throw  new IllegalArgumentException();
-        
         String texto=(String)arg; 
         general.agregarAcciones(texto);  
     }
